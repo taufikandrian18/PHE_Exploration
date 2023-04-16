@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c36c9666d5744a5c9365cb273b5aed4f" Name="Diagram1">
+        <EntityTypeShape EntityType="DB_PHE_ExplorationModel.MD_BusinessPartner" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHE_ExplorationModel.MD_ExplorationArea" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHE_ExplorationModel.MD_ExplorationAsset" Width="1.5" PointX="0.75" PointY="47.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHE_ExplorationModel.MD_ExplorationBasin" Width="1.5" PointX="0.75" PointY="50.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHE_ExplorationModel.MD_ExplorationBlock" Width="1.5" PointX="0.75" PointY="53" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHE_ExplorationModel.MD_ExplorationBlockPartner" Width="1.5" PointX="2.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHE_ExplorationModel.MD_ExplorationStructure" Width="1.5" PointX="3" PointY="47.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHE_ExplorationModel.MD_ExplorationWell" Width="1.5" PointX="4.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHE_ExplorationModel.MD_Paramater" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHE_ExplorationModel.MD_ParamaterList" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHE_ExplorationModel.MP_Entity" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHE_ExplorationModel.MP_xBasinCountry" Width="1.5" PointX="3" PointY="140.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHE_ExplorationModel.TX_Attachment" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHE_ExplorationModel.LG_Activity" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHE_ExplorationModel.LG_ContingentResources" Width="1.5" PointX="7.5" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHE_ExplorationModel.LG_Drilling" Width="1.5" PointX="7.5" PointY="19.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHE_ExplorationModel.LG_Economic" Width="1.5" PointX="7.5" PointY="12.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHE_ExplorationModel.LG_ExplorationStructure" Width="1.5" PointX="5.25" PointY="31.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHE_ExplorationModel.LG_ProsResources" Width="1.5" PointX="7.5" PointY="32.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHE_ExplorationModel.LG_ProsResourcesTarget" Width="1.5" PointX="7.5" PointY="48.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHE_ExplorationModel.TX_ContingentResources" Width="1.5" PointX="2.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHE_ExplorationModel.TX_Drilling" Width="1.5" PointX="9.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHE_ExplorationModel.TX_Economic" Width="1.5" PointX="4.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHE_ExplorationModel.TX_ESDC" Width="1.5" PointX="5.25" PointY="63.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHE_ExplorationModel.TX_ESDCDiscrepancy" Width="1.5" PointX="5.25" PointY="67.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHE_ExplorationModel.TX_ESDCForecast" Width="1.5" PointX="5.25" PointY="74.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHE_ExplorationModel.TX_ESDCInPlace" Width="1.5" PointX="5.25" PointY="80.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHE_ExplorationModel.TX_ESDCProd" Width="1.5" PointX="5.25" PointY="84.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHE_ExplorationModel.TX_ESDCVolumetric" Width="1.5" PointX="5.25" PointY="90.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHE_ExplorationModel.TX_ProsResources" Width="1.5" PointX="11.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHE_ExplorationModel.TX_ProsResourcesTarget" Width="1.5" PointX="13.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHE_ExplorationModel.vw_Country" Width="1.5" PointX="15.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHE_ExplorationModel.vw_DIM_Entity" Width="1.5" PointX="0.75" PointY="15.75" IsExpanded="true" />
+        <AssociationConnector Association="DB_PHE_ExplorationModel.FK__MD_Explor__xAsse__7B264821" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_PHE_ExplorationModel.FK__MD_Explor__Basin__7A3223E8" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_PHE_ExplorationModel.FK__MP_xBasin__Basin__51BA1E3A" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_PHE_ExplorationModel.FK__MD_Explor__xBloc__7C1A6C5A" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_PHE_ExplorationModel.FK__LG_Explor__xStru__4F12BBB9" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_PHE_ExplorationModel.FK__TX_ESDC__xStruct__3EDC53F0" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_PHE_ExplorationModel.FK__TX_ESDCDi__xStru__4865BE2A" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_PHE_ExplorationModel.FK__TX_ESDCFo__xStru__4589517F" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_PHE_ExplorationModel.FK__TX_ESDCIn__xStru__308E3499" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_PHE_ExplorationModel.FK__TX_ESDCPr__xStru__27F8EE98" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_PHE_ExplorationModel.FK__TX_ESDCVo__xStru__336AA144" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_PHE_ExplorationModel.FK__MD_ParamaterList__3A81B327" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_PHE_ExplorationModel.FK__LG_ContingentRes__6225902D" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_PHE_ExplorationModel.FK__LG_Drilling__6319B466" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_PHE_ExplorationModel.FK__LG_Economic__640DD89F" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_PHE_ExplorationModel.FK__LG_ProsResources__5F492382" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_PHE_ExplorationModel.FK__LG_ProsResources__61316BF4" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

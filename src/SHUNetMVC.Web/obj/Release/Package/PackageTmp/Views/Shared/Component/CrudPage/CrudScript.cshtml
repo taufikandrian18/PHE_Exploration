@@ -1,0 +1,46 @@
+﻿@model  SHUNetMVC.Abstraction.Model.View.CrudPage
+@{
+    string currentControllerName = Convert.ToString(HttpContext.Current.Request.RequestContext.RouteData.Values["Controller"]);
+}
+
+@Scripts.Render("~/bundles/crud")
+<script>
+    let crudParam = {
+        crudId: '@Model.Id',
+        gridId: '@Model.GridParam.GridId',
+        name: '@Model.Title',
+        controllerName: '@currentControllerName',
+        usernameSession: '@Model.UsernameSession',
+        gridConfig: {
+            size:  @Model.GridParam.FilterList.Size,
+            orderBy : '@Model.GridParam.FilterList.OrderBy'
+        }
+    };
+
+    var crud = createCrud(crudParam);
+
+    function updateStatus(a, b) {
+        $.ajax({
+            url: "@Url.Action("ExplorationUpdateStatus", "ExplorationStructure")",
+            type: "POST",
+            data: JSON.stringify({
+                structureID: a,
+                statusData: b
+            }),
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            beforeSend: function () {
+                $("#loadingMaskExplorationReview").css('visibility', 'visible');
+            },
+            success: function (result) {
+                $("#loadingMaskExplorationReview").css('visibility', 'visible');
+                //alert("Error");
+                location.href = '@Url.Action("Review", "ExplorationStructure", new { Status = "Success" })';
+            },
+            error: function () {
+                //alert("Error");
+            }
+        });
+    }
+
+</script>

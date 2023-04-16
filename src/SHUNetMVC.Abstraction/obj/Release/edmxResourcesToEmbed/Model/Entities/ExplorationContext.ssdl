@@ -1,0 +1,1295 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DB_PHE_ExplorationModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="MD_BusinessPartner">
+    <Key>
+      <PropertyRef Name="PartnerID" />
+    </Key>
+    <Property Name="PartnerID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="PartnerName" Type="varchar" MaxLength="200" />
+    <Property Name="ParentBPID" Type="varchar" MaxLength="50" />
+    <Property Name="SAPID" Type="varchar" MaxLength="50" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="MD_ExplorationArea">
+    <Key>
+      <PropertyRef Name="xAreaID" />
+    </Key>
+    <Property Name="xAreaID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="xAreaName" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="MD_ExplorationAsset">
+    <Key>
+      <PropertyRef Name="xAssetID" />
+    </Key>
+    <Property Name="xAssetID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="xAssetName" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="MD_ExplorationBasin">
+    <Key>
+      <PropertyRef Name="BasinID" />
+    </Key>
+    <Property Name="BasinID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="BasinName" Type="varchar" MaxLength="200" />
+    <Property Name="MapID" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="MD_ExplorationBlock">
+    <Key>
+      <PropertyRef Name="xBlockID" />
+    </Key>
+    <Property Name="xBlockID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="xBlockName" Type="varchar" MaxLength="200" />
+    <Property Name="AwardDate" Type="date" />
+    <Property Name="ExpiredDate" Type="date" />
+    <Property Name="xBlockStatusParID" Type="varchar" MaxLength="20" />
+    <Property Name="OperatorshipStatusParID" Type="varchar" MaxLength="20" />
+    <Property Name="OperatorName" Type="varchar" MaxLength="200" />
+    <Property Name="CountriesID" Type="varchar" MaxLength="2" />
+  </EntityType>
+  <EntityType Name="MD_ExplorationBlockPartner">
+    <Key>
+      <PropertyRef Name="xBlockID" />
+      <PropertyRef Name="PartnerID" />
+      <PropertyRef Name="EffectiveDate" />
+    </Key>
+    <Property Name="xBlockID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="PartnerID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="PartnerName" Type="varchar" MaxLength="200" />
+    <Property Name="PI" Type="decimal" Precision="6" Scale="5" />
+    <Property Name="OperatorshipStatusParID" Type="varchar" MaxLength="20" />
+    <Property Name="EffectiveDate" Type="date" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MD_ExplorationStructure">
+    <Key>
+      <PropertyRef Name="xStructureID" />
+    </Key>
+    <Property Name="xStructureID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="xStructureName" Type="varchar" MaxLength="200" />
+    <Property Name="xStructureStatusParID" Type="varchar" MaxLength="20" />
+    <Property Name="SingleOrMultiParID" Type="varchar" MaxLength="20" />
+    <Property Name="ExplorationTypeParID" Type="varchar" MaxLength="20" />
+    <Property Name="SubholdingID" Type="varchar" MaxLength="50" />
+    <Property Name="BasinID" Type="varchar" MaxLength="50" />
+    <Property Name="RegionalID" Type="varchar" MaxLength="50" />
+    <Property Name="ZonaID" Type="varchar" MaxLength="50" />
+    <Property Name="APHID" Type="varchar" MaxLength="50" />
+    <Property Name="xAssetID" Type="varchar" MaxLength="50" />
+    <Property Name="xBlockID" Type="varchar" MaxLength="50" />
+    <Property Name="xAreaID" Type="varchar" MaxLength="50" />
+    <Property Name="UDClassificationParID" Type="varchar" MaxLength="20" />
+    <Property Name="UDSubClassificationParID" Type="varchar" MaxLength="20" />
+    <Property Name="UDSubTypeParID" Type="varchar" MaxLength="20" />
+    <Property Name="ExplorationAreaParID" Type="varchar" MaxLength="20" />
+    <Property Name="CountriesID" Type="varchar" MaxLength="2" />
+    <Property Name="Play" Type="varchar" MaxLength="200" />
+    <Property Name="StatusData" Type="varchar" MaxLength="20" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="MadamTransID" Type="varchar" MaxLength="20" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="MD_ExplorationWell">
+    <Key>
+      <PropertyRef Name="xWellID" />
+    </Key>
+    <Property Name="xWellID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="xWellName" Type="varchar" MaxLength="200" />
+    <Property Name="DrillingLocation" Type="varchar" MaxLength="200" />
+    <Property Name="RigTypeParID" Type="varchar" MaxLength="20" />
+    <Property Name="WellTypeParID" Type="varchar" MaxLength="20" />
+    <Property Name="BHLocationLatitude" Type="decimal" Precision="8" Scale="6" />
+    <Property Name="BHLocationLongitude" Type="decimal" Precision="9" Scale="6" />
+  </EntityType>
+  <EntityType Name="MD_Paramater">
+    <Key>
+      <PropertyRef Name="Schema" />
+      <PropertyRef Name="ParamID" />
+    </Key>
+    <Property Name="Schema" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ParamID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ParamDesc" Type="varchar" MaxLength="400" />
+    <Property Name="isActive" Type="bit" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="MD_ParamaterList">
+    <Key>
+      <PropertyRef Name="Schema" />
+      <PropertyRef Name="ParamID" />
+      <PropertyRef Name="ParamListID" />
+    </Key>
+    <Property Name="Schema" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ParamID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ParamListID" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="ParamValue1" Type="decimal" Precision="8" Scale="2" />
+    <Property Name="ParamValue1Text" Type="varchar" MaxLength="200" />
+    <Property Name="ParamValue2" Type="decimal" Precision="8" Scale="2" />
+    <Property Name="ParamValue2Text" Type="varchar" MaxLength="200" />
+    <Property Name="ParamListDesc" Type="varchar" MaxLength="400" />
+    <Property Name="RowOrder" Type="int" />
+    <Property Name="isActive" Type="bit" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="MP_Entity">
+    <Key>
+      <PropertyRef Name="EffectiveYear" />
+      <PropertyRef Name="SubholdingID" />
+      <PropertyRef Name="RegionalID" />
+      <PropertyRef Name="ZonaID" />
+      <PropertyRef Name="xBlockID" />
+      <PropertyRef Name="BasinID" />
+      <PropertyRef Name="xAssetID" />
+    </Key>
+    <Property Name="EffectiveYear" Type="int" Nullable="false" />
+    <Property Name="SubholdingID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="RegionalID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ZonaID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="xBlockID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="BasinID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="xAssetID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="APHID" Type="varchar" MaxLength="50" />
+    <Property Name="xAreaID" Type="varchar" MaxLength="50" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="MP_xBasinCountry">
+    <Key>
+      <PropertyRef Name="BasinID" />
+      <PropertyRef Name="CountryID" />
+    </Key>
+    <Property Name="BasinID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CountryID" Type="varchar" MaxLength="2" Nullable="false" />
+    <Property Name="CountryName" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="TX_Attachment">
+    <Key>
+      <PropertyRef Name="TransactionID" />
+      <PropertyRef Name="FileID" />
+    </Key>
+    <Property Name="Schema" Type="varchar" MaxLength="50" />
+    <Property Name="TransactionID" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="SubTranscationID" Type="varchar" MaxLength="20" />
+    <Property Name="Menu" Type="varchar" MaxLength="100" />
+    <Property Name="PathParID" Type="varchar" MaxLength="10" />
+    <Property Name="FileID" Type="int" Nullable="false" />
+    <Property Name="FileCategoryParID" Type="varchar" MaxLength="10" />
+    <Property Name="FileName" Type="varchar" MaxLength="100" />
+    <Property Name="FileNameSave" Type="varchar" MaxLength="100" />
+    <Property Name="DocumentType" Type="varchar" MaxLength="200" />
+    <Property Name="Remarks" Type="varchar" MaxLength="200" />
+    <Property Name="Size" Type="int" />
+    <Property Name="SizeUoM" Type="varchar" MaxLength="10" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="RefID" Type="uniqueidentifier" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="LG_Activity">
+    <Key>
+      <PropertyRef Name="Menu" />
+      <PropertyRef Name="Action" />
+      <PropertyRef Name="TransactionID" />
+      <PropertyRef Name="CreatedDate" />
+    </Key>
+    <Property Name="IP" Type="varchar" MaxLength="50" />
+    <Property Name="Menu" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Action" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="TransactionID" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Status" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="LG_ContingentResources">
+    <Key>
+      <PropertyRef Name="StructureHistoryID" />
+      <PropertyRef Name="xStructureID" />
+    </Key>
+    <Property Name="StructureHistoryID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="xStructureID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="1COil" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="1COilUoM" Type="varchar" MaxLength="10" />
+    <Property Name="2COil" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="2COilUoM" Type="varchar" MaxLength="10" />
+    <Property Name="3COil" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="3COilUoM" Type="varchar" MaxLength="10" />
+    <Property Name="1CGas" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="1CGasUoM" Type="varchar" MaxLength="10" />
+    <Property Name="2CGas" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="2CGasUoM" Type="varchar" MaxLength="10" />
+    <Property Name="3CGas" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="3CGasUoM" Type="varchar" MaxLength="10" />
+    <Property Name="1CTotal" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="1CTotalUoM" Type="varchar" MaxLength="10" />
+    <Property Name="2CTotal" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="2CTotalUoM" Type="varchar" MaxLength="10" />
+    <Property Name="3CTotal" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="3CTotalUoM" Type="varchar" MaxLength="10" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="LG_Drilling">
+    <Key>
+      <PropertyRef Name="StructureHistoryID" />
+      <PropertyRef Name="xStructureID" />
+      <PropertyRef Name="xWellID" />
+    </Key>
+    <Property Name="StructureHistoryID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="xStructureID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="xWellID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="RKAPFiscalYear" Type="int" />
+    <Property Name="PlayOpener" Type="bit" />
+    <Property Name="DrillingCompletionPeriod" Type="int" />
+    <Property Name="Location" Type="varchar" MaxLength="200" />
+    <Property Name="WaterDepthFeet" Type="decimal" Precision="7" Scale="1" />
+    <Property Name="WaterDepthMeter" Type="int" />
+    <Property Name="TotalDepthFeet" Type="decimal" Precision="7" Scale="1" />
+    <Property Name="TotalDepthMeter" Type="int" />
+    <Property Name="SurfaceLocationLatitude" Type="decimal" Precision="8" Scale="6" />
+    <Property Name="SurfaceLocationLongitude" Type="decimal" Precision="9" Scale="6" />
+    <Property Name="CommitmentWell" Type="bit" />
+    <Property Name="OperationalContextParId" Type="varchar" MaxLength="20" />
+    <Property Name="PotentialDelay" Type="bit" />
+    <Property Name="NetRevenueInterest" Type="decimal" Precision="6" Scale="5" />
+    <Property Name="DrillingCostDHB" Type="decimal" Precision="5" Scale="2" />
+    <Property Name="DrillingCostDHBCurr" Type="varchar" MaxLength="10" />
+    <Property Name="DrillingCost" Type="decimal" Precision="5" Scale="2" />
+    <Property Name="DrillingCostCurr" Type="varchar" MaxLength="10" />
+    <Property Name="ExpectedDrillingDate" Type="date" />
+    <Property Name="P90ResourceOil" Type="decimal" Precision="6" Scale="2" />
+    <Property Name="P90ResourceOilUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P50ResourceOil" Type="decimal" Precision="6" Scale="2" />
+    <Property Name="P50ResourceOilUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P10ResourceOil" Type="decimal" Precision="6" Scale="2" />
+    <Property Name="P10ResourceOilUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P90ResourceGas" Type="decimal" Precision="6" Scale="2" />
+    <Property Name="P90ResourceGasUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P50ResourceGas" Type="decimal" Precision="6" Scale="2" />
+    <Property Name="P50ResourceGasUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P10ResourceGas" Type="decimal" Precision="6" Scale="2" />
+    <Property Name="P10ResourceGasUoM" Type="varchar" MaxLength="10" />
+    <Property Name="CurrentPG" Type="decimal" Precision="6" Scale="5" />
+    <Property Name="ExpectedPG" Type="decimal" Precision="6" Scale="5" />
+    <Property Name="ChanceComponentSource" Type="decimal" Precision="6" Scale="5" />
+    <Property Name="ChanceComponentTiming" Type="decimal" Precision="6" Scale="5" />
+    <Property Name="ChanceComponentReservoir" Type="decimal" Precision="6" Scale="5" />
+    <Property Name="ChanceComponentClosure" Type="decimal" Precision="6" Scale="5" />
+    <Property Name="ChanceComponentContainment" Type="decimal" Precision="6" Scale="5" />
+    <Property Name="P90NPVProfitabilityOil" Type="decimal" Precision="7" Scale="2" />
+    <Property Name="P90NPVProfitabilityOilCurr" Type="varchar" MaxLength="10" />
+    <Property Name="P50NPVProfitabilityOil" Type="decimal" Precision="7" Scale="2" />
+    <Property Name="P50NPVProfitabilityOilCurr" Type="varchar" MaxLength="10" />
+    <Property Name="P10NPVProfitabilityOil" Type="decimal" Precision="7" Scale="2" />
+    <Property Name="P10NPVProfitabilityOilCurr" Type="varchar" MaxLength="10" />
+    <Property Name="P90NPVProfitabilityGas" Type="decimal" Precision="7" Scale="2" />
+    <Property Name="P90NPVProfitabilityGasCurr" Type="varchar" MaxLength="10" />
+    <Property Name="P50NPVProfitabilityGas" Type="decimal" Precision="7" Scale="2" />
+    <Property Name="P50NPVProfitabilityGasCurr" Type="varchar" MaxLength="10" />
+    <Property Name="P10NPVProfitabilityGas" Type="decimal" Precision="7" Scale="2" />
+    <Property Name="P10NPVProfitabilityGasCurr" Type="varchar" MaxLength="10" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="LG_Economic">
+    <Key>
+      <PropertyRef Name="StructureHistoryID" />
+      <PropertyRef Name="xStructureID" />
+    </Key>
+    <Property Name="StructureHistoryID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="xStructureID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="DevConcept" Type="varchar" MaxLength="50" />
+    <Property Name="EconomicAssumption" Type="varchar" MaxLength="50" />
+    <Property Name="CAPEX" Type="decimal" Precision="7" Scale="2" />
+    <Property Name="CAPEXCurr" Type="varchar" MaxLength="10" />
+    <Property Name="OPEXProduction" Type="decimal" Precision="7" Scale="2" />
+    <Property Name="OPEXProductionCurr" Type="varchar" MaxLength="10" />
+    <Property Name="OPEXFacility" Type="decimal" Precision="7" Scale="2" />
+    <Property Name="OPEXFacilityCurr" Type="varchar" MaxLength="10" />
+    <Property Name="ASR" Type="decimal" Precision="7" Scale="2" />
+    <Property Name="ASRCurr" Type="varchar" MaxLength="10" />
+    <Property Name="EconomicResult" Type="varchar" MaxLength="50" />
+    <Property Name="ContractorNPV" Type="decimal" Precision="7" Scale="2" />
+    <Property Name="ContractorNPVCurr" Type="varchar" MaxLength="10" />
+    <Property Name="IRR" Type="decimal" Precision="6" Scale="5" />
+    <Property Name="ContractorPOT" Type="decimal" Precision="5" Scale="2" />
+    <Property Name="ContractorPOTUoM" Type="varchar" MaxLength="10" />
+    <Property Name="PIncome" Type="decimal" Precision="5" Scale="2" />
+    <Property Name="PIncomeCurr" Type="varchar" MaxLength="10" />
+    <Property Name="EMV" Type="decimal" Precision="6" Scale="2" />
+    <Property Name="EMVCurr" Type="varchar" MaxLength="10" />
+    <Property Name="NPV" Type="decimal" Precision="6" Scale="2" />
+    <Property Name="NPVCurr" Type="varchar" MaxLength="10" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="LG_ExplorationStructure">
+    <Key>
+      <PropertyRef Name="StructureHistoryID" />
+      <PropertyRef Name="xStructureID" />
+    </Key>
+    <Property Name="StructureHistoryID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="xStructureID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="xStructureName" Type="varchar" MaxLength="200" />
+    <Property Name="xStructureStatusParID" Type="varchar" MaxLength="20" />
+    <Property Name="SingleOrMultiParID" Type="varchar" MaxLength="20" />
+    <Property Name="ExplorationTypeParID" Type="varchar" MaxLength="20" />
+    <Property Name="SubholdingID" Type="varchar" MaxLength="50" />
+    <Property Name="BasinID" Type="varchar" MaxLength="50" />
+    <Property Name="RegionalID" Type="varchar" MaxLength="50" />
+    <Property Name="ZonaID" Type="varchar" MaxLength="50" />
+    <Property Name="APHID" Type="varchar" MaxLength="50" />
+    <Property Name="xAssetID" Type="varchar" MaxLength="50" />
+    <Property Name="xBlockID" Type="varchar" MaxLength="50" />
+    <Property Name="xAreaID" Type="varchar" MaxLength="50" />
+    <Property Name="UDClassificationParID" Type="varchar" MaxLength="20" />
+    <Property Name="UDSubClassificationParID" Type="varchar" MaxLength="20" />
+    <Property Name="UDSubTypeParID" Type="varchar" MaxLength="20" />
+    <Property Name="ExplorationAreaParID" Type="varchar" MaxLength="20" />
+    <Property Name="CountriesID" Type="varchar" MaxLength="2" />
+    <Property Name="Play" Type="varchar" MaxLength="200" />
+    <Property Name="StatusData" Type="varchar" MaxLength="20" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="MadamTransID" Type="varchar" MaxLength="20" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="LG_ProsResources">
+    <Key>
+      <PropertyRef Name="StructureHistoryID" />
+      <PropertyRef Name="xStructureID" />
+    </Key>
+    <Property Name="StructureHistoryID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="xStructureID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="P90InPlaceOilPR" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P90InPlaceOilPRUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P50InPlaceOilPR" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P50InPlaceOilPRUoM" Type="varchar" MaxLength="10" />
+    <Property Name="PMeanInPlaceOilPR" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="PMeanInPlaceOilPRUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P10InPlaceOilPR" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P10InPlaceOilPRUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P90InPlaceGasPR" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P90InPlaceGasPRUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P50InPlaceGasPR" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P50InPlaceGasPRUoM" Type="varchar" MaxLength="10" />
+    <Property Name="PMeanInPlaceGasPR" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="PMeanInPlaceGasPRUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P10InPlaceGasPR" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P10InPlaceGasPRUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P90InPlaceTotalPR" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P90InPlaceTotalPRUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P50InPlaceTotalPR" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P50InPlaceTotalPRUoM" Type="varchar" MaxLength="10" />
+    <Property Name="PMeanInPlaceTotalPR" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="PMeanInPlaceTotalPRUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P10InPlaceTotalPR" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P10InPlaceTotalPRUoM" Type="varchar" MaxLength="10" />
+    <Property Name="RFOilPR" Type="decimal" Precision="6" Scale="5" />
+    <Property Name="RFGasPR" Type="decimal" Precision="6" Scale="5" />
+    <Property Name="P90RROil" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P90RROilUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P50RROil" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P50RROilUoM" Type="varchar" MaxLength="10" />
+    <Property Name="PMeanRROil" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="PMeanRROilUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P10RROil" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P10RROilUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P90RRGas" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P90RRGasUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P50RRGas" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P50RRGasUoM" Type="varchar" MaxLength="10" />
+    <Property Name="PMeanRRGas" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="PMeanRRGasUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P10RRGas" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P10RRGasUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P90RRTotal" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P90RRTotalUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P50RRTotal" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P50RRTotalUoM" Type="varchar" MaxLength="10" />
+    <Property Name="PMeanRRTotal" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="PMeanRRTotalUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P10RRTotal" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P10RRTotalUoM" Type="varchar" MaxLength="10" />
+    <Property Name="HydrocarbonTypePRParID" Type="varchar" MaxLength="20" />
+    <Property Name="GCFSRPR" Type="decimal" Precision="6" Scale="5" />
+    <Property Name="GCFSRPRUoM" Type="varchar" MaxLength="10" />
+    <Property Name="GCFTMPR" Type="decimal" Precision="6" Scale="5" />
+    <Property Name="GCFTMPRUoM" Type="varchar" MaxLength="10" />
+    <Property Name="GCFReservoirPR" Type="decimal" Precision="6" Scale="5" />
+    <Property Name="GCFReservoirPRUoM" Type="varchar" MaxLength="10" />
+    <Property Name="GCFClosurePR" Type="decimal" Precision="6" Scale="5" />
+    <Property Name="GCFClosurePRUoM" Type="varchar" MaxLength="10" />
+    <Property Name="GCFContainmentPR" Type="decimal" Precision="6" Scale="5" />
+    <Property Name="GCFContainmentPRUoM" Type="varchar" MaxLength="10" />
+    <Property Name="GCFPGTotalPR" Type="decimal" Precision="6" Scale="5" />
+    <Property Name="GCFPGTotalPRUoM" Type="varchar" MaxLength="10" />
+    <Property Name="ExpectedPG" Type="decimal" Precision="6" Scale="5" />
+    <Property Name="CurrentPG" Type="decimal" Precision="6" Scale="5" />
+    <Property Name="MethodParID" Type="varchar" MaxLength="20" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="LG_ProsResourcesTarget">
+    <Key>
+      <PropertyRef Name="StructureHistoryID" />
+      <PropertyRef Name="TargetID" />
+    </Key>
+    <Property Name="StructureHistoryID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="TargetID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="TargetName" Type="varchar" MaxLength="200" />
+    <Property Name="xStructureID" Type="varchar" MaxLength="50" />
+    <Property Name="P90InPlaceOil" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P90InPlaceOilUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P50InPlaceOil" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P50InPlaceOilUoM" Type="varchar" MaxLength="10" />
+    <Property Name="PMeanInPlaceOil" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="PMeanInPlaceOilUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P10InPlaceOil" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P10InPlaceOilUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P90InPlaceGas" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P90InPlaceGasUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P50InPlaceGas" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P50InPlaceGasUoM" Type="varchar" MaxLength="10" />
+    <Property Name="PMeanInPlaceGas" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="PMeanInPlaceGasUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P10InPlaceGas" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P10InPlaceGasUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P90InPlaceTotal" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P90InPlaceTotalUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P50InPlaceTotal" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P50InPlaceTotalUoM" Type="varchar" MaxLength="10" />
+    <Property Name="PMeanInPlaceTotal" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="PMeanInPlaceTotalUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P10InPlaceTotal" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P10InPlaceTotalUoM" Type="varchar" MaxLength="10" />
+    <Property Name="RFOil" Type="decimal" Precision="6" Scale="5" />
+    <Property Name="RFGas" Type="decimal" Precision="6" Scale="5" />
+    <Property Name="P90RecoverableOil" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P90RecoverableOilUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P50RecoverableOil" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P50RecoverableOilUoM" Type="varchar" MaxLength="10" />
+    <Property Name="PMeanRecoverableOil" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="PMeanRecoverableOilUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P10RecoverableOil" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P10RecoverableOilUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P90RecoverableGas" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P90RecoverableGasUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P50RecoverableGas" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P50RecoverableGasUoM" Type="varchar" MaxLength="10" />
+    <Property Name="PMeanRecoverableGas" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="PMeanRecoverableGasUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P10RecoverableGas" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P10RecoverableGasUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P90RecoverableTotal" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P90RecoverableTotalUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P50RecoverableTotal" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P50RecoverableTotalUoM" Type="varchar" MaxLength="10" />
+    <Property Name="PMeanRecoverableTotal" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="PMeanRecoverableTotalUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P10RecoverableTotal" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P10RecoverableTotalUoM" Type="varchar" MaxLength="10" />
+    <Property Name="HydrocarbonTypeParID" Type="varchar" MaxLength="20" />
+    <Property Name="GCFSR" Type="decimal" Precision="6" Scale="5" />
+    <Property Name="GCFSRUoM" Type="varchar" MaxLength="10" />
+    <Property Name="GCFTM" Type="decimal" Precision="6" Scale="5" />
+    <Property Name="GCFTMUoM" Type="varchar" MaxLength="10" />
+    <Property Name="GCFReservoir" Type="decimal" Precision="6" Scale="5" />
+    <Property Name="GCFReservoirUoM" Type="varchar" MaxLength="10" />
+    <Property Name="GCFClosure" Type="decimal" Precision="6" Scale="5" />
+    <Property Name="GCFClosureUoM" Type="varchar" MaxLength="10" />
+    <Property Name="GCFContainment" Type="decimal" Precision="6" Scale="5" />
+    <Property Name="GCFContainmentUoM" Type="varchar" MaxLength="10" />
+    <Property Name="GCFPGTotal" Type="decimal" Precision="6" Scale="5" />
+    <Property Name="GCFPGTotalUoM" Type="varchar" MaxLength="10" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="TX_ContingentResources">
+    <Key>
+      <PropertyRef Name="xStructureID" />
+    </Key>
+    <Property Name="xStructureID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="1COil" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="1COilUoM" Type="varchar" MaxLength="10" />
+    <Property Name="2COil" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="2COilUoM" Type="varchar" MaxLength="10" />
+    <Property Name="3COil" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="3COilUoM" Type="varchar" MaxLength="10" />
+    <Property Name="1CGas" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="1CGasUoM" Type="varchar" MaxLength="10" />
+    <Property Name="2CGas" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="2CGasUoM" Type="varchar" MaxLength="10" />
+    <Property Name="3CGas" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="3CGasUoM" Type="varchar" MaxLength="10" />
+    <Property Name="1CTotal" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="1CTotalUoM" Type="varchar" MaxLength="10" />
+    <Property Name="2CTotal" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="2CTotalUoM" Type="varchar" MaxLength="10" />
+    <Property Name="3CTotal" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="3CTotalUoM" Type="varchar" MaxLength="10" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="TX_Drilling">
+    <Key>
+      <PropertyRef Name="xStructureID" />
+      <PropertyRef Name="xWellID" />
+    </Key>
+    <Property Name="xStructureID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="xWellID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="RKAPFiscalYear" Type="int" />
+    <Property Name="PlayOpener" Type="bit" />
+    <Property Name="DrillingCompletionPeriod" Type="int" />
+    <Property Name="Location" Type="varchar" MaxLength="200" />
+    <Property Name="WaterDepthFeet" Type="decimal" Precision="7" Scale="1" />
+    <Property Name="WaterDepthMeter" Type="int" />
+    <Property Name="TotalDepthFeet" Type="decimal" Precision="7" Scale="1" />
+    <Property Name="TotalDepthMeter" Type="int" />
+    <Property Name="SurfaceLocationLatitude" Type="decimal" Precision="8" Scale="6" />
+    <Property Name="SurfaceLocationLongitude" Type="decimal" Precision="9" Scale="6" />
+    <Property Name="CommitmentWell" Type="bit" />
+    <Property Name="OperationalContextParId" Type="varchar" MaxLength="20" />
+    <Property Name="PotentialDelay" Type="bit" />
+    <Property Name="NetRevenueInterest" Type="decimal" Precision="6" Scale="5" />
+    <Property Name="DrillingCostDHB" Type="decimal" Precision="5" Scale="2" />
+    <Property Name="DrillingCostDHBCurr" Type="varchar" MaxLength="10" />
+    <Property Name="DrillingCost" Type="decimal" Precision="5" Scale="2" />
+    <Property Name="DrillingCostCurr" Type="varchar" MaxLength="10" />
+    <Property Name="ExpectedDrillingDate" Type="date" />
+    <Property Name="P90ResourceOil" Type="decimal" Precision="6" Scale="2" />
+    <Property Name="P90ResourceOilUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P50ResourceOil" Type="decimal" Precision="6" Scale="2" />
+    <Property Name="P50ResourceOilUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P10ResourceOil" Type="decimal" Precision="6" Scale="2" />
+    <Property Name="P10ResourceOilUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P90ResourceGas" Type="decimal" Precision="6" Scale="2" />
+    <Property Name="P90ResourceGasUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P50ResourceGas" Type="decimal" Precision="6" Scale="2" />
+    <Property Name="P50ResourceGasUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P10ResourceGas" Type="decimal" Precision="6" Scale="2" />
+    <Property Name="P10ResourceGasUoM" Type="varchar" MaxLength="10" />
+    <Property Name="CurrentPG" Type="decimal" Precision="6" Scale="5" />
+    <Property Name="ExpectedPG" Type="decimal" Precision="6" Scale="5" />
+    <Property Name="ChanceComponentSource" Type="decimal" Precision="6" Scale="5" />
+    <Property Name="ChanceComponentTiming" Type="decimal" Precision="6" Scale="5" />
+    <Property Name="ChanceComponentReservoir" Type="decimal" Precision="6" Scale="5" />
+    <Property Name="ChanceComponentClosure" Type="decimal" Precision="6" Scale="5" />
+    <Property Name="ChanceComponentContainment" Type="decimal" Precision="6" Scale="5" />
+    <Property Name="P90NPVProfitabilityOil" Type="decimal" Precision="7" Scale="2" />
+    <Property Name="P90NPVProfitabilityOilCurr" Type="varchar" MaxLength="10" />
+    <Property Name="P50NPVProfitabilityOil" Type="decimal" Precision="7" Scale="2" />
+    <Property Name="P50NPVProfitabilityOilCurr" Type="varchar" MaxLength="10" />
+    <Property Name="P10NPVProfitabilityOil" Type="decimal" Precision="7" Scale="2" />
+    <Property Name="P10NPVProfitabilityOilCurr" Type="varchar" MaxLength="10" />
+    <Property Name="P90NPVProfitabilityGas" Type="decimal" Precision="7" Scale="2" />
+    <Property Name="P90NPVProfitabilityGasCurr" Type="varchar" MaxLength="10" />
+    <Property Name="P50NPVProfitabilityGas" Type="decimal" Precision="7" Scale="2" />
+    <Property Name="P50NPVProfitabilityGasCurr" Type="varchar" MaxLength="10" />
+    <Property Name="P10NPVProfitabilityGas" Type="decimal" Precision="7" Scale="2" />
+    <Property Name="P10NPVProfitabilityGasCurr" Type="varchar" MaxLength="10" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="TX_Economic">
+    <Key>
+      <PropertyRef Name="xStructureID" />
+    </Key>
+    <Property Name="xStructureID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="DevConcept" Type="varchar" MaxLength="50" />
+    <Property Name="EconomicAssumption" Type="varchar" MaxLength="50" />
+    <Property Name="CAPEX" Type="decimal" Precision="7" Scale="2" />
+    <Property Name="CAPEXCurr" Type="varchar" MaxLength="10" />
+    <Property Name="OPEXProduction" Type="decimal" Precision="7" Scale="2" />
+    <Property Name="OPEXProductionCurr" Type="varchar" MaxLength="10" />
+    <Property Name="OPEXFacility" Type="decimal" Precision="7" Scale="2" />
+    <Property Name="OPEXFacilityCurr" Type="varchar" MaxLength="10" />
+    <Property Name="ASR" Type="decimal" Precision="7" Scale="2" />
+    <Property Name="ASRCurr" Type="varchar" MaxLength="10" />
+    <Property Name="EconomicResult" Type="varchar" MaxLength="50" />
+    <Property Name="ContractorNPV" Type="decimal" Precision="7" Scale="2" />
+    <Property Name="ContractorNPVCurr" Type="varchar" MaxLength="10" />
+    <Property Name="IRR" Type="decimal" Precision="6" Scale="5" />
+    <Property Name="ContractorPOT" Type="decimal" Precision="5" Scale="2" />
+    <Property Name="ContractorPOTUoM" Type="varchar" MaxLength="10" />
+    <Property Name="PIncome" Type="decimal" Precision="5" Scale="2" />
+    <Property Name="PIncomeCurr" Type="varchar" MaxLength="10" />
+    <Property Name="EMV" Type="decimal" Precision="6" Scale="2" />
+    <Property Name="EMVCurr" Type="varchar" MaxLength="10" />
+    <Property Name="NPV" Type="decimal" Precision="6" Scale="2" />
+    <Property Name="NPVCurr" Type="varchar" MaxLength="10" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="TX_ESDC">
+    <Key>
+      <PropertyRef Name="xStructureID" />
+    </Key>
+    <Property Name="xStructureID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ESDCFieldID" Type="varchar" MaxLength="20" />
+    <Property Name="ESDCProjectID" Type="varchar" MaxLength="20" />
+    <Property Name="ESDCProjectName" Type="varchar" MaxLength="200" />
+    <Property Name="StatusData" Type="varchar" MaxLength="20" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="TX_ESDCDiscrepancy">
+    <Key>
+      <PropertyRef Name="xStructureID" />
+      <PropertyRef Name="UncertaintyLevel" />
+    </Key>
+    <Property Name="xStructureID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="UncertaintyLevel" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CFUMOil" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="CFUMCondensate" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="CFUMAssociated" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="CFUMNonAssociated" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="CFPPAOil" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="CFPPACondensate" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="CFPPAAssociated" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="CFPPANonAssociated" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="CFWIOil" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="CFWICondensate" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="CFWIAssociated" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="CFWINonAssociated" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="CFCOil" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="CFCCondensate" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="CFCAssociated" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="CFCNonAssociated" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="UCOil" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="UCCondensate" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="UCAssociated" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="UCNonAssociated" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="CIOOil" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="CIOCondensate" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="CIOAssociated" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="CIONonAssociated" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="TX_ESDCForecast">
+    <Key>
+      <PropertyRef Name="xStructureID" />
+      <PropertyRef Name="Year" />
+    </Key>
+    <Property Name="xStructureID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Year" Type="int" Nullable="false" />
+    <Property Name="TPFOil" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="TPFCondensate" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="TPFAssociated" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="TPFNonAssociated" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="SFOil" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="SFCondensate" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="SFAssociated" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="SFNonAssociated" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="CIOOil" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="CIOCondensate" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="CIOAssociated" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="CIONonAssociated" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="LPOil" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="LPCondensate" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="LPAssociated" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="LPNonAssociated" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="AverageGrossHeat" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="Remarks" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="TX_ESDCInPlace">
+    <Key>
+      <PropertyRef Name="xStructureID" />
+      <PropertyRef Name="UncertaintyLevel" />
+    </Key>
+    <Property Name="xStructureID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="UncertaintyLevel" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="P90IOIP" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="P90IGIP" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="TX_ESDCProd">
+    <Key>
+      <PropertyRef Name="xStructureID" />
+    </Key>
+    <Property Name="xStructureID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="GCPPrevOil" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="GCPPrevCondensate" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="GCPPrevAssociated" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="GCPPrevNonAssociated" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="SCPPrevOil" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="SCPPrevCondensate" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="SCPPrevAssociated" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="SCPPrevNonAssociated" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="GCPOil" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="GCPCondensate" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="GCPAssociated" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="GCPNonAssociated" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="SCPOil" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="SCPCondensate" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="SCPAssociated" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="SCPNonAssociated" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="TX_ESDCVolumetric">
+    <Key>
+      <PropertyRef Name="xStructureID" />
+      <PropertyRef Name="UncertaintyLevel" />
+    </Key>
+    <Property Name="xStructureID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="UncertaintyLevel" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="GRRPrevOil" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="GRRPrevCondensate" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="GRRPrevAssociated" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="GRRPrevNonAssociated" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="ReservesPrevOil" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="ReservesPrevCondensate" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="ReservesPrevAssociated" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="ReservesPrevNonAssociated" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="GOIOil" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="GOICondensate" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="GOIAssociated" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="GOINonAssociated" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="ReservesOil" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="ReservesCondensate" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="ReservesAssociated" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="ReservesNonAssociated" Type="decimal" Precision="8" Scale="3" />
+    <Property Name="Remarks" Type="varchar" MaxLength="200" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="TX_ProsResources">
+    <Key>
+      <PropertyRef Name="xStructureID" />
+    </Key>
+    <Property Name="xStructureID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="P90InPlaceOilPR" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P90InPlaceOilPRUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P50InPlaceOilPR" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P50InPlaceOilPRUoM" Type="varchar" MaxLength="10" />
+    <Property Name="PMeanInPlaceOilPR" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="PMeanInPlaceOilPRUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P10InPlaceOilPR" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P10InPlaceOilPRUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P90InPlaceGasPR" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P90InPlaceGasPRUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P50InPlaceGasPR" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P50InPlaceGasPRUoM" Type="varchar" MaxLength="10" />
+    <Property Name="PMeanInPlaceGasPR" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="PMeanInPlaceGasPRUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P10InPlaceGasPR" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P10InPlaceGasPRUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P90InPlaceTotalPR" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P90InPlaceTotalPRUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P50InPlaceTotalPR" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P50InPlaceTotalPRUoM" Type="varchar" MaxLength="10" />
+    <Property Name="PMeanInPlaceTotalPR" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="PMeanInPlaceTotalPRUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P10InPlaceTotalPR" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P10InPlaceTotalPRUoM" Type="varchar" MaxLength="10" />
+    <Property Name="RFOilPR" Type="decimal" Precision="6" Scale="5" />
+    <Property Name="RFGasPR" Type="decimal" Precision="6" Scale="5" />
+    <Property Name="P90RROil" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P90RROilUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P50RROil" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P50RROilUoM" Type="varchar" MaxLength="10" />
+    <Property Name="PMeanRROil" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="PMeanRROilUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P10RROil" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P10RROilUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P90RRGas" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P90RRGasUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P50RRGas" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P50RRGasUoM" Type="varchar" MaxLength="10" />
+    <Property Name="PMeanRRGas" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="PMeanRRGasUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P10RRGas" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P10RRGasUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P90RRTotal" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P90RRTotalUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P50RRTotal" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P50RRTotalUoM" Type="varchar" MaxLength="10" />
+    <Property Name="PMeanRRTotal" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="PMeanRRTotalUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P10RRTotal" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P10RRTotalUoM" Type="varchar" MaxLength="10" />
+    <Property Name="HydrocarbonTypePRParID" Type="varchar" MaxLength="20" />
+    <Property Name="GCFSRPR" Type="decimal" Precision="6" Scale="5" />
+    <Property Name="GCFSRPRUoM" Type="varchar" MaxLength="10" />
+    <Property Name="GCFTMPR" Type="decimal" Precision="6" Scale="5" />
+    <Property Name="GCFTMPRUoM" Type="varchar" MaxLength="10" />
+    <Property Name="GCFReservoirPR" Type="decimal" Precision="6" Scale="5" />
+    <Property Name="GCFReservoirPRUoM" Type="varchar" MaxLength="10" />
+    <Property Name="GCFClosurePR" Type="decimal" Precision="6" Scale="5" />
+    <Property Name="GCFClosurePRUoM" Type="varchar" MaxLength="10" />
+    <Property Name="GCFContainmentPR" Type="decimal" Precision="6" Scale="5" />
+    <Property Name="GCFContainmentPRUoM" Type="varchar" MaxLength="10" />
+    <Property Name="GCFPGTotalPR" Type="decimal" Precision="6" Scale="5" />
+    <Property Name="GCFPGTotalPRUoM" Type="varchar" MaxLength="10" />
+    <Property Name="ExpectedPG" Type="decimal" Precision="6" Scale="5" />
+    <Property Name="CurrentPG" Type="decimal" Precision="6" Scale="5" />
+    <Property Name="MethodParID" Type="varchar" MaxLength="20" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="TX_ProsResourcesTarget">
+    <Key>
+      <PropertyRef Name="TargetID" />
+    </Key>
+    <Property Name="TargetID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="TargetName" Type="varchar" MaxLength="200" />
+    <Property Name="xStructureID" Type="varchar" MaxLength="50" />
+    <Property Name="P90InPlaceOil" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P90InPlaceOilUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P50InPlaceOil" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P50InPlaceOilUoM" Type="varchar" MaxLength="10" />
+    <Property Name="PMeanInPlaceOil" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="PMeanInPlaceOilUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P10InPlaceOil" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P10InPlaceOilUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P90InPlaceGas" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P90InPlaceGasUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P50InPlaceGas" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P50InPlaceGasUoM" Type="varchar" MaxLength="10" />
+    <Property Name="PMeanInPlaceGas" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="PMeanInPlaceGasUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P10InPlaceGas" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P10InPlaceGasUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P90InPlaceTotal" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P90InPlaceTotalUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P50InPlaceTotal" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P50InPlaceTotalUoM" Type="varchar" MaxLength="10" />
+    <Property Name="PMeanInPlaceTotal" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="PMeanInPlaceTotalUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P10InPlaceTotal" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P10InPlaceTotalUoM" Type="varchar" MaxLength="10" />
+    <Property Name="RFOil" Type="decimal" Precision="6" Scale="5" />
+    <Property Name="RFGas" Type="decimal" Precision="6" Scale="5" />
+    <Property Name="P90RecoverableOil" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P90RecoverableOilUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P50RecoverableOil" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P50RecoverableOilUoM" Type="varchar" MaxLength="10" />
+    <Property Name="PMeanRecoverableOil" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="PMeanRecoverableOilUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P10RecoverableOil" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P10RecoverableOilUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P90RecoverableGas" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P90RecoverableGasUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P50RecoverableGas" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P50RecoverableGasUoM" Type="varchar" MaxLength="10" />
+    <Property Name="PMeanRecoverableGas" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="PMeanRecoverableGasUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P10RecoverableGas" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P10RecoverableGasUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P90RecoverableTotal" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P90RecoverableTotalUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P50RecoverableTotal" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P50RecoverableTotalUoM" Type="varchar" MaxLength="10" />
+    <Property Name="PMeanRecoverableTotal" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="PMeanRecoverableTotalUoM" Type="varchar" MaxLength="10" />
+    <Property Name="P10RecoverableTotal" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="P10RecoverableTotalUoM" Type="varchar" MaxLength="10" />
+    <Property Name="HydrocarbonTypeParID" Type="varchar" MaxLength="20" />
+    <Property Name="GCFSR" Type="decimal" Precision="6" Scale="5" />
+    <Property Name="GCFSRUoM" Type="varchar" MaxLength="10" />
+    <Property Name="GCFTM" Type="decimal" Precision="6" Scale="5" />
+    <Property Name="GCFTMUoM" Type="varchar" MaxLength="10" />
+    <Property Name="GCFReservoir" Type="decimal" Precision="6" Scale="5" />
+    <Property Name="GCFReservoirUoM" Type="varchar" MaxLength="10" />
+    <Property Name="GCFClosure" Type="decimal" Precision="6" Scale="5" />
+    <Property Name="GCFClosureUoM" Type="varchar" MaxLength="10" />
+    <Property Name="GCFContainment" Type="decimal" Precision="6" Scale="5" />
+    <Property Name="GCFContainmentUoM" Type="varchar" MaxLength="10" />
+    <Property Name="GCFPGTotal" Type="decimal" Precision="6" Scale="5" />
+    <Property Name="GCFPGTotalUoM" Type="varchar" MaxLength="10" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_PHE_Exploration.dbo.vw_Country' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="vw_Country">
+    <Key>
+      <PropertyRef Name="CountriesID" />
+      <PropertyRef Name="Url" />
+      <PropertyRef Name="Name" />
+    </Key>
+    <Property Name="CountriesID" Type="varchar" MaxLength="2" Nullable="false" />
+    <Property Name="Url" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Latitude" Type="float" />
+    <Property Name="Longitude" Type="float" />
+    <Property Name="ISOCountriesID" Type="varchar" MaxLength="3" />
+    <Property Name="NameIDNVer" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_PHE_Exploration.dbo.vw_DIM_Entity' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="vw_DIM_Entity">
+    <Key>
+      <PropertyRef Name="EntityID" />
+    </Key>
+    <Property Name="EntityID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="EntityName" Type="varchar" MaxLength="200" />
+    <Property Name="EntityType" Type="varchar" MaxLength="50" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="UpdatedDate" Type="datetime" />
+  </EntityType>
+  <Association Name="FK__LG_ContingentRes__6225902D">
+    <End Role="LG_ExplorationStructure" Type="Self.LG_ExplorationStructure" Multiplicity="1" />
+    <End Role="LG_ContingentResources" Type="Self.LG_ContingentResources" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="LG_ExplorationStructure">
+        <PropertyRef Name="StructureHistoryID" />
+        <PropertyRef Name="xStructureID" />
+      </Principal>
+      <Dependent Role="LG_ContingentResources">
+        <PropertyRef Name="StructureHistoryID" />
+        <PropertyRef Name="xStructureID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__LG_Drilling__6319B466">
+    <End Role="LG_ExplorationStructure" Type="Self.LG_ExplorationStructure" Multiplicity="1" />
+    <End Role="LG_Drilling" Type="Self.LG_Drilling" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LG_ExplorationStructure">
+        <PropertyRef Name="StructureHistoryID" />
+        <PropertyRef Name="xStructureID" />
+      </Principal>
+      <Dependent Role="LG_Drilling">
+        <PropertyRef Name="StructureHistoryID" />
+        <PropertyRef Name="xStructureID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__LG_Economic__640DD89F">
+    <End Role="LG_ExplorationStructure" Type="Self.LG_ExplorationStructure" Multiplicity="1" />
+    <End Role="LG_Economic" Type="Self.LG_Economic" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="LG_ExplorationStructure">
+        <PropertyRef Name="StructureHistoryID" />
+        <PropertyRef Name="xStructureID" />
+      </Principal>
+      <Dependent Role="LG_Economic">
+        <PropertyRef Name="StructureHistoryID" />
+        <PropertyRef Name="xStructureID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__LG_Explor__xStru__4F12BBB9">
+    <End Role="MD_ExplorationStructure" Type="Self.MD_ExplorationStructure" Multiplicity="1" />
+    <End Role="LG_ExplorationStructure" Type="Self.LG_ExplorationStructure" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MD_ExplorationStructure">
+        <PropertyRef Name="xStructureID" />
+      </Principal>
+      <Dependent Role="LG_ExplorationStructure">
+        <PropertyRef Name="xStructureID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__LG_ProsResources__5F492382">
+    <End Role="LG_ExplorationStructure" Type="Self.LG_ExplorationStructure" Multiplicity="1" />
+    <End Role="LG_ProsResources" Type="Self.LG_ProsResources" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="LG_ExplorationStructure">
+        <PropertyRef Name="StructureHistoryID" />
+        <PropertyRef Name="xStructureID" />
+      </Principal>
+      <Dependent Role="LG_ProsResources">
+        <PropertyRef Name="StructureHistoryID" />
+        <PropertyRef Name="xStructureID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__LG_ProsResources__61316BF4">
+    <End Role="LG_ExplorationStructure" Type="Self.LG_ExplorationStructure" Multiplicity="0..1" />
+    <End Role="LG_ProsResourcesTarget" Type="Self.LG_ProsResourcesTarget" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LG_ExplorationStructure">
+        <PropertyRef Name="StructureHistoryID" />
+        <PropertyRef Name="xStructureID" />
+      </Principal>
+      <Dependent Role="LG_ProsResourcesTarget">
+        <PropertyRef Name="StructureHistoryID" />
+        <PropertyRef Name="xStructureID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__MD_Explor__Basin__7A3223E8">
+    <End Role="MD_ExplorationBasin" Type="Self.MD_ExplorationBasin" Multiplicity="0..1" />
+    <End Role="MD_ExplorationStructure" Type="Self.MD_ExplorationStructure" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MD_ExplorationBasin">
+        <PropertyRef Name="BasinID" />
+      </Principal>
+      <Dependent Role="MD_ExplorationStructure">
+        <PropertyRef Name="BasinID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__MD_Explor__xAsse__7B264821">
+    <End Role="MD_ExplorationAsset" Type="Self.MD_ExplorationAsset" Multiplicity="0..1" />
+    <End Role="MD_ExplorationStructure" Type="Self.MD_ExplorationStructure" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MD_ExplorationAsset">
+        <PropertyRef Name="xAssetID" />
+      </Principal>
+      <Dependent Role="MD_ExplorationStructure">
+        <PropertyRef Name="xAssetID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__MD_Explor__xBloc__7C1A6C5A">
+    <End Role="MD_ExplorationBlock" Type="Self.MD_ExplorationBlock" Multiplicity="0..1" />
+    <End Role="MD_ExplorationStructure" Type="Self.MD_ExplorationStructure" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MD_ExplorationBlock">
+        <PropertyRef Name="xBlockID" />
+      </Principal>
+      <Dependent Role="MD_ExplorationStructure">
+        <PropertyRef Name="xBlockID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__MD_ParamaterList__3A81B327">
+    <End Role="MD_Paramater" Type="Self.MD_Paramater" Multiplicity="1" />
+    <End Role="MD_ParamaterList" Type="Self.MD_ParamaterList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MD_Paramater">
+        <PropertyRef Name="Schema" />
+        <PropertyRef Name="ParamID" />
+      </Principal>
+      <Dependent Role="MD_ParamaterList">
+        <PropertyRef Name="Schema" />
+        <PropertyRef Name="ParamID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__MP_xBasin__Basin__51BA1E3A">
+    <End Role="MD_ExplorationBasin" Type="Self.MD_ExplorationBasin" Multiplicity="1" />
+    <End Role="MP_xBasinCountry" Type="Self.MP_xBasinCountry" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MD_ExplorationBasin">
+        <PropertyRef Name="BasinID" />
+      </Principal>
+      <Dependent Role="MP_xBasinCountry">
+        <PropertyRef Name="BasinID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TX_ESDC__xStruct__3EDC53F0">
+    <End Role="MD_ExplorationStructure" Type="Self.MD_ExplorationStructure" Multiplicity="1" />
+    <End Role="TX_ESDC" Type="Self.TX_ESDC" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="MD_ExplorationStructure">
+        <PropertyRef Name="xStructureID" />
+      </Principal>
+      <Dependent Role="TX_ESDC">
+        <PropertyRef Name="xStructureID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TX_ESDCDi__xStru__4865BE2A">
+    <End Role="MD_ExplorationStructure" Type="Self.MD_ExplorationStructure" Multiplicity="1" />
+    <End Role="TX_ESDCDiscrepancy" Type="Self.TX_ESDCDiscrepancy" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MD_ExplorationStructure">
+        <PropertyRef Name="xStructureID" />
+      </Principal>
+      <Dependent Role="TX_ESDCDiscrepancy">
+        <PropertyRef Name="xStructureID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TX_ESDCFo__xStru__4589517F">
+    <End Role="MD_ExplorationStructure" Type="Self.MD_ExplorationStructure" Multiplicity="1" />
+    <End Role="TX_ESDCForecast" Type="Self.TX_ESDCForecast" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MD_ExplorationStructure">
+        <PropertyRef Name="xStructureID" />
+      </Principal>
+      <Dependent Role="TX_ESDCForecast">
+        <PropertyRef Name="xStructureID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TX_ESDCIn__xStru__308E3499">
+    <End Role="MD_ExplorationStructure" Type="Self.MD_ExplorationStructure" Multiplicity="1" />
+    <End Role="TX_ESDCInPlace" Type="Self.TX_ESDCInPlace" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MD_ExplorationStructure">
+        <PropertyRef Name="xStructureID" />
+      </Principal>
+      <Dependent Role="TX_ESDCInPlace">
+        <PropertyRef Name="xStructureID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TX_ESDCPr__xStru__27F8EE98">
+    <End Role="MD_ExplorationStructure" Type="Self.MD_ExplorationStructure" Multiplicity="1" />
+    <End Role="TX_ESDCProd" Type="Self.TX_ESDCProd" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="MD_ExplorationStructure">
+        <PropertyRef Name="xStructureID" />
+      </Principal>
+      <Dependent Role="TX_ESDCProd">
+        <PropertyRef Name="xStructureID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TX_ESDCVo__xStru__336AA144">
+    <End Role="MD_ExplorationStructure" Type="Self.MD_ExplorationStructure" Multiplicity="1" />
+    <End Role="TX_ESDCVolumetric" Type="Self.TX_ESDCVolumetric" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MD_ExplorationStructure">
+        <PropertyRef Name="xStructureID" />
+      </Principal>
+      <Dependent Role="TX_ESDCVolumetric">
+        <PropertyRef Name="xStructureID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DB_PHE_ExplorationModelStoreContainer">
+    <EntitySet Name="MD_BusinessPartner" EntityType="Self.MD_BusinessPartner" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MD_ExplorationArea" EntityType="Self.MD_ExplorationArea" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MD_ExplorationAsset" EntityType="Self.MD_ExplorationAsset" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MD_ExplorationBasin" EntityType="Self.MD_ExplorationBasin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MD_ExplorationBlock" EntityType="Self.MD_ExplorationBlock" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MD_ExplorationBlockPartner" EntityType="Self.MD_ExplorationBlockPartner" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MD_ExplorationStructure" EntityType="Self.MD_ExplorationStructure" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MD_ExplorationWell" EntityType="Self.MD_ExplorationWell" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MD_Paramater" EntityType="Self.MD_Paramater" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MD_ParamaterList" EntityType="Self.MD_ParamaterList" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MP_Entity" EntityType="Self.MP_Entity" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MP_xBasinCountry" EntityType="Self.MP_xBasinCountry" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TX_Attachment" EntityType="Self.TX_Attachment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LG_Activity" EntityType="Self.LG_Activity" Schema="xplore" store:Type="Tables" />
+    <EntitySet Name="LG_ContingentResources" EntityType="Self.LG_ContingentResources" Schema="xplore" store:Type="Tables" />
+    <EntitySet Name="LG_Drilling" EntityType="Self.LG_Drilling" Schema="xplore" store:Type="Tables" />
+    <EntitySet Name="LG_Economic" EntityType="Self.LG_Economic" Schema="xplore" store:Type="Tables" />
+    <EntitySet Name="LG_ExplorationStructure" EntityType="Self.LG_ExplorationStructure" Schema="xplore" store:Type="Tables" />
+    <EntitySet Name="LG_ProsResources" EntityType="Self.LG_ProsResources" Schema="xplore" store:Type="Tables" />
+    <EntitySet Name="LG_ProsResourcesTarget" EntityType="Self.LG_ProsResourcesTarget" Schema="xplore" store:Type="Tables" />
+    <EntitySet Name="TX_ContingentResources" EntityType="Self.TX_ContingentResources" Schema="xplore" store:Type="Tables" />
+    <EntitySet Name="TX_Drilling" EntityType="Self.TX_Drilling" Schema="xplore" store:Type="Tables" />
+    <EntitySet Name="TX_Economic" EntityType="Self.TX_Economic" Schema="xplore" store:Type="Tables" />
+    <EntitySet Name="TX_ESDC" EntityType="Self.TX_ESDC" Schema="xplore" store:Type="Tables" />
+    <EntitySet Name="TX_ESDCDiscrepancy" EntityType="Self.TX_ESDCDiscrepancy" Schema="xplore" store:Type="Tables" />
+    <EntitySet Name="TX_ESDCForecast" EntityType="Self.TX_ESDCForecast" Schema="xplore" store:Type="Tables" />
+    <EntitySet Name="TX_ESDCInPlace" EntityType="Self.TX_ESDCInPlace" Schema="xplore" store:Type="Tables" />
+    <EntitySet Name="TX_ESDCProd" EntityType="Self.TX_ESDCProd" Schema="xplore" store:Type="Tables" />
+    <EntitySet Name="TX_ESDCVolumetric" EntityType="Self.TX_ESDCVolumetric" Schema="xplore" store:Type="Tables" />
+    <EntitySet Name="TX_ProsResources" EntityType="Self.TX_ProsResources" Schema="xplore" store:Type="Tables" />
+    <EntitySet Name="TX_ProsResourcesTarget" EntityType="Self.TX_ProsResourcesTarget" Schema="xplore" store:Type="Tables" />
+    <EntitySet Name="vw_Country" EntityType="Self.vw_Country" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [vw_Country].[CountriesID] AS [CountriesID], 
+    [vw_Country].[Url] AS [Url], 
+    [vw_Country].[Name] AS [Name], 
+    [vw_Country].[Latitude] AS [Latitude], 
+    [vw_Country].[Longitude] AS [Longitude], 
+    [vw_Country].[ISOCountriesID] AS [ISOCountriesID], 
+    [vw_Country].[NameIDNVer] AS [NameIDNVer]
+    FROM [dbo].[vw_Country] AS [vw_Country]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vw_DIM_Entity" EntityType="Self.vw_DIM_Entity" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [vw_DIM_Entity].[EntityID] AS [EntityID], 
+    [vw_DIM_Entity].[EntityName] AS [EntityName], 
+    [vw_DIM_Entity].[EntityType] AS [EntityType], 
+    [vw_DIM_Entity].[IsActive] AS [IsActive], 
+    [vw_DIM_Entity].[CreatedDate] AS [CreatedDate], 
+    [vw_DIM_Entity].[UpdatedDate] AS [UpdatedDate]
+    FROM [dbo].[vw_DIM_Entity] AS [vw_DIM_Entity]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK__LG_ContingentRes__6225902D" Association="Self.FK__LG_ContingentRes__6225902D">
+      <End Role="LG_ExplorationStructure" EntitySet="LG_ExplorationStructure" />
+      <End Role="LG_ContingentResources" EntitySet="LG_ContingentResources" />
+    </AssociationSet>
+    <AssociationSet Name="FK__LG_Drilling__6319B466" Association="Self.FK__LG_Drilling__6319B466">
+      <End Role="LG_ExplorationStructure" EntitySet="LG_ExplorationStructure" />
+      <End Role="LG_Drilling" EntitySet="LG_Drilling" />
+    </AssociationSet>
+    <AssociationSet Name="FK__LG_Economic__640DD89F" Association="Self.FK__LG_Economic__640DD89F">
+      <End Role="LG_ExplorationStructure" EntitySet="LG_ExplorationStructure" />
+      <End Role="LG_Economic" EntitySet="LG_Economic" />
+    </AssociationSet>
+    <AssociationSet Name="FK__LG_Explor__xStru__4F12BBB9" Association="Self.FK__LG_Explor__xStru__4F12BBB9">
+      <End Role="MD_ExplorationStructure" EntitySet="MD_ExplorationStructure" />
+      <End Role="LG_ExplorationStructure" EntitySet="LG_ExplorationStructure" />
+    </AssociationSet>
+    <AssociationSet Name="FK__LG_ProsResources__5F492382" Association="Self.FK__LG_ProsResources__5F492382">
+      <End Role="LG_ExplorationStructure" EntitySet="LG_ExplorationStructure" />
+      <End Role="LG_ProsResources" EntitySet="LG_ProsResources" />
+    </AssociationSet>
+    <AssociationSet Name="FK__LG_ProsResources__61316BF4" Association="Self.FK__LG_ProsResources__61316BF4">
+      <End Role="LG_ExplorationStructure" EntitySet="LG_ExplorationStructure" />
+      <End Role="LG_ProsResourcesTarget" EntitySet="LG_ProsResourcesTarget" />
+    </AssociationSet>
+    <AssociationSet Name="FK__MD_Explor__Basin__7A3223E8" Association="Self.FK__MD_Explor__Basin__7A3223E8">
+      <End Role="MD_ExplorationBasin" EntitySet="MD_ExplorationBasin" />
+      <End Role="MD_ExplorationStructure" EntitySet="MD_ExplorationStructure" />
+    </AssociationSet>
+    <AssociationSet Name="FK__MD_Explor__xAsse__7B264821" Association="Self.FK__MD_Explor__xAsse__7B264821">
+      <End Role="MD_ExplorationAsset" EntitySet="MD_ExplorationAsset" />
+      <End Role="MD_ExplorationStructure" EntitySet="MD_ExplorationStructure" />
+    </AssociationSet>
+    <AssociationSet Name="FK__MD_Explor__xBloc__7C1A6C5A" Association="Self.FK__MD_Explor__xBloc__7C1A6C5A">
+      <End Role="MD_ExplorationBlock" EntitySet="MD_ExplorationBlock" />
+      <End Role="MD_ExplorationStructure" EntitySet="MD_ExplorationStructure" />
+    </AssociationSet>
+    <AssociationSet Name="FK__MD_ParamaterList__3A81B327" Association="Self.FK__MD_ParamaterList__3A81B327">
+      <End Role="MD_Paramater" EntitySet="MD_Paramater" />
+      <End Role="MD_ParamaterList" EntitySet="MD_ParamaterList" />
+    </AssociationSet>
+    <AssociationSet Name="FK__MP_xBasin__Basin__51BA1E3A" Association="Self.FK__MP_xBasin__Basin__51BA1E3A">
+      <End Role="MD_ExplorationBasin" EntitySet="MD_ExplorationBasin" />
+      <End Role="MP_xBasinCountry" EntitySet="MP_xBasinCountry" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TX_ESDC__xStruct__3EDC53F0" Association="Self.FK__TX_ESDC__xStruct__3EDC53F0">
+      <End Role="MD_ExplorationStructure" EntitySet="MD_ExplorationStructure" />
+      <End Role="TX_ESDC" EntitySet="TX_ESDC" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TX_ESDCDi__xStru__4865BE2A" Association="Self.FK__TX_ESDCDi__xStru__4865BE2A">
+      <End Role="MD_ExplorationStructure" EntitySet="MD_ExplorationStructure" />
+      <End Role="TX_ESDCDiscrepancy" EntitySet="TX_ESDCDiscrepancy" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TX_ESDCFo__xStru__4589517F" Association="Self.FK__TX_ESDCFo__xStru__4589517F">
+      <End Role="MD_ExplorationStructure" EntitySet="MD_ExplorationStructure" />
+      <End Role="TX_ESDCForecast" EntitySet="TX_ESDCForecast" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TX_ESDCIn__xStru__308E3499" Association="Self.FK__TX_ESDCIn__xStru__308E3499">
+      <End Role="MD_ExplorationStructure" EntitySet="MD_ExplorationStructure" />
+      <End Role="TX_ESDCInPlace" EntitySet="TX_ESDCInPlace" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TX_ESDCPr__xStru__27F8EE98" Association="Self.FK__TX_ESDCPr__xStru__27F8EE98">
+      <End Role="MD_ExplorationStructure" EntitySet="MD_ExplorationStructure" />
+      <End Role="TX_ESDCProd" EntitySet="TX_ESDCProd" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TX_ESDCVo__xStru__336AA144" Association="Self.FK__TX_ESDCVo__xStru__336AA144">
+      <End Role="MD_ExplorationStructure" EntitySet="MD_ExplorationStructure" />
+      <End Role="TX_ESDCVolumetric" EntitySet="TX_ESDCVolumetric" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

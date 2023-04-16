@@ -1,0 +1,42 @@
+﻿@using SHUNetMVC.Abstraction.Model.View
+@model CrudPage
+
+@{ ViewBag.Title = "ESDC";
+    Model.Title = "Input Data";
+    Model.Caption = "eSDC";
+    Model.SubTitle = "This is the list of eSDC";
+    Model.GridParam.FilterList.OrderBy = "esdc.xStructureID desc"; }
+
+@Html.Partial("Component/CrudPage/Crud", Model)
+
+<div class="toast">
+    <div class="toast-header">
+        <i class="fa-solid fa-check-square me-2 text-success"></i>
+        <strong class="me-auto">Success</strong>
+        <small class="text-muted">just now</small>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+        Successfully added ESDC
+    </div>
+</div>
+
+@Styles.Render("~/Styles/GridList.css")
+
+@section scripts {
+    @Html.Partial("Component/CrudPage/CrudScript", Model)
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        console.log("ready!");
+        let params = (new URL(document.location)).searchParams;
+        let name = params.get("Status");
+        if (name !== null) {
+            successSubmitData();
+        }
+
+        function successSubmitData() {
+            $('#toastSuccess').toast('show');
+        }
+    });
+</script>

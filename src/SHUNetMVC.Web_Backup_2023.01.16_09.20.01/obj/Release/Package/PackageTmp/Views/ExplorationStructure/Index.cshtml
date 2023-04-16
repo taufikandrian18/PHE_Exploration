@@ -1,0 +1,14 @@
+﻿@using SHUNetMVC.Abstraction.Model.View
+@model CrudPage
+
+@{ ViewBag.Title = "Pencatatan Sumber Daya";
+                Model.Caption = "Exploration Structure";
+                Model.GridParam.FilterList.OrderBy = "CreatedDate desc"; }
+
+@Html.Partial("Component/CrudPage/Crud", Model)
+
+@Styles.Render("~/Styles/GridList.css")
+
+@section scripts {
+    @Html.Partial("Component/CrudPage/CrudScript", Model)
+}

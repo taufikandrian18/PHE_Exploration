@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewBag.Title - Application Standard Development</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/fontawesome/css/bundle")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    <!--This bundle was moved by the Telerik VS Extensions for compatibility reasons-->
+    <link href="@Url.Content("~/Content/bootstrap/bootstrap.min.css")" rel="stylesheet" type="text/css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins&display=swap" rel="stylesheet">
+    @*<script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>*@
+    <style type="text/css">
+        .loadingMaskGrid {
+            background: url('https://webappdev01.phe.pertamina.com/phe_xplore/loader.gif') center 50% no-repeat #000000;
+            top: 0;
+            left: 0;
+            position: fixed;
+            height: 100%;
+            width: 100%;
+            opacity: 0.7;
+            z-index: 12030
+        }
+        .loadingMaskExplorationReview {
+            background: url('https://webappdev01.phe.pertamina.com/phe_xplore/loader.gif') center 50% no-repeat #000000;
+            top: 0;
+            left: 0;
+            position: fixed;
+            height: 100%;
+            width: 100%;
+            opacity: 0.7;
+            z-index: 12030
+        }
+        .loadingMaskExploration {
+            background: url('https://webappdev01.phe.pertamina.com/phe_xplore/loader.gif') center 50% no-repeat #000000;
+            top: 0;
+            left: 0;
+            position: fixed;
+            height: 100%;
+            width: 100%;
+            opacity: 0.7;
+            z-index: 12030
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div class="loadingMaskGrid" id="loadingMaskGrid" style="visibility: hidden;"></div>
+        <div class="loadingMaskExplorationReview" id="loadingMaskExplorationReview" style="visibility: hidden;"></div>
+        <div class="loadingMaskExploration" id="loadingMaskExploration" style="visibility: hidden;"></div>
+        @{Html.RenderAction("UserHeader", "Account");}
+        <div>
+
+            @Html.Partial("Layout/_Sidebar")
+            <main>
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script src="~/Scripts/SingleSidebar.js"></script>
+</body>
+
+
+</html>

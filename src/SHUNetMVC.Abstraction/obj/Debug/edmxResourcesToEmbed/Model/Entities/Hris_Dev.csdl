@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DB_PHE_HRIS_DEVModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="DB_PHE_HRIS_DEVEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="DIM_OrgUnitHierarchy" EntityType="DB_PHE_HRIS_DEVModel.DIM_OrgUnitHierarchy" />
+  </EntityContainer>
+  <EntityType Name="DIM_OrgUnitHierarchy">
+    <Key>
+      <PropertyRef Name="OrgUnitID" />
+    </Key>
+    <Property Name="OrgUnitID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ParentID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="OrgUnitName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Lvl" Type="Int32" Nullable="false" />
+    <Property Name="Lvl1ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Lvl2ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Lvl3ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Lvl4ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Lvl5ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Lvl6ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Lvl7ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Lvl8ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Lvl9ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Lvl10ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Lvl1Desc" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Lvl2Desc" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Lvl3Desc" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Lvl4Desc" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Lvl5Desc" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Lvl6Desc" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Lvl7Desc" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Lvl8Desc" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Lvl9Desc" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Lvl10Desc" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Lvl1EntityID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Lvl2EntityID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Lvl3EntityID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Lvl4EntityID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Lvl5EntityID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Lvl6EntityID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Lvl7EntityID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Lvl8EntityID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Lvl9EntityID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Lvl10EntityID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Lvl1EntityDesc" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Lvl2EntityDesc" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Lvl3EntityDesc" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Lvl4EntityDesc" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Lvl5EntityDesc" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Lvl6EntityDesc" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Lvl7EntityDesc" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Lvl8EntityDesc" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Lvl9EntityDesc" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Lvl10EntityDesc" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="TreeOrgUnitID" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="TreeEntityID" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="TreeOrgUnitName" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <Property Name="Attribute1ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Attribute1Desc" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Attribute1Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ETLCreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="ETLCreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+  </EntityType>
+</Schema>

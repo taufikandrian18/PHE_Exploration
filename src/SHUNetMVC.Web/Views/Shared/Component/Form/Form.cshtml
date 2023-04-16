@@ -1,0 +1,176 @@
+﻿@using SHUNetMVC.Abstraction.Model.View;
+@model FormDefinition
+
+@{
+    string CurrentControllerName = Convert.ToString(HttpContext.Current.Request.RequestContext.RouteData.Values["Controller"]);
+    var formUrl = CurrentControllerName;
+    var modalTitle = $"Add New {Model.Title}";
+    if (Model.State == FormState.Create)
+    {
+        formUrl = CurrentControllerName + "/Create";
+    }
+    else
+    {
+        modalTitle = $"Edit {Model.Title}";
+        formUrl = CurrentControllerName + "/Edit";
+    }
+
+}
+
+
+<form action="@formUrl" id="GeneralInfo" method="post" onsubmit="event.preventDefault()" form-state="@Model.State">
+    <div class="modal-body">
+        <div>
+            @{
+                var formSectionIdx = 0;
+            }
+            @foreach (var fieldSection in Model.FieldSections)
+            {
+                formSectionIdx++;
+
+                if (string.IsNullOrEmpty(fieldSection.SectionName))
+                {
+                    <div class="mb-3">
+                        @Html.Partial("Component/Form/_Fields", fieldSection.Fields)
+                    </div>
+                }
+                else
+                {
+                    <div class="accordion mb-3">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#formSection_@formSectionIdx">
+                                    @fieldSection.SectionName
+                                </button>
+                            </h2>
+                            <div id="formSection_@formSectionIdx" class="accordion-collapse collapse show">
+                                <div class="accordion-body">
+                                    @Html.Partial("Component/Form/_Fields", fieldSection.Fields)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+    <!--<div class="modal-footer">
+
+    </div>-->
+    <div class="modal-block-overlay"></div>
+</form>
+
+
+@* PREPARE MODAL GRID LOOKUP*@
+<div class="modal-content modal-lookup">
+    <div class="modal-header">
+        <h5 class="modal-title">Select <span id="lookup-title">Select Item</span></h5>
+        <button type="button" class="btn-close" onclick="hideLookupModal()"></button>
+    </div>
+    <div class="modal-body">
+
+    </div>
+</div>
+<script type="text/javascript">
+    function ImgPreOnePagerMontage(input) {
+        debugger
+        if (input.files[0]) {
+            var uploadimg = new FileReader();
+            if (input.files[0].type != 'image/jpeg') {
+                document.getElementById("preview_OnePagerMontage").innerHTML = '';
+                document.getElementById("preview_OnePagerMontage").innerHTML +=
+                    "<a id='OnePagerMontage_ImgPreview' href='#'>" + input.files[0].name +"</a>";
+                uploadimg.readAsDataURL(input.files[0]);
+                $("#OnePagerMontage_ImgPreview").show();
+                $("#btnOnePagerMontage").show();
+            }
+            else {
+                document.getElementById("preview_OnePagerMontage").innerHTML = '';
+                document.getElementById("preview_OnePagerMontage").innerHTML +=
+                    "<img id='OnePagerMontage_ImgPreview' width='150' height='200' />";
+                uploadimg.onload = function (displayimg) {
+                    $("#OnePagerMontage_ImgPreview").attr('src', displayimg.target.result);
+                }
+                uploadimg.readAsDataURL(input.files[0]);
+                $("#OnePagerMontage_ImgPreview").show();
+                $("#btnOnePagerMontage").show();
+            }
+        }
+    }
+    function ImgPreStructureOutline(input) {
+        debugger
+        if (input.files[0]) {
+            var uploadimg = new FileReader();
+            if (input.files[0].type != 'image/jpeg') {
+                document.getElementById("preview_StructureOutline").innerHTML = '';
+                document.getElementById("preview_StructureOutline").innerHTML +=
+                    "<a id='StructureOutline_ImgPreview' href='#'>" + input.files[0].name + "</a>";
+                uploadimg.readAsDataURL(input.files[0]);
+                $("#StructureOutline_ImgPreview").show();
+                $("#btnStructureOutline").show();
+            }
+            else {
+                document.getElementById("preview_StructureOutline").innerHTML = '';
+                document.getElementById("preview_StructureOutline").innerHTML +=
+                    "<img id='StructureOutline_ImgPreview' width='150' height='200' />";
+                uploadimg.onload = function (displayimg) {
+                    $("#StructureOutline_ImgPreview").attr('src', displayimg.target.result);
+                }
+                uploadimg.readAsDataURL(input.files[0]);
+                $("#StructureOutline_ImgPreview").show();
+                $("#btnStructureOutline").show();
+            }
+        }
+    }
+    function ClearOnePagerMontage() {
+        debugger
+        $("#OnePagerMontage").val('');
+        $("#OnePagerMontage_ImgPreview").val('');
+        $("#preview_OnePagerMontage").html('');
+        $("#btnOnePagerMontage").hide();
+        $("#OnePagerMontage_tmp").val($("#fileID_OnePagerMontage").val());
+    }
+    function ClearStructureOutline() {
+        $("#StructureOutline").val('');
+        $("#StructureOutline_ImgPreview").val('');
+        $("#preview_StructureOutline").html('');
+        $("#btnStructureOutline").hide();
+        $("#StructureOutline_tmp").val($("#fileID_StructureOutline").val());
+    }
+    jQuery(document).ready(function () {
+            setTimeout(function () {
+                if (document.getElementById("fileType_OnePagerMontage").value == '') {
+                    $("#OnePagerMontage_ImgPreview").hide();
+                    $("#btnOnePagerMontage").hide();
+                }
+                else {
+                    if (document.getElementById("fileType_OnePagerMontage").value == '.jpg' || document.getElementById("fileType_OnePagerMontage").value == '.jpeg') {
+                        document.getElementById("preview_OnePagerMontage").innerHTML +=
+                            "<img id='OnePagerMontage_ImgPreview' src='" + document.getElementById("fileUrl_OnePagerMontage").value + "' width='150' height='200'>";
+                        $("#btnOnePagerMontage").show();
+                    }
+                    else {
+                        document.getElementById("preview_OnePagerMontage").innerHTML +=
+                            "<a id='OnePagerMontage_ImgPreview' href='" + document.getElementById("fileUrl_OnePagerMontage").value + "'>" + document.getElementById("fileName_OnePagerMontage").value + "</a>";
+                        $("#btnOnePagerMontage").show();
+                    }
+                }
+                if (document.getElementById("fileType_StructureOutline").value == '') {
+                    $("#StructureOutline_ImgPreview").hide();
+                    $("#btnStructureOutline").hide();
+                }
+                else {
+                    if (document.getElementById("fileType_StructureOutline").value == '.jpg' || document.getElementById("fileType_StructureOutline").value == '.jpeg') {
+                        document.getElementById("preview_StructureOutline").innerHTML +=
+                            "<img id='StructureOutline_ImgPreview' src='" + document.getElementById("fileUrl_StructureOutline").value + "' width='150' height='200'>";
+                        $("#btnStructureOutline").show();
+                    }
+                    else {
+                        document.getElementById("preview_StructureOutline").innerHTML +=
+                            "<a id='StructureOutline_ImgPreview' href='" + document.getElementById("fileUrl_StructureOutline").value + "'>" + document.getElementById("fileName_StructureOutline").value + "</a>";
+                        $("#btnStructureOutline").show();
+                    }
+                }
+        }, 1000);
+    });
+</script>

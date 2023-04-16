@@ -1,0 +1,734 @@
+﻿<div class="table-title">
+    <div class="heading-Text">
+        Pencatatan Sumber Daya <span id="crud-grid-count"></span>
+    </div>
+    <div class="table-subtitle">
+        Exploration Structure / Buka Draft Baru
+    </div>
+</div>
+<div class="gridlist">
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link disabled active" data-bs-toggle="tab" href="#generalinfo">General Info</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled" data-bs-toggle="tab" href="#prospectiveresources">Prospective Resources</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled" data-bs-toggle="tab" href="#contingentresources">Contingent Resources</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled" data-bs-toggle="tab" href="#drilling">Drilling</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled" data-bs-toggle="tab" href="#economic">Economic</a>
+        </li>
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div class="tab-pane active" id="generalinfo" style="margin-left:10px;">
+            @{Html.RenderAction("Create", "GeneralInfo");}
+            <div class="modal-footer" style="margin-top:10px">
+                <button type="button" class="btn btn-outline-primary" onclick="location.href='@Url.Action("Index", "ExplorationStructure")'" style="width: 90px; margin-right: 10px">Discard</button>
+                <button type="button" class="btn btn-outline-primary" onclick="location.href='@Url.Action("Index", "ExplorationStructure")'" style="width:200px;margin-right:10px">Save Draft and Exit</button>
+                <a class="btn btn-primary btnNext" style="margin-right:50px">Next</a>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="prospectiveresources">
+            @{Html.RenderAction("EditingCustom", "ProsResources");}
+            <div class="modal-footer" style="margin-top:10px">
+                <button type="button" class="btn btn-outline-primary" onclick="location.href='@Url.Action("Index", "ExplorationStructure")'" style="width: 90px; margin-right: 10px">Discard</button>
+                <button type="button" class="btn btn-outline-primary" onclick="location.href='@Url.Action("Index", "ExplorationStructure")'" style="width:200px;margin-right:10px">Save Draft and Exit</button>
+                <a class="btn btn-primary btnPrevious" style="margin-right:10px">Back</a>
+                <a class="btn btn-primary btnNext" style="margin-right:50px">Next</a>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="contingentresources">
+            @{Html.RenderAction("EditingCustomCR", "ContingenResources");}
+            <div class="modal-footer" style="margin-top:10px">
+                <button type="button" class="btn btn-outline-primary" onclick="location.href='@Url.Action("Index", "ExplorationStructure")'" style="width: 90px; margin-right: 10px">Discard</button>
+                <button type="button" class="btn btn-outline-primary" onclick="location.href='@Url.Action("Index", "ExplorationStructure")'" style="width:200px;margin-right:10px">Save Draft and Exit</button>
+                <a class="btn btn-primary btnPrevious" style="margin-right:10px">Back</a>
+                <a class="btn btn-primary btnNext" style="margin-right:50px">Next</a>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="drilling">
+            @{Html.RenderAction("EditingCustomDR", "Drilling");}
+            <div class="modal-footer" style="margin-top:10px">
+                <button type="button" class="btn btn-outline-primary" onclick="location.href='@Url.Action("Index", "ExplorationStructure")'" style="width: 90px; margin-right: 10px ">Discard</button>
+                <button type="button" class="btn btn-outline-primary" onclick="location.href='@Url.Action("Index", "ExplorationStructure")'" style="width:200px;margin-right:10px">Save Draft and Exit</button>
+                <a class="btn btn-primary btnPrevious" style="margin-right:10px">Back</a>
+                <a class="btn btn-primary btnNext" style="margin-right:50px">Next</a>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="economic">
+            @{Html.RenderAction("Create", "Economic");}
+            <div class="modal-footer" style="margin-top:10px">
+                <button type="button" class="btn btn-outline-primary" onclick="location.href='@Url.Action("Index", "ExplorationStructure")'" style="width: 90px; margin-right: 10px">Discard</button>
+                <a class="btn btn-primary btnPrevious" style="margin-right:10px">Back</a>
+                <button type="submit" class="btn btn-primary" onclick="location.href='@Url.Action("Index", "ExplorationStructure")'" style="width: 90px; margin-right: 50px">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+@*MODAL CONTAINER Grid*@
+<div id="QuickFindModalGrid" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-body">
+                @(Html.Kendo().Grid<SHUNetMVC.Abstraction.Model.Dto.MDEntityDto>()
+                    .Name("rowSelection")
+                    .Events(events => events.Change("Grid_OnRowSelect"))
+                    .Columns(columns => {
+                        columns.Bound(o => o.EffectiveYear).Width(300);
+                        columns.Bound(p => p.SubholdingID).Width(300);
+                        columns.Bound(o => o.RegionalID).Width(300);
+                        columns.Bound(p => p.ZonaID).Width(300);
+                        columns.Bound(o => o.xBlockID).Width(300);
+                        columns.Bound(p => p.BasinID).Width(300);
+                        columns.Bound(p => p.xAssetID).Width(300);
+                        columns.Bound(p => p.APHID).Width(300);
+                        columns.Bound(p => p.xAreaID).Width(300);
+                    })
+                    .Pageable(pageable => pageable.ButtonCount(5))
+                    .Selectable(selectable => selectable
+                        .Mode(GridSelectionMode.Single))
+                    .PersistSelection(true)
+                    .Navigatable()
+                    .DataSource(dataSource => dataSource
+                        .Ajax()
+                        .Model(m=>m.Id("EffectiveYear"))
+                        .PageSize(30)
+                        .Read(read => read.Action("Selection_Orders_Read", "GeneralInfo").Data("getClientEffectiveYear"))
+                     )
+                )
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    let QuickFindModalGrid;
+
+    function showQuickFindDialogGrid() {
+        if (!QuickFindModalGrid) {
+            let modalId = "#QuickFindModalGrid";
+
+            let modalElement = $(modalId);
+            quickFindModal = new bootstrap.Modal(modalElement);
+        }
+        quickFindModal.show();
+    }
+
+    function getClientEffectiveYear() {
+        var queryStringParameters = document.getElementById('EffectiveYear').value
+        return {
+            Data: queryStringParameters
+        };
+    }
+
+
+    Grid_OnRowSelect = function (e) {
+        var data = this.dataItem(this.select());
+        var regId = data.RegionalID;
+        var zonId = data.ZonaID;
+        var blcId = data.xBlockID;
+        var basId = data.BasinID;
+        var astId = data.xAssetID;
+        var aphId = data.APHID;
+        var areaId = data.xAreaID;
+        var param = {
+            regId,
+            zonId,
+            blcId,
+            basId,
+            astId,
+            aphId,
+            areaId
+        };
+        $.get('GeneralInfo/GenerateGeneralInfoDropDownLst', param, function (MPEntityListITem) {
+
+            var $selectExplorationAreaParID = $('#ExplorationAreaParID');
+            $selectExplorationAreaParID.html('');
+            $selectExplorationAreaParID.append("<option value=\"" + areaId + "\">" + MPEntityListITem.AreaName + "</option>");
+
+            var $selectCountriesID = $('#CountriesID');
+            $selectCountriesID.html('');
+            $selectCountriesID.append("<option value=\"" + MPEntityListITem.BlockObject.Country + "\">" + MPEntityListITem.BlockObject.Country + "</option>");
+
+            var $selectRegionalID = $('#RegionalID');
+            $selectRegionalID.html('');
+            $selectRegionalID.append("<option value=\"" + regId + "\">" + MPEntityListITem.Region + "</option>");
+
+            var $selectZonaID = $('#ZonaID');
+            $selectZonaID.html('');
+            $selectZonaID.append("<option value=\"" + zonId + "\">" + MPEntityListITem.Zona + "</option>");
+
+            var $selectBlockID = $('#BlockID');
+            $selectBlockID.html('');
+            $selectBlockID.append("<option value=\"" + blcId + "\">" + MPEntityListITem.BlockObject.BlockName + "</option>");
+
+            $('#APHID').val('');
+            $('#APHID').val(aphId);
+
+            $('#AssetID').val('');
+            $('#AssetID').val(astId);
+
+            var $selectBasinID = $('#BasinID');
+            $selectBasinID.html('');
+            $selectBasinID.append("<option value=\"" + basId + "\">" + MPEntityListITem.BasinName + "</option>");
+
+            var fDateAwardDate = new Date(Date.parse(MPEntityListITem.BlockObject.AwardDate));
+            var MM = fDateAwardDate.getMonth() + 1;   // javascript month start with 0
+            var DD = fDateAwardDate.getDate();
+            var YY = fDateAwardDate.getFullYear();
+            if (MM == 1) MM = "Jan";
+            else if (MM == 2) MM = "Feb";
+            else if (MM == 3) MM = "Mar";
+            else if (MM == 4) MM = "Apr";
+            else if (MM == 5) MM = "Mei";
+            else if (MM == 6) MM = "Jun";
+            else if (MM == 7) MM = "Jul";
+            else if (MM == 8) MM = "Agu";
+            else if (MM == 9) MM = "Sep";
+            else if (MM == 10) MM = "Okt";
+            else if (MM == 11) MM = "Nov";
+            else MM = "Des";
+            if (DD < 10) DD = "0" + DD;
+            var dtAwardDate = DD + "-" + MM + "-" + YY;
+
+            var fDateExpiredDate = new Date(Date.parse(MPEntityListITem.BlockObject.ExpiredDate));
+            var MMex = fDateExpiredDate.getMonth() + 1;   // javascript month start with 0
+            var DDex = fDateExpiredDate.getDate();
+            var YYex = fDateExpiredDate.getFullYear();
+            if (MMex == 1) MMex = "Jan";
+            else if (MMex == 2) MMex = "Feb";
+            else if (MMex == 3) MMex = "Mar";
+            else if (MMex == 4) MMex = "Apr";
+            else if (MMex == 5) MMex = "Mei";
+            else if (MMex == 6) MMex = "Jun";
+            else if (MMex == 7) MMex = "Jul";
+            else if (MMex == 8) MMex = "Agu";
+            else if (MMex == 9) MMex = "Sep";
+            else if (MMex == 10) MMex = "Okt";
+            else if (MMex == 11) MMex = "Nov";
+            else MMex = "Des";
+            if (DDex < 10) DDex = "0" + DDex;
+            var dtExpiredDate = DDex + "-" + MMex + "-" + YYex;
+
+            document.getElementById("AwardDate").value = dtAwardDate;
+            document.getElementById("ExpiredDate").value = dtExpiredDate;
+
+            var $selectxBlockStatusParID = $('#xBlockStatusParID');
+            $selectxBlockStatusParID.val(MPEntityListITem.BlockObject.BlockStatusParID).change();
+
+            $("#OperatorshipStatusParID_" + MPEntityListITem.BlockObject.OperatorshipStatusParID).attr('checked', 'checked');
+            document.getElementById("OperatorName").value = MPEntityListITem.BlockObject.OperatorName;
+        });
+
+        $(function () {
+            $('#QuickFindModalGrid').modal('toggle');
+        });
+    }
+
+    function changeDataSourceGrid() {
+        var grid = $('#rowSelection').data('kendoGrid');
+        grid.dataSource.read();
+    }
+
+    $('.btnNext').click(function () {
+        const nextTabLinkEl = $('.nav-tabs .active').closest('li').find('a')[0];
+        if (nextTabLinkEl.innerHTML == 'General Info') {
+            if (document.getElementById('StructureName').value != ''
+                && document.getElementById('ExplorationTypeParID').value != '0'
+                && document.getElementById('ExplorationAreaParID').value != ''
+                && document.getElementById('CountriesID').value != ''
+                && document.getElementById('RegionalID').value != ''
+                && document.getElementById('ZonaID').value != ''
+                && document.getElementById('BlockID').value != ''
+                && document.getElementById('APHID').value != ''
+                && document.getElementById('AssetID').value != ''
+                && document.getElementById('BasinID').value != '') {
+                // ajax here
+                var valueofddls = document.getElementById('ExplorationTypeParID').value
+                if (valueofddls == '1' || valueofddls == '2' || valueofddls == '3') {
+                    const nextTabLinkEl = $('.nav-tabs .active').closest('li').next('li').find('a')[0];
+                    if (nextTabLinkEl.innerHTML == 'Contingent Resources') {
+                        const nextDoubleTabLinkEl = $('.nav-tabs .active').closest('li').next('li').next('li').find('a')[0];
+                        const nextTab = new bootstrap.Tab(nextDoubleTabLinkEl);
+                        nextTab.show();
+                    }
+                    else {
+                        const nextTab = new bootstrap.Tab(nextTabLinkEl);
+                        nextTab.show();
+                    }
+                }
+                else if (valueofddls == '4') {
+                    if (document.getElementById('StructureName').value != ''
+                        && document.getElementById('ExplorationTypeParID').value != '0'
+                        && document.getElementById('ExplorationAreaParID').value != ''
+                        && document.getElementById('CountriesID').value != ''
+                        && document.getElementById('RegionalID').value != ''
+                        && document.getElementById('ZonaID').value != ''
+                        && document.getElementById('BlockID').value != ''
+                        && document.getElementById('APHID').value != ''
+                        && document.getElementById('AssetID').value != ''
+                        && document.getElementById('BasinID').value != '') {
+                        const nextTabLinkEl = $('.nav-tabs .active').closest('li').next('li').find('a')[0];
+                        if (nextTabLinkEl.innerHTML == 'Prospective Resources') {
+                            const nextDoubleTabLinkEl = $('.nav-tabs .active').closest('li').next('li').next('li').find('a')[0];
+                            const nextTab = new bootstrap.Tab(nextDoubleTabLinkEl);
+                            nextTab.show();
+                        }
+                        else {
+                            const nextTab = new bootstrap.Tab(nextTabLinkEl);
+                            nextTab.show();
+                        }
+                    }
+                    else {
+                        alert('please fill in all form fields.');
+                    }
+                }
+                else {
+                    const nextTabLinkEl = $('.nav-tabs .active').closest('li').next('li').find('a')[0];
+                    const nextTab = new bootstrap.Tab(nextTabLinkEl);
+                    nextTab.show();
+                }
+            }
+            else {
+                alert('please fill in all form fields.');
+            }
+        }
+        else if (nextTabLinkEl.innerHTML == 'Prospective Resources') {
+            const gridObjectiveTarget = $('#grid').data('kendoGrid');
+            var result = true;
+            if ($('#grid').data().kendoGrid.editable != null) {
+                result = $('#grid').data().kendoGrid.editable.validatable.validate();
+            }
+            for (let i = 0; i < gridObjectiveTarget._data.length; i++) {
+                var firstItem = gridObjectiveTarget._data[i];
+                if (firstItem["TargetName"] != '' && firstItem["HydrocarbonTypeParID"] != '') {
+                    result = true;
+                }
+                else {
+                    result = false;
+                }
+            }
+
+            if (document.getElementById('recoverableResourceOption').value != '0'
+                && document.getElementById('current').value != ''
+                && document.getElementById('expected').value != ''
+                && gridObjectiveTarget._data.length > 0
+                && result) {
+                var valueofddls = document.getElementById('ExplorationTypeParID').value
+                if (valueofddls == '1' || valueofddls == '2' || valueofddls == '3') {
+                    const nextTabLinkEl = $('.nav-tabs .active').closest('li').next('li').find('a')[0];
+                    if (nextTabLinkEl.innerHTML == 'Contingent Resources') {
+                        const nextDoubleTabLinkEl = $('.nav-tabs .active').closest('li').next('li').next('li').find('a')[0];
+                        const nextTab = new bootstrap.Tab(nextDoubleTabLinkEl);
+                        nextTab.show();
+                    }
+                    else {
+                        const nextTab = new bootstrap.Tab(nextTabLinkEl);
+                        nextTab.show();
+                    }
+                }
+                else if (valueofddls == '4') {
+                    if (document.getElementById('UDSubClassificationParID').value != ''
+                        && document.getElementById('StructureName').value != ''
+                        && document.getElementById('ExplorationTypeParID').value != '0'
+                        && document.getElementById('ExplorationAreaParID').value != ''
+                        && document.getElementById('CountriesID').value != ''
+                        && document.getElementById('RegionalID').value != ''
+                        && document.getElementById('ZonaID').value != ''
+                        && document.getElementById('BlockID').value != ''
+                        && document.getElementById('APHID').value != ''
+                        && document.getElementById('AssetID').value != ''
+                        && document.getElementById('BasinID').value != '') {
+                        const nextTabLinkEl = $('.nav-tabs .active').closest('li').next('li').find('a')[0];
+                        if (nextTabLinkEl.innerHTML == 'Prospective Resources') {
+                            const nextDoubleTabLinkEl = $('.nav-tabs .active').closest('li').next('li').next('li').find('a')[0];
+                            const nextTab = new bootstrap.Tab(nextDoubleTabLinkEl);
+                            nextTab.show();
+                        }
+                        else {
+                            const nextTab = new bootstrap.Tab(nextTabLinkEl);
+                            nextTab.show();
+                        }
+                    }
+                    else {
+                        alert('please fill in all form fields.');
+                    }
+                }
+                else {
+                    const nextTabLinkEl = $('.nav-tabs .active').closest('li').next('li').find('a')[0];
+                    const nextTab = new bootstrap.Tab(nextTabLinkEl);
+                    nextTab.show();
+                }
+            }
+            else {
+                alert('please fill in all form fields.');
+            }
+        }
+        else {
+            if (nextTabLinkEl.innerHTML == 'Drilling') {
+                var valueofddls = document.getElementById('ExplorationTypeParID').value
+                if (valueofddls == '3') {
+                    const gridDrilling = $('#gridDrl').data('kendoGrid');
+                    var result = true;
+                    if ($('#gridDrl').data().kendoGrid.editable != null) {
+                        result = $('#gridDrl').data().kendoGrid.editable.validatable.validate();
+                    }
+                    for (let i = 0; i < gridDrilling._data.length; i++) {
+                        var firstItem = gridDrilling._data[i];
+                        if (firstItem["WellName"] != ''
+                            && firstItem["DrillingLocation"] != ''
+                            && firstItem["RigTypeParID"] != ''
+                            && firstItem["WellTypeParID"] != ''
+                            && firstItem["ExpectedDrillingDate"] != '') {
+                            result = true;
+                        }
+                        else {
+                            result = false;
+                        }
+                    }
+                    if (gridDrilling._data.length > 0 && result) {
+                        const nextTabLinkEl = $('.nav-tabs .active').closest('li').next('li').find('a')[0];
+                        if (nextTabLinkEl.innerHTML == 'Prospective Resources') {
+                            const nextDoubleTabLinkEl = $('.nav-tabs .active').closest('li').next('li').next('li').find('a')[0];
+                            const nextTab = new bootstrap.Tab(nextDoubleTabLinkEl);
+                            nextTab.show();
+                        }
+                        else {
+                            const nextTab = new bootstrap.Tab(nextTabLinkEl);
+                            nextTab.show();
+                        }
+                    }
+                    else {
+                        alert('please fill in all form fields.');
+                    }
+                }
+                else {
+                    var valueofddls = document.getElementById('ExplorationTypeParID').value
+                    if (valueofddls == '1' || valueofddls == '2' || valueofddls == '3') {
+                        const nextTabLinkEl = $('.nav-tabs .active').closest('li').next('li').find('a')[0];
+                        if (nextTabLinkEl.innerHTML == 'Contingent Resources') {
+                            const nextDoubleTabLinkEl = $('.nav-tabs .active').closest('li').next('li').next('li').find('a')[0];
+                            const nextTab = new bootstrap.Tab(nextDoubleTabLinkEl);
+                            nextTab.show();
+                        }
+                        else {
+                            const nextTab = new bootstrap.Tab(nextTabLinkEl);
+                            nextTab.show();
+                        }
+                    }
+                    else if (valueofddls == '4') {
+                        const nextTabLinkEl = $('.nav-tabs .active').closest('li').next('li').find('a')[0];
+                        if (nextTabLinkEl.innerHTML == 'Prospective Resources') {
+                            const nextDoubleTabLinkEl = $('.nav-tabs .active').closest('li').next('li').next('li').find('a')[0];
+                            const nextTab = new bootstrap.Tab(nextDoubleTabLinkEl);
+                            nextTab.show();
+                        }
+                        else {
+                            const nextTab = new bootstrap.Tab(nextTabLinkEl);
+                            nextTab.show();
+                        }
+                    }
+                    else {
+                        const nextTabLinkEl = $('.nav-tabs .active').closest('li').next('li').find('a')[0];
+                        const nextTab = new bootstrap.Tab(nextTabLinkEl);
+                        nextTab.show();
+                    }
+                }
+            }
+            else {
+                if (nextTabLinkEl.innerHTML == 'Contingent Resources') {
+                    const gridContingent = $('#gridCont').data('kendoGrid');
+                    var result = true;
+                    if ($('#gridCont').data().kendoGrid.editable != null) {
+                        result = $('#gridCont').data().kendoGrid.editable.validatable.validate();
+                    }
+                    for (let i = 0; i < gridContingent._data.length; i++) {
+                        var firstItem = gridContingent._data[i];
+                        if (firstItem["ExplorationStructureName"] != '') {
+                            result = true;
+                        }
+                        else {
+                            result = false;
+                        }
+                    }
+                    if (result) {
+                        var valueofddls = document.getElementById('ExplorationTypeParID').value
+                        if (valueofddls == '1' || valueofddls == '2' || valueofddls == '3') {
+                            const nextTabLinkEl = $('.nav-tabs .active').closest('li').next('li').find('a')[0];
+                            if (nextTabLinkEl.innerHTML == 'Contingent Resources') {
+                                const nextDoubleTabLinkEl = $('.nav-tabs .active').closest('li').next('li').next('li').find('a')[0];
+                                const nextTab = new bootstrap.Tab(nextDoubleTabLinkEl);
+                                nextTab.show();
+                            }
+                            else {
+                                const nextTab = new bootstrap.Tab(nextTabLinkEl);
+                                nextTab.show();
+                            }
+                        }
+                        else if (valueofddls == '4') {
+                            const nextTabLinkEl = $('.nav-tabs .active').closest('li').next('li').find('a')[0];
+                            if (nextTabLinkEl.innerHTML == 'Prospective Resources') {
+                                const nextDoubleTabLinkEl = $('.nav-tabs .active').closest('li').next('li').next('li').find('a')[0];
+                                const nextTab = new bootstrap.Tab(nextDoubleTabLinkEl);
+                                nextTab.show();
+                            }
+                            else {
+                                const nextTab = new bootstrap.Tab(nextTabLinkEl);
+                                nextTab.show();
+                            }
+                        }
+                        else {
+                            const nextTabLinkEl = $('.nav-tabs .active').closest('li').next('li').find('a')[0];
+                            const nextTab = new bootstrap.Tab(nextTabLinkEl);
+                            nextTab.show();
+                        }
+                    } else {
+                        alert('please fill in all form fields.');
+                    }
+                } else {
+                    var valueofddls = document.getElementById('ExplorationTypeParID').value
+                    if (valueofddls == '1' || valueofddls == '2' || valueofddls == '3') {
+                        const nextTabLinkEl = $('.nav-tabs .active').closest('li').next('li').find('a')[0];
+                        if (nextTabLinkEl.innerHTML == 'Contingent Resources') {
+                            const nextDoubleTabLinkEl = $('.nav-tabs .active').closest('li').next('li').next('li').find('a')[0];
+                            const nextTab = new bootstrap.Tab(nextDoubleTabLinkEl);
+                            nextTab.show();
+                        }
+                        else {
+                            const nextTab = new bootstrap.Tab(nextTabLinkEl);
+                            nextTab.show();
+                        }
+                    }
+                    else if (valueofddls == '4') {
+                        const nextTabLinkEl = $('.nav-tabs .active').closest('li').next('li').find('a')[0];
+                        if (nextTabLinkEl.innerHTML == 'Prospective Resources') {
+                            const nextDoubleTabLinkEl = $('.nav-tabs .active').closest('li').next('li').next('li').find('a')[0];
+                            const nextTab = new bootstrap.Tab(nextDoubleTabLinkEl);
+                            nextTab.show();
+                        }
+                        else {
+                            const nextTab = new bootstrap.Tab(nextTabLinkEl);
+                            nextTab.show();
+                        }
+                    }
+                    else {
+                        const nextTabLinkEl = $('.nav-tabs .active').closest('li').next('li').find('a')[0];
+                        const nextTab = new bootstrap.Tab(nextTabLinkEl);
+                        nextTab.show();
+                    }
+                }
+            }
+        }
+    });
+
+    $('.btnPrevious').click(function () {
+        var valueofddls = document.getElementById('ExplorationTypeParID').value
+        if (valueofddls == '1' || valueofddls == '2' || valueofddls == '3') {
+            const prevTabLinkEl = $('.nav-tabs .active').closest('li').prev('li').find('a')[0];
+            if (prevTabLinkEl.innerHTML == 'Contingent Resources') {
+                const prevDoubleTabLinkEl = $('.nav-tabs .active').closest('li').prev('li').prev('li').find('a')[0];
+                const prevTab = new bootstrap.Tab(prevDoubleTabLinkEl);
+                prevTab.show();
+            }
+            else {
+                const prevTab = new bootstrap.Tab(prevTabLinkEl);
+                prevTab.show();
+            }
+        }
+        else if (valueofddls == '4') {
+            const prevTabLinkEl = $('.nav-tabs .active').closest('li').prev('li').find('a')[0];
+            if (prevTabLinkEl.innerHTML == 'Prospective Resources') {
+                const prevDoubleTabLinkEl = $('.nav-tabs .active').closest('li').prev('li').prev('li').find('a')[0];
+                const prevTab = new bootstrap.Tab(prevDoubleTabLinkEl);
+                prevTab.show();
+            }
+            else {
+                const prevTab = new bootstrap.Tab(prevTabLinkEl);
+                prevTab.show();
+            }
+        }
+        else {
+            const prevTabLinkEl = $('.nav-tabs .active').closest('li').prev('li').find('a')[0];
+            const prevTab = new bootstrap.Tab(prevTabLinkEl);
+            prevTab.show();
+        }
+    });
+
+    function handlePhase() {
+
+        var dropdownId = "ExplorationTypeParID";
+        var transactionValueId = $("#ExplorationTypeParID").val();
+        if (transactionValueId == "4") {
+            var param = {
+                dropdownId,
+                transactionValueId
+            };
+
+            $.get('GeneralInfo/GenerateUDType', param, function (lookupList) {
+                var $select = $('#UDSubTypeParID');
+                $("#UDSubTypeParID").prop("disabled", false);
+                $select.html('');
+
+                for (var i = 0; i < lookupList.length; i++) {
+                    var item = lookupList[i];
+                    if (item.Value) {
+                        $select.append("<option value=\"" + item.Value + "\">" + item.Text + "</option>");
+                    }
+
+                }
+
+            });
+
+            $.get('GeneralInfo/GenerateUDClassification', param, function (lookupList) {
+                var $select = $('#UDClassificationParID');
+                $("#UDClassificationParID").prop("disabled", false);
+                $select.html('');
+
+                for (var i = 0; i < lookupList.length; i++) {
+                    var item = lookupList[i];
+                    if (item.Value) {
+                        $select.append("<option value=\"" + item.Value + "\">" + item.Text + "</option>");
+                    }
+
+                }
+
+            });
+        }
+        else {
+            var $select = $('#UDSubTypeParID');
+            $("#UDSubTypeParID").prop("disabled", true);
+            $select.html('');
+
+            var $select2 = $('#UDClassificationParID');
+            $("#UDClassificationParID").prop("disabled", true);
+            $select2.html('');
+
+            var $select3 = $('#UDSubClassificationParID');
+            $("#UDSubClassificationParID").prop("disabled", true);
+            $select3.html('');
+        }
+    }
+    function handleSubPhase() {
+
+        var dropdownId = "UDClassificationParID";
+        var transactionValueId = $("#UDClassificationParID").val();
+        if (transactionValueId == "K7") {
+            var param = {
+                dropdownId,
+                transactionValueId
+            };
+
+            $.get('GeneralInfo/GenerateUDSubClassification', param, function (lookupList) {
+                var $select = $('#UDSubClassificationParID');
+                $("#UDSubClassificationParID").prop("disabled", false);
+                $select.html('');
+
+                for (var i = 0; i < lookupList.length; i++) {
+                    var item = lookupList[i];
+                    if (item.Value) {
+                        $select.append("<option value=\"" + item.Value + "\">" + item.Text + "</option>");
+                    }
+
+                }
+
+            });
+        }
+        else {
+            var $select = $('#UDSubClassificationParID');
+            $("#UDSubClassificationParID").prop("disabled", true);
+            $select.html('');
+        }
+    }
+
+    function blockdate_changed() {
+        var dvalue = this.value();
+        var fDate = new Date(Date.parse(dvalue));
+        var MM = fDate.getMonth() + 1;   // javascript month start with 0
+        var DD = fDate.getDate();
+        var YY = fDate.getFullYear();
+        if (MM == 1) MM = "Jan";
+        else if (MM == 2) MM = "Feb";
+        else if (MM == 3) MM = "Mar";
+        else if (MM == 4) MM = "Apr";
+        else if (MM == 5) MM = "Mei";
+        else if (MM == 6) MM = "Jun";
+        else if (MM == 7) MM = "Jul";
+        else if (MM == 8) MM = "Agu";
+        else if (MM == 9) MM = "Sep";
+        else if (MM == 10) MM = "Okt";
+        else if (MM == 11) MM = "Nov";
+        else MM = "Des";
+        if (DD < 10) DD = "0" + DD;
+        var dtEnd = DD + "-" + MM + "-" + YY;
+        document.getElementById(this.element[0].id).value = dtEnd;
+    }
+
+    (function ($, kendo) {
+        $.extend(true, kendo.ui.validator, {
+            rules: {
+                AorBRequired: function (input, params) {
+                    if (input.is("#TargetName") || input.is("#HydrocarbonTypeParID")) {
+                        var grid = $('#grid').data("kendoGrid");
+                        var dataItem = grid.dataItem($(".k-grid-edit-row"));
+                        input.attr("data-AorBRequired-msg", "You must enter Target Name or Hydrocarbon Type");
+                        //Compare input value of A to dataItem value of B and vice-versa
+                        //In-cell grid only allows us to enter edit for one cell at a time thus we cannot compare two inputs directly
+                        if (input.is("#TargetName")) {
+                            return !($("#TargetName").val() === '');
+                        } else if (input.is("#HydrocarbonTypeParID")) {
+                            return !($("#HydrocarbonTypeParID").val() === '');
+                        }
+                    }
+                    if (input.is("#WellName") || input.is("#DrillingLocation") || input.is("#RigTypeParID") || input.is("#WellTypeParID") || input.is("#ExpectedDrillingDate")) {
+                        var grid = $('#gridDrl').data("kendoGrid");
+                        var dataItem = grid.dataItem($(".k-grid-edit-row"));
+                        input.attr("data-AorBRequired-msg", "You must enter Well Name or Drilling Location or Rig Type or Well Type or Expected Drilling Date");
+                        //Compare input value of A to dataItem value of B and vice-versa
+                        //In-cell grid only allows us to enter edit for one cell at a time thus we cannot compare two inputs directly
+                        if (input.is("#WellName")) {
+                            return !($("#WellName").val() === '');
+                        } else if (input.is("#DrillingLocation")) {
+                            return !($("#DrillingLocation").val() === '');
+                        }
+                        else if (input.is("#RigTypeParID")) {
+                            return !($("#RigTypeParID").val() === '');
+                        }
+                        else if (input.is("#WellTypeParID")) {
+                            return !($("#WellTypeParID").val() === '');
+                        }
+                        else if (input.is("#ExpectedDrillingDate")) {
+                            return !($("#ExpectedDrillingDate").val() === '');
+                        }
+
+                    }
+                    if (input.is("#ExplorationStructureName")) {
+                        var grid = $('#gridCont').data("kendoGrid");
+                        var dataItem = grid.dataItem($(".k-grid-edit-row"));
+                        input.attr("data-AorBRequired-msg", "You must enter Exploration Structure Name");
+                        //Compare input value of A to dataItem value of B and vice-versa
+                        //In-cell grid only allows us to enter edit for one cell at a time thus we cannot compare two inputs directly
+                        if (input.is("#ExplorationStructureName")) {
+                            return !($("#ExplorationStructureName").val() === '');
+                        }
+                    }
+                    return true;
+                }
+            },
+            messages: {
+                customrequired: function (input) {
+                    return input.attr("data-val-customrequired");
+                },
+                AorBRequired: function (input) {
+                    return input.attr("data-val-AorBRequired");
+                }
+            }
+        });
+    })(jQuery, kendo);
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>

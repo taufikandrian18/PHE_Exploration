@@ -1,0 +1,262 @@
+﻿@using Kendo.Mvc.UI
+@using SHUNetMVC.Abstraction.Model.View;
+@model FormDefinition
+@{
+    string CurrentControllerName = Convert.ToString(HttpContext.Current.Request.RequestContext.RouteData.Values["Controller"]);
+    var formUrl = CurrentControllerName;
+    var modalTitle = $"Add New {Model.Title}";
+    var formState = "create";
+    if (Model.State == FormState.Create)
+    {
+        formUrl = Model.Title + "/Create";
+    }
+    else
+    {
+        formState = "edit";
+        modalTitle = $"Edit {Model.Title}";
+        formUrl = Model.Title + "/Edit";
+    }
+
+}
+<style>
+    .k-grid-header, .k-grid-header .k-header {
+        background-color: #D6E7F3;
+        border-color: #A5CAE6;
+    }
+
+    .k-grid-toolbar {
+        background-color: #D6E7F3;
+        border-color: #A5CAE6;
+    }
+
+    .k-button {
+        background-color: #D6E7F3;
+        border-color: #A5CAE6;
+        transition-duration: 0.4s;
+    }
+
+    .k-button:hover {
+        background-color: #8fa2b1;
+        border-color: #A5CAE6;
+    }
+</style>
+<form action="@formUrl" method="post" onsubmit="event.preventDefault()" form-state="@Model.State">
+    <div class="table-title">
+        <div class="heading-Text">
+            Volumetric Data
+        </div>
+        <div class="table-subtitle">
+            This is the list of Volumetric
+        </div>
+    </div>
+    <div class="modal-body">
+        <input id="formState" type="hidden" value="@formState" />
+        <input id="paramID" type="hidden" value="@Model.paramID" />
+        <div>
+            @(Html.Kendo().Grid<SHUNetMVC.Abstraction.Model.Dto.TXESDCVolumetricDto>()
+            .Name("gridESDCVolumetric")
+            .Columns(columns =>
+            {
+                columns.Bound(p => p.xStructureID).Width(100);
+                columns.Group(group => group
+                    .HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" })
+                    .Title("Uncertainty Level")
+                    .Columns(info =>
+                    {
+                        info.Bound(c => c.UncertaintyLevel).Width(300).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" }).Editable("returnFalse");
+                    })
+                );
+                columns.Group(group0 => group0
+                    .HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" })
+                    .Title("Reserves Previous")
+                    .Columns(info =>
+                    {
+                        info.Bound(c => c.ReservesPrevOil).Width(300).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.ReservesPrevCondensate).Width(300).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.ReservesPrevAssociated).Width(300).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.ReservesPrevNonAssociated).Width(300).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                    })
+                );
+                columns.Group(group1 => group1
+                    .HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" })
+                    .Title("GRR / CR / PR Previous")
+                    .Columns(info =>
+                    {
+                        info.Bound(c => c.GRRPrevOil).Width(300).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.GRRPrevCondensate).Width(300).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.GRRPrevAssociated).Width(300).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.GRRPrevNonAssociated).Width(300).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                    })
+                );
+                columns.Group(group2 => group2
+                    .HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" })
+                    .Title("GOI Recoverable / CR / PR")
+                    .Columns(info =>
+                    {
+                        info.Bound(c => c.GOIOil).Width(300).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.GOICondensate).Width(300).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.GOIAssociated).Width(300).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.GOINonAssociated).Width(300).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                    })
+                );
+                columns.Group(group3 => group3
+                    .HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" })
+                    .Title("Reserves")
+                    .Columns(info =>
+                    {
+                        info.Bound(c => c.ReservesOil).Width(300).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.ReservesCondensate).Width(300).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.ReservesAssociated).Width(300).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.ReservesNonAssociated).Width(300).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                    })
+                );
+                columns.Bound(p => p.Remarks).Width(300).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+            })
+            .ToolBar(toolBar =>
+            {
+                toolBar.Save();
+            })
+            .Editable(editable => editable.Mode(GridEditMode.InCell))
+            .Pageable()
+            .Selectable(selectable => selectable
+            .Mode(GridSelectionMode.Multiple)
+            .Type(GridSelectionType.Cell))
+            .Navigatable()
+            .AllowCopy(true)
+            .Scrollable(x => x.Height(150))
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .Batch(true)
+                .ServerOperation(false)
+                .Events(events => events.Error("error_handler").Change("onChange"))
+                .Model(model =>
+                {
+                    model.Id(p => p.xStructureID);
+                    model.Field(p => p.xStructureID).Editable(false);
+                })
+                .PageSize(20)
+                .Read(read => read.Action("EditingCustomESDCVolumetric_Read", "ESDCVolumetric").Data("getClientFormStateView"))
+                .Create(create => create.Action("EditingCustomESDCVolumetric_Create", "ESDCVolumetric"))
+                .Update(update => update.Action("EditingCustomESDCVolumetric_Update", "ESDCVolumetric"))
+                .Destroy(destroy => destroy.Action("EditingCustomESDCVolumetric_Destroy", "ESDCVolumetric"))
+            )
+        )
+        </div>
+    </div>
+</form>
+<script type="text/javascript">
+    function error_handler(e) {
+        if (e.errors) {
+            var message = "Errors:\n";
+            $.each(e.errors, function (key, value) {
+                if ('errors' in value) {
+                    $.each(value.errors, function () {
+                        message += this + "\n";
+                    });
+                }
+            });
+            alert(message);
+        }
+    }
+    function returnFalse() {
+        return false;
+    }
+    function onChange(e) {
+        if (e.field == "GRRPrevOil") {
+            var grid = $('#gridESDCVolumetric').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#GRRPrevOil").val();
+            firstItem["GRRPrevOil"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "GRRPrevCondensate") {
+            var grid = $('#gridESDCVolumetric').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#GRRPrevCondensate").val();
+            firstItem["GRRPrevCondensate"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "GRRPrevAssociated") {
+            var grid = $('#gridESDCVolumetric').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#GRRPrevAssociated").val();
+            firstItem["GRRPrevAssociated"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "GRRPrevNonAssociated") {
+            var grid = $('#gridESDCVolumetric').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#GRRPrevNonAssociated").val();
+            firstItem["GRRPrevNonAssociated"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "ReservesPrevOil") {
+            var grid = $('#gridESDCVolumetric').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#ReservesPrevOil").val();
+            firstItem["ReservesPrevOil"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "ReservesPrevCondensate") {
+            var grid = $('#gridESDCVolumetric').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#ReservesPrevCondensate").val();
+            firstItem["ReservesPrevCondensate"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "ReservesPrevAssociated") {
+            var grid = $('#gridESDCVolumetric').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#ReservesPrevAssociated").val();
+            firstItem["ReservesPrevAssociated"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "ReservesPrevNonAssociated") {
+            var grid = $('#gridESDCVolumetric').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#ReservesPrevNonAssociated").val();
+            firstItem["ReservesPrevNonAssociated"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "GOIOil") {
+            var grid = $('#gridESDCVolumetric').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#GOIOil").val();
+            firstItem["GOIOil"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "GOICondensate") {
+            var grid = $('#gridESDCVolumetric').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#GOICondensate").val();
+            firstItem["GOICondensate"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "GOIAssociated") {
+            var grid = $('#gridESDCVolumetric').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#GOIAssociated").val();
+            firstItem["GOIAssociated"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "GOINonAssociated") {
+            var grid = $('#gridESDCVolumetric').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#GOINonAssociated").val();
+            firstItem["GOINonAssociated"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "ReservesOil") {
+            var grid = $('#gridESDCVolumetric').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#ReservesOil").val();
+            firstItem["ReservesOil"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "ReservesCondensate") {
+            var grid = $('#gridESDCVolumetric').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#ReservesCondensate").val();
+            firstItem["ReservesCondensate"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "ReservesAssociated") {
+            var grid = $('#gridESDCVolumetric').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#ReservesAssociated").val();
+            firstItem["ReservesAssociated"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "ReservesNonAssociated") {
+            var grid = $('#gridESDCVolumetric').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#ReservesNonAssociated").val();
+            firstItem["ReservesNonAssociated"] = parseFloat(dvalue).toFixed(2);
+        }
+    }
+</script>

@@ -1,0 +1,73 @@
+﻿@using SHUNetMVC.Abstraction.Model.View;
+@model FormDefinition
+
+@{
+    string CurrentControllerName = Convert.ToString(HttpContext.Current.Request.RequestContext.RouteData.Values["Controller"]);
+    var formUrl = CurrentControllerName;
+    var modalTitle = $"Add New {Model.Title}";
+    if (Model.State == FormState.Create)
+    {
+        formUrl = CurrentControllerName + "/Create";
+    }
+    else
+    {
+        modalTitle = $"Edit {Model.Title}";
+        formUrl = CurrentControllerName + "/Edit";
+    }
+
+}
+
+
+<form action="@formUrl" id="GeneralInfo" method="post" onsubmit="event.preventDefault()" form-state="@Model.State">
+    <div class="modal-body">
+        <div>
+            @{
+                var formSectionIdx = 0;
+            }
+            @foreach (var fieldSection in Model.FieldSections)
+            {
+                formSectionIdx++;
+
+                if (string.IsNullOrEmpty(fieldSection.SectionName))
+                {
+                    <div class="mb-3">
+                        @Html.Partial("Component/Form/_Fields", fieldSection.Fields)
+                    </div>
+                }
+                else
+                {
+                    <div class="accordion mb-3">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#formSection_@formSectionIdx">
+                                    @fieldSection.SectionName
+                                </button>
+                            </h2>
+                            <div id="formSection_@formSectionIdx" class="accordion-collapse collapse show">
+                                <div class="accordion-body">
+                                    @Html.Partial("Component/Form/_Fields", fieldSection.Fields)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+    <!--<div class="modal-footer">
+
+    </div>-->
+    <div class="modal-block-overlay"></div>
+</form>
+
+
+@* PREPARE MODAL GRID LOOKUP*@
+<div class="modal-content modal-lookup">
+    <div class="modal-header">
+        <h5 class="modal-title">Select <span id="lookup-title">Select Item</span></h5>
+        <button type="button" class="btn-close" onclick="hideLookupModal()"></button>
+    </div>
+    <div class="modal-body">
+
+    </div>
+</div>

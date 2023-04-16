@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DB_PHE_HRIS_DEVModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DIM_OrgUnitHierarchy">
+          <Key>
+            <PropertyRef Name="OrgUnitID" />
+          </Key>
+          <Property Name="OrgUnitID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ParentID" Type="varchar" MaxLength="50" />
+          <Property Name="OrgUnitName" Type="varchar" MaxLength="255" />
+          <Property Name="Lvl" Type="int" Nullable="false" />
+          <Property Name="Lvl1ID" Type="varchar" MaxLength="50" />
+          <Property Name="Lvl2ID" Type="varchar" MaxLength="50" />
+          <Property Name="Lvl3ID" Type="varchar" MaxLength="50" />
+          <Property Name="Lvl4ID" Type="varchar" MaxLength="50" />
+          <Property Name="Lvl5ID" Type="varchar" MaxLength="50" />
+          <Property Name="Lvl6ID" Type="varchar" MaxLength="50" />
+          <Property Name="Lvl7ID" Type="varchar" MaxLength="50" />
+          <Property Name="Lvl8ID" Type="varchar" MaxLength="50" />
+          <Property Name="Lvl9ID" Type="varchar" MaxLength="50" />
+          <Property Name="Lvl10ID" Type="varchar" MaxLength="50" />
+          <Property Name="Lvl1Desc" Type="varchar" MaxLength="255" />
+          <Property Name="Lvl2Desc" Type="varchar" MaxLength="255" />
+          <Property Name="Lvl3Desc" Type="varchar" MaxLength="255" />
+          <Property Name="Lvl4Desc" Type="varchar" MaxLength="255" />
+          <Property Name="Lvl5Desc" Type="varchar" MaxLength="255" />
+          <Property Name="Lvl6Desc" Type="varchar" MaxLength="255" />
+          <Property Name="Lvl7Desc" Type="varchar" MaxLength="255" />
+          <Property Name="Lvl8Desc" Type="varchar" MaxLength="255" />
+          <Property Name="Lvl9Desc" Type="varchar" MaxLength="255" />
+          <Property Name="Lvl10Desc" Type="varchar" MaxLength="255" />
+          <Property Name="Lvl1EntityID" Type="varchar" MaxLength="50" />
+          <Property Name="Lvl2EntityID" Type="varchar" MaxLength="50" />
+          <Property Name="Lvl3EntityID" Type="varchar" MaxLength="50" />
+          <Property Name="Lvl4EntityID" Type="varchar" MaxLength="50" />
+          <Property Name="Lvl5EntityID" Type="varchar" MaxLength="50" />
+          <Property Name="Lvl6EntityID" Type="varchar" MaxLength="50" />
+          <Property Name="Lvl7EntityID" Type="varchar" MaxLength="50" />
+          <Property Name="Lvl8EntityID" Type="varchar" MaxLength="50" />
+          <Property Name="Lvl9EntityID" Type="varchar" MaxLength="50" />
+          <Property Name="Lvl10EntityID" Type="varchar" MaxLength="50" />
+          <Property Name="Lvl1EntityDesc" Type="varchar" MaxLength="255" />
+          <Property Name="Lvl2EntityDesc" Type="varchar" MaxLength="255" />
+          <Property Name="Lvl3EntityDesc" Type="varchar" MaxLength="255" />
+          <Property Name="Lvl4EntityDesc" Type="varchar" MaxLength="255" />
+          <Property Name="Lvl5EntityDesc" Type="varchar" MaxLength="255" />
+          <Property Name="Lvl6EntityDesc" Type="varchar" MaxLength="255" />
+          <Property Name="Lvl7EntityDesc" Type="varchar" MaxLength="255" />
+          <Property Name="Lvl8EntityDesc" Type="varchar" MaxLength="255" />
+          <Property Name="Lvl9EntityDesc" Type="varchar" MaxLength="255" />
+          <Property Name="Lvl10EntityDesc" Type="varchar" MaxLength="255" />
+          <Property Name="TreeOrgUnitID" Type="varchar" MaxLength="500" />
+          <Property Name="TreeEntityID" Type="varchar" MaxLength="500" />
+          <Property Name="TreeOrgUnitName" Type="varchar" MaxLength="2000" />
+          <Property Name="Attribute1ID" Type="varchar" MaxLength="50" />
+          <Property Name="Attribute1Desc" Type="varchar" MaxLength="100" />
+          <Property Name="Attribute1Type" Type="varchar" MaxLength="50" />
+          <Property Name="ETLCreatedDate" Type="datetime" />
+          <Property Name="ETLCreatedBy" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityContainer Name="DB_PHE_HRIS_DEVModelStoreContainer">
+          <EntitySet Name="DIM_OrgUnitHierarchy" EntityType="Self.DIM_OrgUnitHierarchy" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DB_PHE_HRIS_DEVModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DB_PHE_HRIS_DEVEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DIM_OrgUnitHierarchy" EntityType="DB_PHE_HRIS_DEVModel.DIM_OrgUnitHierarchy" />
+        </EntityContainer>
+        <EntityType Name="DIM_OrgUnitHierarchy">
+          <Key>
+            <PropertyRef Name="OrgUnitID" />
+          </Key>
+          <Property Name="OrgUnitID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ParentID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OrgUnitName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Lvl" Type="Int32" Nullable="false" />
+          <Property Name="Lvl1ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Lvl2ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Lvl3ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Lvl4ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Lvl5ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Lvl6ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Lvl7ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Lvl8ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Lvl9ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Lvl10ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Lvl1Desc" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Lvl2Desc" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Lvl3Desc" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Lvl4Desc" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Lvl5Desc" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Lvl6Desc" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Lvl7Desc" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Lvl8Desc" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Lvl9Desc" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Lvl10Desc" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Lvl1EntityID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Lvl2EntityID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Lvl3EntityID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Lvl4EntityID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Lvl5EntityID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Lvl6EntityID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Lvl7EntityID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Lvl8EntityID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Lvl9EntityID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Lvl10EntityID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Lvl1EntityDesc" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Lvl2EntityDesc" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Lvl3EntityDesc" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Lvl4EntityDesc" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Lvl5EntityDesc" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Lvl6EntityDesc" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Lvl7EntityDesc" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Lvl8EntityDesc" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Lvl9EntityDesc" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Lvl10EntityDesc" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="TreeOrgUnitID" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="TreeEntityID" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="TreeOrgUnitName" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="Attribute1ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Attribute1Desc" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Attribute1Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ETLCreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ETLCreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DB_PHE_HRIS_DEVModelStoreContainer" CdmEntityContainer="DB_PHE_HRIS_DEVEntities">
+          <EntitySetMapping Name="DIM_OrgUnitHierarchy">
+            <EntityTypeMapping TypeName="DB_PHE_HRIS_DEVModel.DIM_OrgUnitHierarchy">
+              <MappingFragment StoreEntitySet="DIM_OrgUnitHierarchy">
+                <ScalarProperty Name="ETLCreatedBy" ColumnName="ETLCreatedBy" />
+                <ScalarProperty Name="ETLCreatedDate" ColumnName="ETLCreatedDate" />
+                <ScalarProperty Name="Attribute1Type" ColumnName="Attribute1Type" />
+                <ScalarProperty Name="Attribute1Desc" ColumnName="Attribute1Desc" />
+                <ScalarProperty Name="Attribute1ID" ColumnName="Attribute1ID" />
+                <ScalarProperty Name="TreeOrgUnitName" ColumnName="TreeOrgUnitName" />
+                <ScalarProperty Name="TreeEntityID" ColumnName="TreeEntityID" />
+                <ScalarProperty Name="TreeOrgUnitID" ColumnName="TreeOrgUnitID" />
+                <ScalarProperty Name="Lvl10EntityDesc" ColumnName="Lvl10EntityDesc" />
+                <ScalarProperty Name="Lvl9EntityDesc" ColumnName="Lvl9EntityDesc" />
+                <ScalarProperty Name="Lvl8EntityDesc" ColumnName="Lvl8EntityDesc" />
+                <ScalarProperty Name="Lvl7EntityDesc" ColumnName="Lvl7EntityDesc" />
+                <ScalarProperty Name="Lvl6EntityDesc" ColumnName="Lvl6EntityDesc" />
+                <ScalarProperty Name="Lvl5EntityDesc" ColumnName="Lvl5EntityDesc" />
+                <ScalarProperty Name="Lvl4EntityDesc" ColumnName="Lvl4EntityDesc" />
+                <ScalarProperty Name="Lvl3EntityDesc" ColumnName="Lvl3EntityDesc" />
+                <ScalarProperty Name="Lvl2EntityDesc" ColumnName="Lvl2EntityDesc" />
+                <ScalarProperty Name="Lvl1EntityDesc" ColumnName="Lvl1EntityDesc" />
+                <ScalarProperty Name="Lvl10EntityID" ColumnName="Lvl10EntityID" />
+                <ScalarProperty Name="Lvl9EntityID" ColumnName="Lvl9EntityID" />
+                <ScalarProperty Name="Lvl8EntityID" ColumnName="Lvl8EntityID" />
+                <ScalarProperty Name="Lvl7EntityID" ColumnName="Lvl7EntityID" />
+                <ScalarProperty Name="Lvl6EntityID" ColumnName="Lvl6EntityID" />
+                <ScalarProperty Name="Lvl5EntityID" ColumnName="Lvl5EntityID" />
+                <ScalarProperty Name="Lvl4EntityID" ColumnName="Lvl4EntityID" />
+                <ScalarProperty Name="Lvl3EntityID" ColumnName="Lvl3EntityID" />
+                <ScalarProperty Name="Lvl2EntityID" ColumnName="Lvl2EntityID" />
+                <ScalarProperty Name="Lvl1EntityID" ColumnName="Lvl1EntityID" />
+                <ScalarProperty Name="Lvl10Desc" ColumnName="Lvl10Desc" />
+                <ScalarProperty Name="Lvl9Desc" ColumnName="Lvl9Desc" />
+                <ScalarProperty Name="Lvl8Desc" ColumnName="Lvl8Desc" />
+                <ScalarProperty Name="Lvl7Desc" ColumnName="Lvl7Desc" />
+                <ScalarProperty Name="Lvl6Desc" ColumnName="Lvl6Desc" />
+                <ScalarProperty Name="Lvl5Desc" ColumnName="Lvl5Desc" />
+                <ScalarProperty Name="Lvl4Desc" ColumnName="Lvl4Desc" />
+                <ScalarProperty Name="Lvl3Desc" ColumnName="Lvl3Desc" />
+                <ScalarProperty Name="Lvl2Desc" ColumnName="Lvl2Desc" />
+                <ScalarProperty Name="Lvl1Desc" ColumnName="Lvl1Desc" />
+                <ScalarProperty Name="Lvl10ID" ColumnName="Lvl10ID" />
+                <ScalarProperty Name="Lvl9ID" ColumnName="Lvl9ID" />
+                <ScalarProperty Name="Lvl8ID" ColumnName="Lvl8ID" />
+                <ScalarProperty Name="Lvl7ID" ColumnName="Lvl7ID" />
+                <ScalarProperty Name="Lvl6ID" ColumnName="Lvl6ID" />
+                <ScalarProperty Name="Lvl5ID" ColumnName="Lvl5ID" />
+                <ScalarProperty Name="Lvl4ID" ColumnName="Lvl4ID" />
+                <ScalarProperty Name="Lvl3ID" ColumnName="Lvl3ID" />
+                <ScalarProperty Name="Lvl2ID" ColumnName="Lvl2ID" />
+                <ScalarProperty Name="Lvl1ID" ColumnName="Lvl1ID" />
+                <ScalarProperty Name="Lvl" ColumnName="Lvl" />
+                <ScalarProperty Name="OrgUnitName" ColumnName="OrgUnitName" />
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+                <ScalarProperty Name="OrgUnitID" ColumnName="OrgUnitID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DB_PHE_HRIS_DEVModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="DIM_OrgUnitHierarchy">
+    <Key>
+      <PropertyRef Name="OrgUnitID" />
+    </Key>
+    <Property Name="OrgUnitID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ParentID" Type="varchar" MaxLength="50" />
+    <Property Name="OrgUnitName" Type="varchar" MaxLength="255" />
+    <Property Name="Lvl" Type="int" Nullable="false" />
+    <Property Name="Lvl1ID" Type="varchar" MaxLength="50" />
+    <Property Name="Lvl2ID" Type="varchar" MaxLength="50" />
+    <Property Name="Lvl3ID" Type="varchar" MaxLength="50" />
+    <Property Name="Lvl4ID" Type="varchar" MaxLength="50" />
+    <Property Name="Lvl5ID" Type="varchar" MaxLength="50" />
+    <Property Name="Lvl6ID" Type="varchar" MaxLength="50" />
+    <Property Name="Lvl7ID" Type="varchar" MaxLength="50" />
+    <Property Name="Lvl8ID" Type="varchar" MaxLength="50" />
+    <Property Name="Lvl9ID" Type="varchar" MaxLength="50" />
+    <Property Name="Lvl10ID" Type="varchar" MaxLength="50" />
+    <Property Name="Lvl1Desc" Type="varchar" MaxLength="255" />
+    <Property Name="Lvl2Desc" Type="varchar" MaxLength="255" />
+    <Property Name="Lvl3Desc" Type="varchar" MaxLength="255" />
+    <Property Name="Lvl4Desc" Type="varchar" MaxLength="255" />
+    <Property Name="Lvl5Desc" Type="varchar" MaxLength="255" />
+    <Property Name="Lvl6Desc" Type="varchar" MaxLength="255" />
+    <Property Name="Lvl7Desc" Type="varchar" MaxLength="255" />
+    <Property Name="Lvl8Desc" Type="varchar" MaxLength="255" />
+    <Property Name="Lvl9Desc" Type="varchar" MaxLength="255" />
+    <Property Name="Lvl10Desc" Type="varchar" MaxLength="255" />
+    <Property Name="Lvl1EntityID" Type="varchar" MaxLength="50" />
+    <Property Name="Lvl2EntityID" Type="varchar" MaxLength="50" />
+    <Property Name="Lvl3EntityID" Type="varchar" MaxLength="50" />
+    <Property Name="Lvl4EntityID" Type="varchar" MaxLength="50" />
+    <Property Name="Lvl5EntityID" Type="varchar" MaxLength="50" />
+    <Property Name="Lvl6EntityID" Type="varchar" MaxLength="50" />
+    <Property Name="Lvl7EntityID" Type="varchar" MaxLength="50" />
+    <Property Name="Lvl8EntityID" Type="varchar" MaxLength="50" />
+    <Property Name="Lvl9EntityID" Type="varchar" MaxLength="50" />
+    <Property Name="Lvl10EntityID" Type="varchar" MaxLength="50" />
+    <Property Name="Lvl1EntityDesc" Type="varchar" MaxLength="255" />
+    <Property Name="Lvl2EntityDesc" Type="varchar" MaxLength="255" />
+    <Property Name="Lvl3EntityDesc" Type="varchar" MaxLength="255" />
+    <Property Name="Lvl4EntityDesc" Type="varchar" MaxLength="255" />
+    <Property Name="Lvl5EntityDesc" Type="varchar" MaxLength="255" />
+    <Property Name="Lvl6EntityDesc" Type="varchar" MaxLength="255" />
+    <Property Name="Lvl7EntityDesc" Type="varchar" MaxLength="255" />
+    <Property Name="Lvl8EntityDesc" Type="varchar" MaxLength="255" />
+    <Property Name="Lvl9EntityDesc" Type="varchar" MaxLength="255" />
+    <Property Name="Lvl10EntityDesc" Type="varchar" MaxLength="255" />
+    <Property Name="TreeOrgUnitID" Type="varchar" MaxLength="500" />
+    <Property Name="TreeEntityID" Type="varchar" MaxLength="500" />
+    <Property Name="TreeOrgUnitName" Type="varchar" MaxLength="2000" />
+    <Property Name="Attribute1ID" Type="varchar" MaxLength="50" />
+    <Property Name="Attribute1Desc" Type="varchar" MaxLength="100" />
+    <Property Name="Attribute1Type" Type="varchar" MaxLength="50" />
+    <Property Name="ETLCreatedDate" Type="datetime" />
+    <Property Name="ETLCreatedBy" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityContainer Name="DB_PHE_HRIS_DEVModelStoreContainer">
+    <EntitySet Name="DIM_OrgUnitHierarchy" EntityType="Self.DIM_OrgUnitHierarchy" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

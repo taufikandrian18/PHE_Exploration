@@ -1,0 +1,958 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DB_PHE_ExplorationModelStoreContainer" CdmEntityContainer="DB_PHE_ExplorationEntities">
+    <EntitySetMapping Name="MD_BusinessPartner">
+      <EntityTypeMapping TypeName="DB_PHE_ExplorationModel.MD_BusinessPartner">
+        <MappingFragment StoreEntitySet="MD_BusinessPartner">
+          <ScalarProperty Name="PartnerID" ColumnName="PartnerID" />
+          <ScalarProperty Name="PartnerName" ColumnName="PartnerName" />
+          <ScalarProperty Name="ParentBPID" ColumnName="ParentBPID" />
+          <ScalarProperty Name="SAPID" ColumnName="SAPID" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MD_ExplorationArea">
+      <EntityTypeMapping TypeName="DB_PHE_ExplorationModel.MD_ExplorationArea">
+        <MappingFragment StoreEntitySet="MD_ExplorationArea">
+          <ScalarProperty Name="xAreaID" ColumnName="xAreaID" />
+          <ScalarProperty Name="xAreaName" ColumnName="xAreaName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MD_ExplorationAsset">
+      <EntityTypeMapping TypeName="DB_PHE_ExplorationModel.MD_ExplorationAsset">
+        <MappingFragment StoreEntitySet="MD_ExplorationAsset">
+          <ScalarProperty Name="xAssetID" ColumnName="xAssetID" />
+          <ScalarProperty Name="xAssetName" ColumnName="xAssetName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MD_ExplorationBasin">
+      <EntityTypeMapping TypeName="DB_PHE_ExplorationModel.MD_ExplorationBasin">
+        <MappingFragment StoreEntitySet="MD_ExplorationBasin">
+          <ScalarProperty Name="BasinID" ColumnName="BasinID" />
+          <ScalarProperty Name="BasinName" ColumnName="BasinName" />
+          <ScalarProperty Name="MapID" ColumnName="MapID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MD_ExplorationBlock">
+      <EntityTypeMapping TypeName="DB_PHE_ExplorationModel.MD_ExplorationBlock">
+        <MappingFragment StoreEntitySet="MD_ExplorationBlock">
+          <ScalarProperty Name="xBlockID" ColumnName="xBlockID" />
+          <ScalarProperty Name="xBlockName" ColumnName="xBlockName" />
+          <ScalarProperty Name="AwardDate" ColumnName="AwardDate" />
+          <ScalarProperty Name="ExpiredDate" ColumnName="ExpiredDate" />
+          <ScalarProperty Name="xBlockStatusParID" ColumnName="xBlockStatusParID" />
+          <ScalarProperty Name="OperatorshipStatusParID" ColumnName="OperatorshipStatusParID" />
+          <ScalarProperty Name="OperatorName" ColumnName="OperatorName" />
+          <ScalarProperty Name="CountriesID" ColumnName="CountriesID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MD_ExplorationBlockPartner">
+      <EntityTypeMapping TypeName="DB_PHE_ExplorationModel.MD_ExplorationBlockPartner">
+        <MappingFragment StoreEntitySet="MD_ExplorationBlockPartner">
+          <ScalarProperty Name="xBlockID" ColumnName="xBlockID" />
+          <ScalarProperty Name="PartnerID" ColumnName="PartnerID" />
+          <ScalarProperty Name="PartnerName" ColumnName="PartnerName" />
+          <ScalarProperty Name="PI" ColumnName="PI" />
+          <ScalarProperty Name="OperatorshipStatusParID" ColumnName="OperatorshipStatusParID" />
+          <ScalarProperty Name="EffectiveDate" ColumnName="EffectiveDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MD_ExplorationStructure">
+      <EntityTypeMapping TypeName="DB_PHE_ExplorationModel.MD_ExplorationStructure">
+        <MappingFragment StoreEntitySet="MD_ExplorationStructure">
+          <ScalarProperty Name="xStructureID" ColumnName="xStructureID" />
+          <ScalarProperty Name="xStructureName" ColumnName="xStructureName" />
+          <ScalarProperty Name="xStructureStatusParID" ColumnName="xStructureStatusParID" />
+          <ScalarProperty Name="SingleOrMultiParID" ColumnName="SingleOrMultiParID" />
+          <ScalarProperty Name="ExplorationTypeParID" ColumnName="ExplorationTypeParID" />
+          <ScalarProperty Name="SubholdingID" ColumnName="SubholdingID" />
+          <ScalarProperty Name="BasinID" ColumnName="BasinID" />
+          <ScalarProperty Name="RegionalID" ColumnName="RegionalID" />
+          <ScalarProperty Name="ZonaID" ColumnName="ZonaID" />
+          <ScalarProperty Name="APHID" ColumnName="APHID" />
+          <ScalarProperty Name="xAssetID" ColumnName="xAssetID" />
+          <ScalarProperty Name="xBlockID" ColumnName="xBlockID" />
+          <ScalarProperty Name="xAreaID" ColumnName="xAreaID" />
+          <ScalarProperty Name="UDClassificationParID" ColumnName="UDClassificationParID" />
+          <ScalarProperty Name="UDSubClassificationParID" ColumnName="UDSubClassificationParID" />
+          <ScalarProperty Name="UDSubTypeParID" ColumnName="UDSubTypeParID" />
+          <ScalarProperty Name="ExplorationAreaParID" ColumnName="ExplorationAreaParID" />
+          <ScalarProperty Name="CountriesID" ColumnName="CountriesID" />
+          <ScalarProperty Name="Play" ColumnName="Play" />
+          <ScalarProperty Name="StatusData" ColumnName="StatusData" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="MadamTransID" ColumnName="MadamTransID" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MD_ExplorationWell">
+      <EntityTypeMapping TypeName="DB_PHE_ExplorationModel.MD_ExplorationWell">
+        <MappingFragment StoreEntitySet="MD_ExplorationWell">
+          <ScalarProperty Name="xWellID" ColumnName="xWellID" />
+          <ScalarProperty Name="xWellName" ColumnName="xWellName" />
+          <ScalarProperty Name="DrillingLocation" ColumnName="DrillingLocation" />
+          <ScalarProperty Name="RigTypeParID" ColumnName="RigTypeParID" />
+          <ScalarProperty Name="WellTypeParID" ColumnName="WellTypeParID" />
+          <ScalarProperty Name="BHLocationLatitude" ColumnName="BHLocationLatitude" />
+          <ScalarProperty Name="BHLocationLongitude" ColumnName="BHLocationLongitude" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MD_Paramater">
+      <EntityTypeMapping TypeName="DB_PHE_ExplorationModel.MD_Paramater">
+        <MappingFragment StoreEntitySet="MD_Paramater">
+          <ScalarProperty Name="Schema" ColumnName="Schema" />
+          <ScalarProperty Name="ParamID" ColumnName="ParamID" />
+          <ScalarProperty Name="ParamDesc" ColumnName="ParamDesc" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MD_ParamaterList">
+      <EntityTypeMapping TypeName="DB_PHE_ExplorationModel.MD_ParamaterList">
+        <MappingFragment StoreEntitySet="MD_ParamaterList">
+          <ScalarProperty Name="Schema" ColumnName="Schema" />
+          <ScalarProperty Name="ParamID" ColumnName="ParamID" />
+          <ScalarProperty Name="ParamListID" ColumnName="ParamListID" />
+          <ScalarProperty Name="ParamValue1" ColumnName="ParamValue1" />
+          <ScalarProperty Name="ParamValue1Text" ColumnName="ParamValue1Text" />
+          <ScalarProperty Name="ParamValue2" ColumnName="ParamValue2" />
+          <ScalarProperty Name="ParamValue2Text" ColumnName="ParamValue2Text" />
+          <ScalarProperty Name="ParamListDesc" ColumnName="ParamListDesc" />
+          <ScalarProperty Name="RowOrder" ColumnName="RowOrder" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MP_Entity">
+      <EntityTypeMapping TypeName="DB_PHE_ExplorationModel.MP_Entity">
+        <MappingFragment StoreEntitySet="MP_Entity">
+          <ScalarProperty Name="EffectiveYear" ColumnName="EffectiveYear" />
+          <ScalarProperty Name="SubholdingID" ColumnName="SubholdingID" />
+          <ScalarProperty Name="RegionalID" ColumnName="RegionalID" />
+          <ScalarProperty Name="ZonaID" ColumnName="ZonaID" />
+          <ScalarProperty Name="xBlockID" ColumnName="xBlockID" />
+          <ScalarProperty Name="BasinID" ColumnName="BasinID" />
+          <ScalarProperty Name="xAssetID" ColumnName="xAssetID" />
+          <ScalarProperty Name="APHID" ColumnName="APHID" />
+          <ScalarProperty Name="xAreaID" ColumnName="xAreaID" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MP_xBasinCountry">
+      <EntityTypeMapping TypeName="DB_PHE_ExplorationModel.MP_xBasinCountry">
+        <MappingFragment StoreEntitySet="MP_xBasinCountry">
+          <ScalarProperty Name="BasinID" ColumnName="BasinID" />
+          <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+          <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TX_Attachment">
+      <EntityTypeMapping TypeName="DB_PHE_ExplorationModel.TX_Attachment">
+        <MappingFragment StoreEntitySet="TX_Attachment">
+          <ScalarProperty Name="Schema" ColumnName="Schema" />
+          <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+          <ScalarProperty Name="SubTranscationID" ColumnName="SubTranscationID" />
+          <ScalarProperty Name="Menu" ColumnName="Menu" />
+          <ScalarProperty Name="PathParID" ColumnName="PathParID" />
+          <ScalarProperty Name="FileID" ColumnName="FileID" />
+          <ScalarProperty Name="FileCategoryParID" ColumnName="FileCategoryParID" />
+          <ScalarProperty Name="FileName" ColumnName="FileName" />
+          <ScalarProperty Name="FileNameSave" ColumnName="FileNameSave" />
+          <ScalarProperty Name="DocumentType" ColumnName="DocumentType" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="Size" ColumnName="Size" />
+          <ScalarProperty Name="SizeUoM" ColumnName="SizeUoM" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="RefID" ColumnName="RefID" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LG_Activity">
+      <EntityTypeMapping TypeName="DB_PHE_ExplorationModel.LG_Activity">
+        <MappingFragment StoreEntitySet="LG_Activity">
+          <ScalarProperty Name="IP" ColumnName="IP" />
+          <ScalarProperty Name="Menu" ColumnName="Menu" />
+          <ScalarProperty Name="Action" ColumnName="Action" />
+          <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LG_ContingentResources">
+      <EntityTypeMapping TypeName="DB_PHE_ExplorationModel.LG_ContingentResources">
+        <MappingFragment StoreEntitySet="LG_ContingentResources">
+          <ScalarProperty Name="StructureHistoryID" ColumnName="StructureHistoryID" />
+          <ScalarProperty Name="xStructureID" ColumnName="xStructureID" />
+          <ScalarProperty Name="C1COil" ColumnName="1COil" />
+          <ScalarProperty Name="C1COilUoM" ColumnName="1COilUoM" />
+          <ScalarProperty Name="C2COil" ColumnName="2COil" />
+          <ScalarProperty Name="C2COilUoM" ColumnName="2COilUoM" />
+          <ScalarProperty Name="C3COil" ColumnName="3COil" />
+          <ScalarProperty Name="C3COilUoM" ColumnName="3COilUoM" />
+          <ScalarProperty Name="C1CGas" ColumnName="1CGas" />
+          <ScalarProperty Name="C1CGasUoM" ColumnName="1CGasUoM" />
+          <ScalarProperty Name="C2CGas" ColumnName="2CGas" />
+          <ScalarProperty Name="C2CGasUoM" ColumnName="2CGasUoM" />
+          <ScalarProperty Name="C3CGas" ColumnName="3CGas" />
+          <ScalarProperty Name="C3CGasUoM" ColumnName="3CGasUoM" />
+          <ScalarProperty Name="C1CTotal" ColumnName="1CTotal" />
+          <ScalarProperty Name="C1CTotalUoM" ColumnName="1CTotalUoM" />
+          <ScalarProperty Name="C2CTotal" ColumnName="2CTotal" />
+          <ScalarProperty Name="C2CTotalUoM" ColumnName="2CTotalUoM" />
+          <ScalarProperty Name="C3CTotal" ColumnName="3CTotal" />
+          <ScalarProperty Name="C3CTotalUoM" ColumnName="3CTotalUoM" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LG_Drilling">
+      <EntityTypeMapping TypeName="DB_PHE_ExplorationModel.LG_Drilling">
+        <MappingFragment StoreEntitySet="LG_Drilling">
+          <ScalarProperty Name="StructureHistoryID" ColumnName="StructureHistoryID" />
+          <ScalarProperty Name="xStructureID" ColumnName="xStructureID" />
+          <ScalarProperty Name="xWellID" ColumnName="xWellID" />
+          <ScalarProperty Name="RKAPFiscalYear" ColumnName="RKAPFiscalYear" />
+          <ScalarProperty Name="PlayOpener" ColumnName="PlayOpener" />
+          <ScalarProperty Name="DrillingCompletionPeriod" ColumnName="DrillingCompletionPeriod" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+          <ScalarProperty Name="WaterDepthFeet" ColumnName="WaterDepthFeet" />
+          <ScalarProperty Name="WaterDepthMeter" ColumnName="WaterDepthMeter" />
+          <ScalarProperty Name="TotalDepthFeet" ColumnName="TotalDepthFeet" />
+          <ScalarProperty Name="TotalDepthMeter" ColumnName="TotalDepthMeter" />
+          <ScalarProperty Name="SurfaceLocationLatitude" ColumnName="SurfaceLocationLatitude" />
+          <ScalarProperty Name="SurfaceLocationLongitude" ColumnName="SurfaceLocationLongitude" />
+          <ScalarProperty Name="CommitmentWell" ColumnName="CommitmentWell" />
+          <ScalarProperty Name="OperationalContextParId" ColumnName="OperationalContextParId" />
+          <ScalarProperty Name="PotentialDelay" ColumnName="PotentialDelay" />
+          <ScalarProperty Name="NetRevenueInterest" ColumnName="NetRevenueInterest" />
+          <ScalarProperty Name="DrillingCostDHB" ColumnName="DrillingCostDHB" />
+          <ScalarProperty Name="DrillingCostDHBCurr" ColumnName="DrillingCostDHBCurr" />
+          <ScalarProperty Name="DrillingCost" ColumnName="DrillingCost" />
+          <ScalarProperty Name="DrillingCostCurr" ColumnName="DrillingCostCurr" />
+          <ScalarProperty Name="ExpectedDrillingDate" ColumnName="ExpectedDrillingDate" />
+          <ScalarProperty Name="P90ResourceOil" ColumnName="P90ResourceOil" />
+          <ScalarProperty Name="P90ResourceOilUoM" ColumnName="P90ResourceOilUoM" />
+          <ScalarProperty Name="P50ResourceOil" ColumnName="P50ResourceOil" />
+          <ScalarProperty Name="P50ResourceOilUoM" ColumnName="P50ResourceOilUoM" />
+          <ScalarProperty Name="P10ResourceOil" ColumnName="P10ResourceOil" />
+          <ScalarProperty Name="P10ResourceOilUoM" ColumnName="P10ResourceOilUoM" />
+          <ScalarProperty Name="P90ResourceGas" ColumnName="P90ResourceGas" />
+          <ScalarProperty Name="P90ResourceGasUoM" ColumnName="P90ResourceGasUoM" />
+          <ScalarProperty Name="P50ResourceGas" ColumnName="P50ResourceGas" />
+          <ScalarProperty Name="P50ResourceGasUoM" ColumnName="P50ResourceGasUoM" />
+          <ScalarProperty Name="P10ResourceGas" ColumnName="P10ResourceGas" />
+          <ScalarProperty Name="P10ResourceGasUoM" ColumnName="P10ResourceGasUoM" />
+          <ScalarProperty Name="CurrentPG" ColumnName="CurrentPG" />
+          <ScalarProperty Name="ExpectedPG" ColumnName="ExpectedPG" />
+          <ScalarProperty Name="ChanceComponentSource" ColumnName="ChanceComponentSource" />
+          <ScalarProperty Name="ChanceComponentTiming" ColumnName="ChanceComponentTiming" />
+          <ScalarProperty Name="ChanceComponentReservoir" ColumnName="ChanceComponentReservoir" />
+          <ScalarProperty Name="ChanceComponentClosure" ColumnName="ChanceComponentClosure" />
+          <ScalarProperty Name="ChanceComponentContainment" ColumnName="ChanceComponentContainment" />
+          <ScalarProperty Name="P90NPVProfitabilityOil" ColumnName="P90NPVProfitabilityOil" />
+          <ScalarProperty Name="P90NPVProfitabilityOilCurr" ColumnName="P90NPVProfitabilityOilCurr" />
+          <ScalarProperty Name="P50NPVProfitabilityOil" ColumnName="P50NPVProfitabilityOil" />
+          <ScalarProperty Name="P50NPVProfitabilityOilCurr" ColumnName="P50NPVProfitabilityOilCurr" />
+          <ScalarProperty Name="P10NPVProfitabilityOil" ColumnName="P10NPVProfitabilityOil" />
+          <ScalarProperty Name="P10NPVProfitabilityOilCurr" ColumnName="P10NPVProfitabilityOilCurr" />
+          <ScalarProperty Name="P90NPVProfitabilityGas" ColumnName="P90NPVProfitabilityGas" />
+          <ScalarProperty Name="P90NPVProfitabilityGasCurr" ColumnName="P90NPVProfitabilityGasCurr" />
+          <ScalarProperty Name="P50NPVProfitabilityGas" ColumnName="P50NPVProfitabilityGas" />
+          <ScalarProperty Name="P50NPVProfitabilityGasCurr" ColumnName="P50NPVProfitabilityGasCurr" />
+          <ScalarProperty Name="P10NPVProfitabilityGas" ColumnName="P10NPVProfitabilityGas" />
+          <ScalarProperty Name="P10NPVProfitabilityGasCurr" ColumnName="P10NPVProfitabilityGasCurr" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LG_Economic">
+      <EntityTypeMapping TypeName="DB_PHE_ExplorationModel.LG_Economic">
+        <MappingFragment StoreEntitySet="LG_Economic">
+          <ScalarProperty Name="StructureHistoryID" ColumnName="StructureHistoryID" />
+          <ScalarProperty Name="xStructureID" ColumnName="xStructureID" />
+          <ScalarProperty Name="DevConcept" ColumnName="DevConcept" />
+          <ScalarProperty Name="EconomicAssumption" ColumnName="EconomicAssumption" />
+          <ScalarProperty Name="CAPEX" ColumnName="CAPEX" />
+          <ScalarProperty Name="CAPEXCurr" ColumnName="CAPEXCurr" />
+          <ScalarProperty Name="OPEXProduction" ColumnName="OPEXProduction" />
+          <ScalarProperty Name="OPEXProductionCurr" ColumnName="OPEXProductionCurr" />
+          <ScalarProperty Name="OPEXFacility" ColumnName="OPEXFacility" />
+          <ScalarProperty Name="OPEXFacilityCurr" ColumnName="OPEXFacilityCurr" />
+          <ScalarProperty Name="ASR" ColumnName="ASR" />
+          <ScalarProperty Name="ASRCurr" ColumnName="ASRCurr" />
+          <ScalarProperty Name="EconomicResult" ColumnName="EconomicResult" />
+          <ScalarProperty Name="ContractorNPV" ColumnName="ContractorNPV" />
+          <ScalarProperty Name="ContractorNPVCurr" ColumnName="ContractorNPVCurr" />
+          <ScalarProperty Name="IRR" ColumnName="IRR" />
+          <ScalarProperty Name="ContractorPOT" ColumnName="ContractorPOT" />
+          <ScalarProperty Name="ContractorPOTUoM" ColumnName="ContractorPOTUoM" />
+          <ScalarProperty Name="PIncome" ColumnName="PIncome" />
+          <ScalarProperty Name="PIncomeCurr" ColumnName="PIncomeCurr" />
+          <ScalarProperty Name="EMV" ColumnName="EMV" />
+          <ScalarProperty Name="EMVCurr" ColumnName="EMVCurr" />
+          <ScalarProperty Name="NPV" ColumnName="NPV" />
+          <ScalarProperty Name="NPVCurr" ColumnName="NPVCurr" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LG_ExplorationStructure">
+      <EntityTypeMapping TypeName="DB_PHE_ExplorationModel.LG_ExplorationStructure">
+        <MappingFragment StoreEntitySet="LG_ExplorationStructure">
+          <ScalarProperty Name="StructureHistoryID" ColumnName="StructureHistoryID" />
+          <ScalarProperty Name="xStructureID" ColumnName="xStructureID" />
+          <ScalarProperty Name="xStructureName" ColumnName="xStructureName" />
+          <ScalarProperty Name="xStructureStatusParID" ColumnName="xStructureStatusParID" />
+          <ScalarProperty Name="SingleOrMultiParID" ColumnName="SingleOrMultiParID" />
+          <ScalarProperty Name="ExplorationTypeParID" ColumnName="ExplorationTypeParID" />
+          <ScalarProperty Name="SubholdingID" ColumnName="SubholdingID" />
+          <ScalarProperty Name="BasinID" ColumnName="BasinID" />
+          <ScalarProperty Name="RegionalID" ColumnName="RegionalID" />
+          <ScalarProperty Name="ZonaID" ColumnName="ZonaID" />
+          <ScalarProperty Name="APHID" ColumnName="APHID" />
+          <ScalarProperty Name="xAssetID" ColumnName="xAssetID" />
+          <ScalarProperty Name="xBlockID" ColumnName="xBlockID" />
+          <ScalarProperty Name="xAreaID" ColumnName="xAreaID" />
+          <ScalarProperty Name="UDClassificationParID" ColumnName="UDClassificationParID" />
+          <ScalarProperty Name="UDSubClassificationParID" ColumnName="UDSubClassificationParID" />
+          <ScalarProperty Name="UDSubTypeParID" ColumnName="UDSubTypeParID" />
+          <ScalarProperty Name="ExplorationAreaParID" ColumnName="ExplorationAreaParID" />
+          <ScalarProperty Name="CountriesID" ColumnName="CountriesID" />
+          <ScalarProperty Name="Play" ColumnName="Play" />
+          <ScalarProperty Name="StatusData" ColumnName="StatusData" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="MadamTransID" ColumnName="MadamTransID" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LG_ProsResources">
+      <EntityTypeMapping TypeName="DB_PHE_ExplorationModel.LG_ProsResources">
+        <MappingFragment StoreEntitySet="LG_ProsResources">
+          <ScalarProperty Name="StructureHistoryID" ColumnName="StructureHistoryID" />
+          <ScalarProperty Name="xStructureID" ColumnName="xStructureID" />
+          <ScalarProperty Name="P90InPlaceOilPR" ColumnName="P90InPlaceOilPR" />
+          <ScalarProperty Name="P90InPlaceOilPRUoM" ColumnName="P90InPlaceOilPRUoM" />
+          <ScalarProperty Name="P50InPlaceOilPR" ColumnName="P50InPlaceOilPR" />
+          <ScalarProperty Name="P50InPlaceOilPRUoM" ColumnName="P50InPlaceOilPRUoM" />
+          <ScalarProperty Name="PMeanInPlaceOilPR" ColumnName="PMeanInPlaceOilPR" />
+          <ScalarProperty Name="PMeanInPlaceOilPRUoM" ColumnName="PMeanInPlaceOilPRUoM" />
+          <ScalarProperty Name="P10InPlaceOilPR" ColumnName="P10InPlaceOilPR" />
+          <ScalarProperty Name="P10InPlaceOilPRUoM" ColumnName="P10InPlaceOilPRUoM" />
+          <ScalarProperty Name="P90InPlaceGasPR" ColumnName="P90InPlaceGasPR" />
+          <ScalarProperty Name="P90InPlaceGasPRUoM" ColumnName="P90InPlaceGasPRUoM" />
+          <ScalarProperty Name="P50InPlaceGasPR" ColumnName="P50InPlaceGasPR" />
+          <ScalarProperty Name="P50InPlaceGasPRUoM" ColumnName="P50InPlaceGasPRUoM" />
+          <ScalarProperty Name="PMeanInPlaceGasPR" ColumnName="PMeanInPlaceGasPR" />
+          <ScalarProperty Name="PMeanInPlaceGasPRUoM" ColumnName="PMeanInPlaceGasPRUoM" />
+          <ScalarProperty Name="P10InPlaceGasPR" ColumnName="P10InPlaceGasPR" />
+          <ScalarProperty Name="P10InPlaceGasPRUoM" ColumnName="P10InPlaceGasPRUoM" />
+          <ScalarProperty Name="P90InPlaceTotalPR" ColumnName="P90InPlaceTotalPR" />
+          <ScalarProperty Name="P90InPlaceTotalPRUoM" ColumnName="P90InPlaceTotalPRUoM" />
+          <ScalarProperty Name="P50InPlaceTotalPR" ColumnName="P50InPlaceTotalPR" />
+          <ScalarProperty Name="P50InPlaceTotalPRUoM" ColumnName="P50InPlaceTotalPRUoM" />
+          <ScalarProperty Name="PMeanInPlaceTotalPR" ColumnName="PMeanInPlaceTotalPR" />
+          <ScalarProperty Name="PMeanInPlaceTotalPRUoM" ColumnName="PMeanInPlaceTotalPRUoM" />
+          <ScalarProperty Name="P10InPlaceTotalPR" ColumnName="P10InPlaceTotalPR" />
+          <ScalarProperty Name="P10InPlaceTotalPRUoM" ColumnName="P10InPlaceTotalPRUoM" />
+          <ScalarProperty Name="RFOilPR" ColumnName="RFOilPR" />
+          <ScalarProperty Name="RFGasPR" ColumnName="RFGasPR" />
+          <ScalarProperty Name="P90RROil" ColumnName="P90RROil" />
+          <ScalarProperty Name="P90RROilUoM" ColumnName="P90RROilUoM" />
+          <ScalarProperty Name="P50RROil" ColumnName="P50RROil" />
+          <ScalarProperty Name="P50RROilUoM" ColumnName="P50RROilUoM" />
+          <ScalarProperty Name="PMeanRROil" ColumnName="PMeanRROil" />
+          <ScalarProperty Name="PMeanRROilUoM" ColumnName="PMeanRROilUoM" />
+          <ScalarProperty Name="P10RROil" ColumnName="P10RROil" />
+          <ScalarProperty Name="P10RROilUoM" ColumnName="P10RROilUoM" />
+          <ScalarProperty Name="P90RRGas" ColumnName="P90RRGas" />
+          <ScalarProperty Name="P90RRGasUoM" ColumnName="P90RRGasUoM" />
+          <ScalarProperty Name="P50RRGas" ColumnName="P50RRGas" />
+          <ScalarProperty Name="P50RRGasUoM" ColumnName="P50RRGasUoM" />
+          <ScalarProperty Name="PMeanRRGas" ColumnName="PMeanRRGas" />
+          <ScalarProperty Name="PMeanRRGasUoM" ColumnName="PMeanRRGasUoM" />
+          <ScalarProperty Name="P10RRGas" ColumnName="P10RRGas" />
+          <ScalarProperty Name="P10RRGasUoM" ColumnName="P10RRGasUoM" />
+          <ScalarProperty Name="P90RRTotal" ColumnName="P90RRTotal" />
+          <ScalarProperty Name="P90RRTotalUoM" ColumnName="P90RRTotalUoM" />
+          <ScalarProperty Name="P50RRTotal" ColumnName="P50RRTotal" />
+          <ScalarProperty Name="P50RRTotalUoM" ColumnName="P50RRTotalUoM" />
+          <ScalarProperty Name="PMeanRRTotal" ColumnName="PMeanRRTotal" />
+          <ScalarProperty Name="PMeanRRTotalUoM" ColumnName="PMeanRRTotalUoM" />
+          <ScalarProperty Name="P10RRTotal" ColumnName="P10RRTotal" />
+          <ScalarProperty Name="P10RRTotalUoM" ColumnName="P10RRTotalUoM" />
+          <ScalarProperty Name="HydrocarbonTypePRParID" ColumnName="HydrocarbonTypePRParID" />
+          <ScalarProperty Name="GCFSRPR" ColumnName="GCFSRPR" />
+          <ScalarProperty Name="GCFSRPRUoM" ColumnName="GCFSRPRUoM" />
+          <ScalarProperty Name="GCFTMPR" ColumnName="GCFTMPR" />
+          <ScalarProperty Name="GCFTMPRUoM" ColumnName="GCFTMPRUoM" />
+          <ScalarProperty Name="GCFReservoirPR" ColumnName="GCFReservoirPR" />
+          <ScalarProperty Name="GCFReservoirPRUoM" ColumnName="GCFReservoirPRUoM" />
+          <ScalarProperty Name="GCFClosurePR" ColumnName="GCFClosurePR" />
+          <ScalarProperty Name="GCFClosurePRUoM" ColumnName="GCFClosurePRUoM" />
+          <ScalarProperty Name="GCFContainmentPR" ColumnName="GCFContainmentPR" />
+          <ScalarProperty Name="GCFContainmentPRUoM" ColumnName="GCFContainmentPRUoM" />
+          <ScalarProperty Name="GCFPGTotalPR" ColumnName="GCFPGTotalPR" />
+          <ScalarProperty Name="GCFPGTotalPRUoM" ColumnName="GCFPGTotalPRUoM" />
+          <ScalarProperty Name="ExpectedPG" ColumnName="ExpectedPG" />
+          <ScalarProperty Name="CurrentPG" ColumnName="CurrentPG" />
+          <ScalarProperty Name="MethodParID" ColumnName="MethodParID" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LG_ProsResourcesTarget">
+      <EntityTypeMapping TypeName="DB_PHE_ExplorationModel.LG_ProsResourcesTarget">
+        <MappingFragment StoreEntitySet="LG_ProsResourcesTarget">
+          <ScalarProperty Name="StructureHistoryID" ColumnName="StructureHistoryID" />
+          <ScalarProperty Name="TargetID" ColumnName="TargetID" />
+          <ScalarProperty Name="TargetName" ColumnName="TargetName" />
+          <ScalarProperty Name="xStructureID" ColumnName="xStructureID" />
+          <ScalarProperty Name="P90InPlaceOil" ColumnName="P90InPlaceOil" />
+          <ScalarProperty Name="P90InPlaceOilUoM" ColumnName="P90InPlaceOilUoM" />
+          <ScalarProperty Name="P50InPlaceOil" ColumnName="P50InPlaceOil" />
+          <ScalarProperty Name="P50InPlaceOilUoM" ColumnName="P50InPlaceOilUoM" />
+          <ScalarProperty Name="PMeanInPlaceOil" ColumnName="PMeanInPlaceOil" />
+          <ScalarProperty Name="PMeanInPlaceOilUoM" ColumnName="PMeanInPlaceOilUoM" />
+          <ScalarProperty Name="P10InPlaceOil" ColumnName="P10InPlaceOil" />
+          <ScalarProperty Name="P10InPlaceOilUoM" ColumnName="P10InPlaceOilUoM" />
+          <ScalarProperty Name="P90InPlaceGas" ColumnName="P90InPlaceGas" />
+          <ScalarProperty Name="P90InPlaceGasUoM" ColumnName="P90InPlaceGasUoM" />
+          <ScalarProperty Name="P50InPlaceGas" ColumnName="P50InPlaceGas" />
+          <ScalarProperty Name="P50InPlaceGasUoM" ColumnName="P50InPlaceGasUoM" />
+          <ScalarProperty Name="PMeanInPlaceGas" ColumnName="PMeanInPlaceGas" />
+          <ScalarProperty Name="PMeanInPlaceGasUoM" ColumnName="PMeanInPlaceGasUoM" />
+          <ScalarProperty Name="P10InPlaceGas" ColumnName="P10InPlaceGas" />
+          <ScalarProperty Name="P10InPlaceGasUoM" ColumnName="P10InPlaceGasUoM" />
+          <ScalarProperty Name="P90InPlaceTotal" ColumnName="P90InPlaceTotal" />
+          <ScalarProperty Name="P90InPlaceTotalUoM" ColumnName="P90InPlaceTotalUoM" />
+          <ScalarProperty Name="P50InPlaceTotal" ColumnName="P50InPlaceTotal" />
+          <ScalarProperty Name="P50InPlaceTotalUoM" ColumnName="P50InPlaceTotalUoM" />
+          <ScalarProperty Name="PMeanInPlaceTotal" ColumnName="PMeanInPlaceTotal" />
+          <ScalarProperty Name="PMeanInPlaceTotalUoM" ColumnName="PMeanInPlaceTotalUoM" />
+          <ScalarProperty Name="P10InPlaceTotal" ColumnName="P10InPlaceTotal" />
+          <ScalarProperty Name="P10InPlaceTotalUoM" ColumnName="P10InPlaceTotalUoM" />
+          <ScalarProperty Name="RFOil" ColumnName="RFOil" />
+          <ScalarProperty Name="RFGas" ColumnName="RFGas" />
+          <ScalarProperty Name="P90RecoverableOil" ColumnName="P90RecoverableOil" />
+          <ScalarProperty Name="P90RecoverableOilUoM" ColumnName="P90RecoverableOilUoM" />
+          <ScalarProperty Name="P50RecoverableOil" ColumnName="P50RecoverableOil" />
+          <ScalarProperty Name="P50RecoverableOilUoM" ColumnName="P50RecoverableOilUoM" />
+          <ScalarProperty Name="PMeanRecoverableOil" ColumnName="PMeanRecoverableOil" />
+          <ScalarProperty Name="PMeanRecoverableOilUoM" ColumnName="PMeanRecoverableOilUoM" />
+          <ScalarProperty Name="P10RecoverableOil" ColumnName="P10RecoverableOil" />
+          <ScalarProperty Name="P10RecoverableOilUoM" ColumnName="P10RecoverableOilUoM" />
+          <ScalarProperty Name="P90RecoverableGas" ColumnName="P90RecoverableGas" />
+          <ScalarProperty Name="P90RecoverableGasUoM" ColumnName="P90RecoverableGasUoM" />
+          <ScalarProperty Name="P50RecoverableGas" ColumnName="P50RecoverableGas" />
+          <ScalarProperty Name="P50RecoverableGasUoM" ColumnName="P50RecoverableGasUoM" />
+          <ScalarProperty Name="PMeanRecoverableGas" ColumnName="PMeanRecoverableGas" />
+          <ScalarProperty Name="PMeanRecoverableGasUoM" ColumnName="PMeanRecoverableGasUoM" />
+          <ScalarProperty Name="P10RecoverableGas" ColumnName="P10RecoverableGas" />
+          <ScalarProperty Name="P10RecoverableGasUoM" ColumnName="P10RecoverableGasUoM" />
+          <ScalarProperty Name="P90RecoverableTotal" ColumnName="P90RecoverableTotal" />
+          <ScalarProperty Name="P90RecoverableTotalUoM" ColumnName="P90RecoverableTotalUoM" />
+          <ScalarProperty Name="P50RecoverableTotal" ColumnName="P50RecoverableTotal" />
+          <ScalarProperty Name="P50RecoverableTotalUoM" ColumnName="P50RecoverableTotalUoM" />
+          <ScalarProperty Name="PMeanRecoverableTotal" ColumnName="PMeanRecoverableTotal" />
+          <ScalarProperty Name="PMeanRecoverableTotalUoM" ColumnName="PMeanRecoverableTotalUoM" />
+          <ScalarProperty Name="P10RecoverableTotal" ColumnName="P10RecoverableTotal" />
+          <ScalarProperty Name="P10RecoverableTotalUoM" ColumnName="P10RecoverableTotalUoM" />
+          <ScalarProperty Name="HydrocarbonTypeParID" ColumnName="HydrocarbonTypeParID" />
+          <ScalarProperty Name="GCFSR" ColumnName="GCFSR" />
+          <ScalarProperty Name="GCFSRUoM" ColumnName="GCFSRUoM" />
+          <ScalarProperty Name="GCFTM" ColumnName="GCFTM" />
+          <ScalarProperty Name="GCFTMUoM" ColumnName="GCFTMUoM" />
+          <ScalarProperty Name="GCFReservoir" ColumnName="GCFReservoir" />
+          <ScalarProperty Name="GCFReservoirUoM" ColumnName="GCFReservoirUoM" />
+          <ScalarProperty Name="GCFClosure" ColumnName="GCFClosure" />
+          <ScalarProperty Name="GCFClosureUoM" ColumnName="GCFClosureUoM" />
+          <ScalarProperty Name="GCFContainment" ColumnName="GCFContainment" />
+          <ScalarProperty Name="GCFContainmentUoM" ColumnName="GCFContainmentUoM" />
+          <ScalarProperty Name="GCFPGTotal" ColumnName="GCFPGTotal" />
+          <ScalarProperty Name="GCFPGTotalUoM" ColumnName="GCFPGTotalUoM" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TX_ContingentResources">
+      <EntityTypeMapping TypeName="DB_PHE_ExplorationModel.TX_ContingentResources">
+        <MappingFragment StoreEntitySet="TX_ContingentResources">
+          <ScalarProperty Name="xStructureID" ColumnName="xStructureID" />
+          <ScalarProperty Name="C1COil" ColumnName="1COil" />
+          <ScalarProperty Name="C1COilUoM" ColumnName="1COilUoM" />
+          <ScalarProperty Name="C2COil" ColumnName="2COil" />
+          <ScalarProperty Name="C2COilUoM" ColumnName="2COilUoM" />
+          <ScalarProperty Name="C3COil" ColumnName="3COil" />
+          <ScalarProperty Name="C3COilUoM" ColumnName="3COilUoM" />
+          <ScalarProperty Name="C1CGas" ColumnName="1CGas" />
+          <ScalarProperty Name="C1CGasUoM" ColumnName="1CGasUoM" />
+          <ScalarProperty Name="C2CGas" ColumnName="2CGas" />
+          <ScalarProperty Name="C2CGasUoM" ColumnName="2CGasUoM" />
+          <ScalarProperty Name="C3CGas" ColumnName="3CGas" />
+          <ScalarProperty Name="C3CGasUoM" ColumnName="3CGasUoM" />
+          <ScalarProperty Name="C1CTotal" ColumnName="1CTotal" />
+          <ScalarProperty Name="C1CTotalUoM" ColumnName="1CTotalUoM" />
+          <ScalarProperty Name="C2CTotal" ColumnName="2CTotal" />
+          <ScalarProperty Name="C2CTotalUoM" ColumnName="2CTotalUoM" />
+          <ScalarProperty Name="C3CTotal" ColumnName="3CTotal" />
+          <ScalarProperty Name="C3CTotalUoM" ColumnName="3CTotalUoM" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TX_Drilling">
+      <EntityTypeMapping TypeName="DB_PHE_ExplorationModel.TX_Drilling">
+        <MappingFragment StoreEntitySet="TX_Drilling">
+          <ScalarProperty Name="xStructureID" ColumnName="xStructureID" />
+          <ScalarProperty Name="xWellID" ColumnName="xWellID" />
+          <ScalarProperty Name="RKAPFiscalYear" ColumnName="RKAPFiscalYear" />
+          <ScalarProperty Name="PlayOpener" ColumnName="PlayOpener" />
+          <ScalarProperty Name="DrillingCompletionPeriod" ColumnName="DrillingCompletionPeriod" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+          <ScalarProperty Name="WaterDepthFeet" ColumnName="WaterDepthFeet" />
+          <ScalarProperty Name="WaterDepthMeter" ColumnName="WaterDepthMeter" />
+          <ScalarProperty Name="TotalDepthFeet" ColumnName="TotalDepthFeet" />
+          <ScalarProperty Name="TotalDepthMeter" ColumnName="TotalDepthMeter" />
+          <ScalarProperty Name="SurfaceLocationLatitude" ColumnName="SurfaceLocationLatitude" />
+          <ScalarProperty Name="SurfaceLocationLongitude" ColumnName="SurfaceLocationLongitude" />
+          <ScalarProperty Name="CommitmentWell" ColumnName="CommitmentWell" />
+          <ScalarProperty Name="OperationalContextParId" ColumnName="OperationalContextParId" />
+          <ScalarProperty Name="PotentialDelay" ColumnName="PotentialDelay" />
+          <ScalarProperty Name="NetRevenueInterest" ColumnName="NetRevenueInterest" />
+          <ScalarProperty Name="DrillingCostDHB" ColumnName="DrillingCostDHB" />
+          <ScalarProperty Name="DrillingCostDHBCurr" ColumnName="DrillingCostDHBCurr" />
+          <ScalarProperty Name="DrillingCost" ColumnName="DrillingCost" />
+          <ScalarProperty Name="DrillingCostCurr" ColumnName="DrillingCostCurr" />
+          <ScalarProperty Name="ExpectedDrillingDate" ColumnName="ExpectedDrillingDate" />
+          <ScalarProperty Name="P90ResourceOil" ColumnName="P90ResourceOil" />
+          <ScalarProperty Name="P90ResourceOilUoM" ColumnName="P90ResourceOilUoM" />
+          <ScalarProperty Name="P50ResourceOil" ColumnName="P50ResourceOil" />
+          <ScalarProperty Name="P50ResourceOilUoM" ColumnName="P50ResourceOilUoM" />
+          <ScalarProperty Name="P10ResourceOil" ColumnName="P10ResourceOil" />
+          <ScalarProperty Name="P10ResourceOilUoM" ColumnName="P10ResourceOilUoM" />
+          <ScalarProperty Name="P90ResourceGas" ColumnName="P90ResourceGas" />
+          <ScalarProperty Name="P90ResourceGasUoM" ColumnName="P90ResourceGasUoM" />
+          <ScalarProperty Name="P50ResourceGas" ColumnName="P50ResourceGas" />
+          <ScalarProperty Name="P50ResourceGasUoM" ColumnName="P50ResourceGasUoM" />
+          <ScalarProperty Name="P10ResourceGas" ColumnName="P10ResourceGas" />
+          <ScalarProperty Name="P10ResourceGasUoM" ColumnName="P10ResourceGasUoM" />
+          <ScalarProperty Name="CurrentPG" ColumnName="CurrentPG" />
+          <ScalarProperty Name="ExpectedPG" ColumnName="ExpectedPG" />
+          <ScalarProperty Name="ChanceComponentSource" ColumnName="ChanceComponentSource" />
+          <ScalarProperty Name="ChanceComponentTiming" ColumnName="ChanceComponentTiming" />
+          <ScalarProperty Name="ChanceComponentReservoir" ColumnName="ChanceComponentReservoir" />
+          <ScalarProperty Name="ChanceComponentClosure" ColumnName="ChanceComponentClosure" />
+          <ScalarProperty Name="ChanceComponentContainment" ColumnName="ChanceComponentContainment" />
+          <ScalarProperty Name="P90NPVProfitabilityOil" ColumnName="P90NPVProfitabilityOil" />
+          <ScalarProperty Name="P90NPVProfitabilityOilCurr" ColumnName="P90NPVProfitabilityOilCurr" />
+          <ScalarProperty Name="P50NPVProfitabilityOil" ColumnName="P50NPVProfitabilityOil" />
+          <ScalarProperty Name="P50NPVProfitabilityOilCurr" ColumnName="P50NPVProfitabilityOilCurr" />
+          <ScalarProperty Name="P10NPVProfitabilityOil" ColumnName="P10NPVProfitabilityOil" />
+          <ScalarProperty Name="P10NPVProfitabilityOilCurr" ColumnName="P10NPVProfitabilityOilCurr" />
+          <ScalarProperty Name="P90NPVProfitabilityGas" ColumnName="P90NPVProfitabilityGas" />
+          <ScalarProperty Name="P90NPVProfitabilityGasCurr" ColumnName="P90NPVProfitabilityGasCurr" />
+          <ScalarProperty Name="P50NPVProfitabilityGas" ColumnName="P50NPVProfitabilityGas" />
+          <ScalarProperty Name="P50NPVProfitabilityGasCurr" ColumnName="P50NPVProfitabilityGasCurr" />
+          <ScalarProperty Name="P10NPVProfitabilityGas" ColumnName="P10NPVProfitabilityGas" />
+          <ScalarProperty Name="P10NPVProfitabilityGasCurr" ColumnName="P10NPVProfitabilityGasCurr" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TX_Economic">
+      <EntityTypeMapping TypeName="DB_PHE_ExplorationModel.TX_Economic">
+        <MappingFragment StoreEntitySet="TX_Economic">
+          <ScalarProperty Name="xStructureID" ColumnName="xStructureID" />
+          <ScalarProperty Name="DevConcept" ColumnName="DevConcept" />
+          <ScalarProperty Name="EconomicAssumption" ColumnName="EconomicAssumption" />
+          <ScalarProperty Name="CAPEX" ColumnName="CAPEX" />
+          <ScalarProperty Name="CAPEXCurr" ColumnName="CAPEXCurr" />
+          <ScalarProperty Name="OPEXProduction" ColumnName="OPEXProduction" />
+          <ScalarProperty Name="OPEXProductionCurr" ColumnName="OPEXProductionCurr" />
+          <ScalarProperty Name="OPEXFacility" ColumnName="OPEXFacility" />
+          <ScalarProperty Name="OPEXFacilityCurr" ColumnName="OPEXFacilityCurr" />
+          <ScalarProperty Name="ASR" ColumnName="ASR" />
+          <ScalarProperty Name="ASRCurr" ColumnName="ASRCurr" />
+          <ScalarProperty Name="EconomicResult" ColumnName="EconomicResult" />
+          <ScalarProperty Name="ContractorNPV" ColumnName="ContractorNPV" />
+          <ScalarProperty Name="ContractorNPVCurr" ColumnName="ContractorNPVCurr" />
+          <ScalarProperty Name="IRR" ColumnName="IRR" />
+          <ScalarProperty Name="ContractorPOT" ColumnName="ContractorPOT" />
+          <ScalarProperty Name="ContractorPOTUoM" ColumnName="ContractorPOTUoM" />
+          <ScalarProperty Name="PIncome" ColumnName="PIncome" />
+          <ScalarProperty Name="PIncomeCurr" ColumnName="PIncomeCurr" />
+          <ScalarProperty Name="EMV" ColumnName="EMV" />
+          <ScalarProperty Name="EMVCurr" ColumnName="EMVCurr" />
+          <ScalarProperty Name="NPV" ColumnName="NPV" />
+          <ScalarProperty Name="NPVCurr" ColumnName="NPVCurr" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TX_ESDC">
+      <EntityTypeMapping TypeName="DB_PHE_ExplorationModel.TX_ESDC">
+        <MappingFragment StoreEntitySet="TX_ESDC">
+          <ScalarProperty Name="xStructureID" ColumnName="xStructureID" />
+          <ScalarProperty Name="ESDCFieldID" ColumnName="ESDCFieldID" />
+          <ScalarProperty Name="ESDCProjectID" ColumnName="ESDCProjectID" />
+          <ScalarProperty Name="ESDCProjectName" ColumnName="ESDCProjectName" />
+          <ScalarProperty Name="StatusData" ColumnName="StatusData" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TX_ESDCDiscrepancy">
+      <EntityTypeMapping TypeName="DB_PHE_ExplorationModel.TX_ESDCDiscrepancy">
+        <MappingFragment StoreEntitySet="TX_ESDCDiscrepancy">
+          <ScalarProperty Name="xStructureID" ColumnName="xStructureID" />
+          <ScalarProperty Name="UncertaintyLevel" ColumnName="UncertaintyLevel" />
+          <ScalarProperty Name="CFUMOil" ColumnName="CFUMOil" />
+          <ScalarProperty Name="CFUMCondensate" ColumnName="CFUMCondensate" />
+          <ScalarProperty Name="CFUMAssociated" ColumnName="CFUMAssociated" />
+          <ScalarProperty Name="CFUMNonAssociated" ColumnName="CFUMNonAssociated" />
+          <ScalarProperty Name="CFPPAOil" ColumnName="CFPPAOil" />
+          <ScalarProperty Name="CFPPACondensate" ColumnName="CFPPACondensate" />
+          <ScalarProperty Name="CFPPAAssociated" ColumnName="CFPPAAssociated" />
+          <ScalarProperty Name="CFPPANonAssociated" ColumnName="CFPPANonAssociated" />
+          <ScalarProperty Name="CFWIOil" ColumnName="CFWIOil" />
+          <ScalarProperty Name="CFWICondensate" ColumnName="CFWICondensate" />
+          <ScalarProperty Name="CFWIAssociated" ColumnName="CFWIAssociated" />
+          <ScalarProperty Name="CFWINonAssociated" ColumnName="CFWINonAssociated" />
+          <ScalarProperty Name="CFCOil" ColumnName="CFCOil" />
+          <ScalarProperty Name="CFCCondensate" ColumnName="CFCCondensate" />
+          <ScalarProperty Name="CFCAssociated" ColumnName="CFCAssociated" />
+          <ScalarProperty Name="CFCNonAssociated" ColumnName="CFCNonAssociated" />
+          <ScalarProperty Name="UCOil" ColumnName="UCOil" />
+          <ScalarProperty Name="UCCondensate" ColumnName="UCCondensate" />
+          <ScalarProperty Name="UCAssociated" ColumnName="UCAssociated" />
+          <ScalarProperty Name="UCNonAssociated" ColumnName="UCNonAssociated" />
+          <ScalarProperty Name="CIOOil" ColumnName="CIOOil" />
+          <ScalarProperty Name="CIOCondensate" ColumnName="CIOCondensate" />
+          <ScalarProperty Name="CIOAssociated" ColumnName="CIOAssociated" />
+          <ScalarProperty Name="CIONonAssociated" ColumnName="CIONonAssociated" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TX_ESDCForecast">
+      <EntityTypeMapping TypeName="DB_PHE_ExplorationModel.TX_ESDCForecast">
+        <MappingFragment StoreEntitySet="TX_ESDCForecast">
+          <ScalarProperty Name="xStructureID" ColumnName="xStructureID" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="TPFOil" ColumnName="TPFOil" />
+          <ScalarProperty Name="TPFCondensate" ColumnName="TPFCondensate" />
+          <ScalarProperty Name="TPFAssociated" ColumnName="TPFAssociated" />
+          <ScalarProperty Name="TPFNonAssociated" ColumnName="TPFNonAssociated" />
+          <ScalarProperty Name="SFOil" ColumnName="SFOil" />
+          <ScalarProperty Name="SFCondensate" ColumnName="SFCondensate" />
+          <ScalarProperty Name="SFAssociated" ColumnName="SFAssociated" />
+          <ScalarProperty Name="SFNonAssociated" ColumnName="SFNonAssociated" />
+          <ScalarProperty Name="CIOOil" ColumnName="CIOOil" />
+          <ScalarProperty Name="CIOCondensate" ColumnName="CIOCondensate" />
+          <ScalarProperty Name="CIOAssociated" ColumnName="CIOAssociated" />
+          <ScalarProperty Name="CIONonAssociated" ColumnName="CIONonAssociated" />
+          <ScalarProperty Name="LPOil" ColumnName="LPOil" />
+          <ScalarProperty Name="LPCondensate" ColumnName="LPCondensate" />
+          <ScalarProperty Name="LPAssociated" ColumnName="LPAssociated" />
+          <ScalarProperty Name="LPNonAssociated" ColumnName="LPNonAssociated" />
+          <ScalarProperty Name="AverageGrossHeat" ColumnName="AverageGrossHeat" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TX_ESDCInPlace">
+      <EntityTypeMapping TypeName="DB_PHE_ExplorationModel.TX_ESDCInPlace">
+        <MappingFragment StoreEntitySet="TX_ESDCInPlace">
+          <ScalarProperty Name="xStructureID" ColumnName="xStructureID" />
+          <ScalarProperty Name="UncertaintyLevel" ColumnName="UncertaintyLevel" />
+          <ScalarProperty Name="P90IOIP" ColumnName="P90IOIP" />
+          <ScalarProperty Name="P90IGIP" ColumnName="P90IGIP" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TX_ESDCProd">
+      <EntityTypeMapping TypeName="DB_PHE_ExplorationModel.TX_ESDCProd">
+        <MappingFragment StoreEntitySet="TX_ESDCProd">
+          <ScalarProperty Name="xStructureID" ColumnName="xStructureID" />
+          <ScalarProperty Name="GCPPrevOil" ColumnName="GCPPrevOil" />
+          <ScalarProperty Name="GCPPrevCondensate" ColumnName="GCPPrevCondensate" />
+          <ScalarProperty Name="GCPPrevAssociated" ColumnName="GCPPrevAssociated" />
+          <ScalarProperty Name="GCPPrevNonAssociated" ColumnName="GCPPrevNonAssociated" />
+          <ScalarProperty Name="SCPPrevOil" ColumnName="SCPPrevOil" />
+          <ScalarProperty Name="SCPPrevCondensate" ColumnName="SCPPrevCondensate" />
+          <ScalarProperty Name="SCPPrevAssociated" ColumnName="SCPPrevAssociated" />
+          <ScalarProperty Name="SCPPrevNonAssociated" ColumnName="SCPPrevNonAssociated" />
+          <ScalarProperty Name="GCPOil" ColumnName="GCPOil" />
+          <ScalarProperty Name="GCPCondensate" ColumnName="GCPCondensate" />
+          <ScalarProperty Name="GCPAssociated" ColumnName="GCPAssociated" />
+          <ScalarProperty Name="GCPNonAssociated" ColumnName="GCPNonAssociated" />
+          <ScalarProperty Name="SCPOil" ColumnName="SCPOil" />
+          <ScalarProperty Name="SCPCondensate" ColumnName="SCPCondensate" />
+          <ScalarProperty Name="SCPAssociated" ColumnName="SCPAssociated" />
+          <ScalarProperty Name="SCPNonAssociated" ColumnName="SCPNonAssociated" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TX_ESDCVolumetric">
+      <EntityTypeMapping TypeName="DB_PHE_ExplorationModel.TX_ESDCVolumetric">
+        <MappingFragment StoreEntitySet="TX_ESDCVolumetric">
+          <ScalarProperty Name="xStructureID" ColumnName="xStructureID" />
+          <ScalarProperty Name="UncertaintyLevel" ColumnName="UncertaintyLevel" />
+          <ScalarProperty Name="GRRPrevOil" ColumnName="GRRPrevOil" />
+          <ScalarProperty Name="GRRPrevCondensate" ColumnName="GRRPrevCondensate" />
+          <ScalarProperty Name="GRRPrevAssociated" ColumnName="GRRPrevAssociated" />
+          <ScalarProperty Name="GRRPrevNonAssociated" ColumnName="GRRPrevNonAssociated" />
+          <ScalarProperty Name="ReservesPrevOil" ColumnName="ReservesPrevOil" />
+          <ScalarProperty Name="ReservesPrevCondensate" ColumnName="ReservesPrevCondensate" />
+          <ScalarProperty Name="ReservesPrevAssociated" ColumnName="ReservesPrevAssociated" />
+          <ScalarProperty Name="ReservesPrevNonAssociated" ColumnName="ReservesPrevNonAssociated" />
+          <ScalarProperty Name="GOIOil" ColumnName="GOIOil" />
+          <ScalarProperty Name="GOICondensate" ColumnName="GOICondensate" />
+          <ScalarProperty Name="GOIAssociated" ColumnName="GOIAssociated" />
+          <ScalarProperty Name="GOINonAssociated" ColumnName="GOINonAssociated" />
+          <ScalarProperty Name="ReservesOil" ColumnName="ReservesOil" />
+          <ScalarProperty Name="ReservesCondensate" ColumnName="ReservesCondensate" />
+          <ScalarProperty Name="ReservesAssociated" ColumnName="ReservesAssociated" />
+          <ScalarProperty Name="ReservesNonAssociated" ColumnName="ReservesNonAssociated" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TX_ProsResources">
+      <EntityTypeMapping TypeName="DB_PHE_ExplorationModel.TX_ProsResources">
+        <MappingFragment StoreEntitySet="TX_ProsResources">
+          <ScalarProperty Name="xStructureID" ColumnName="xStructureID" />
+          <ScalarProperty Name="P90InPlaceOilPR" ColumnName="P90InPlaceOilPR" />
+          <ScalarProperty Name="P90InPlaceOilPRUoM" ColumnName="P90InPlaceOilPRUoM" />
+          <ScalarProperty Name="P50InPlaceOilPR" ColumnName="P50InPlaceOilPR" />
+          <ScalarProperty Name="P50InPlaceOilPRUoM" ColumnName="P50InPlaceOilPRUoM" />
+          <ScalarProperty Name="PMeanInPlaceOilPR" ColumnName="PMeanInPlaceOilPR" />
+          <ScalarProperty Name="PMeanInPlaceOilPRUoM" ColumnName="PMeanInPlaceOilPRUoM" />
+          <ScalarProperty Name="P10InPlaceOilPR" ColumnName="P10InPlaceOilPR" />
+          <ScalarProperty Name="P10InPlaceOilPRUoM" ColumnName="P10InPlaceOilPRUoM" />
+          <ScalarProperty Name="P90InPlaceGasPR" ColumnName="P90InPlaceGasPR" />
+          <ScalarProperty Name="P90InPlaceGasPRUoM" ColumnName="P90InPlaceGasPRUoM" />
+          <ScalarProperty Name="P50InPlaceGasPR" ColumnName="P50InPlaceGasPR" />
+          <ScalarProperty Name="P50InPlaceGasPRUoM" ColumnName="P50InPlaceGasPRUoM" />
+          <ScalarProperty Name="PMeanInPlaceGasPR" ColumnName="PMeanInPlaceGasPR" />
+          <ScalarProperty Name="PMeanInPlaceGasPRUoM" ColumnName="PMeanInPlaceGasPRUoM" />
+          <ScalarProperty Name="P10InPlaceGasPR" ColumnName="P10InPlaceGasPR" />
+          <ScalarProperty Name="P10InPlaceGasPRUoM" ColumnName="P10InPlaceGasPRUoM" />
+          <ScalarProperty Name="P90InPlaceTotalPR" ColumnName="P90InPlaceTotalPR" />
+          <ScalarProperty Name="P90InPlaceTotalPRUoM" ColumnName="P90InPlaceTotalPRUoM" />
+          <ScalarProperty Name="P50InPlaceTotalPR" ColumnName="P50InPlaceTotalPR" />
+          <ScalarProperty Name="P50InPlaceTotalPRUoM" ColumnName="P50InPlaceTotalPRUoM" />
+          <ScalarProperty Name="PMeanInPlaceTotalPR" ColumnName="PMeanInPlaceTotalPR" />
+          <ScalarProperty Name="PMeanInPlaceTotalPRUoM" ColumnName="PMeanInPlaceTotalPRUoM" />
+          <ScalarProperty Name="P10InPlaceTotalPR" ColumnName="P10InPlaceTotalPR" />
+          <ScalarProperty Name="P10InPlaceTotalPRUoM" ColumnName="P10InPlaceTotalPRUoM" />
+          <ScalarProperty Name="RFOilPR" ColumnName="RFOilPR" />
+          <ScalarProperty Name="RFGasPR" ColumnName="RFGasPR" />
+          <ScalarProperty Name="P90RROil" ColumnName="P90RROil" />
+          <ScalarProperty Name="P90RROilUoM" ColumnName="P90RROilUoM" />
+          <ScalarProperty Name="P50RROil" ColumnName="P50RROil" />
+          <ScalarProperty Name="P50RROilUoM" ColumnName="P50RROilUoM" />
+          <ScalarProperty Name="PMeanRROil" ColumnName="PMeanRROil" />
+          <ScalarProperty Name="PMeanRROilUoM" ColumnName="PMeanRROilUoM" />
+          <ScalarProperty Name="P10RROil" ColumnName="P10RROil" />
+          <ScalarProperty Name="P10RROilUoM" ColumnName="P10RROilUoM" />
+          <ScalarProperty Name="P90RRGas" ColumnName="P90RRGas" />
+          <ScalarProperty Name="P90RRGasUoM" ColumnName="P90RRGasUoM" />
+          <ScalarProperty Name="P50RRGas" ColumnName="P50RRGas" />
+          <ScalarProperty Name="P50RRGasUoM" ColumnName="P50RRGasUoM" />
+          <ScalarProperty Name="PMeanRRGas" ColumnName="PMeanRRGas" />
+          <ScalarProperty Name="PMeanRRGasUoM" ColumnName="PMeanRRGasUoM" />
+          <ScalarProperty Name="P10RRGas" ColumnName="P10RRGas" />
+          <ScalarProperty Name="P10RRGasUoM" ColumnName="P10RRGasUoM" />
+          <ScalarProperty Name="P90RRTotal" ColumnName="P90RRTotal" />
+          <ScalarProperty Name="P90RRTotalUoM" ColumnName="P90RRTotalUoM" />
+          <ScalarProperty Name="P50RRTotal" ColumnName="P50RRTotal" />
+          <ScalarProperty Name="P50RRTotalUoM" ColumnName="P50RRTotalUoM" />
+          <ScalarProperty Name="PMeanRRTotal" ColumnName="PMeanRRTotal" />
+          <ScalarProperty Name="PMeanRRTotalUoM" ColumnName="PMeanRRTotalUoM" />
+          <ScalarProperty Name="P10RRTotal" ColumnName="P10RRTotal" />
+          <ScalarProperty Name="P10RRTotalUoM" ColumnName="P10RRTotalUoM" />
+          <ScalarProperty Name="HydrocarbonTypePRParID" ColumnName="HydrocarbonTypePRParID" />
+          <ScalarProperty Name="GCFSRPR" ColumnName="GCFSRPR" />
+          <ScalarProperty Name="GCFSRPRUoM" ColumnName="GCFSRPRUoM" />
+          <ScalarProperty Name="GCFTMPR" ColumnName="GCFTMPR" />
+          <ScalarProperty Name="GCFTMPRUoM" ColumnName="GCFTMPRUoM" />
+          <ScalarProperty Name="GCFReservoirPR" ColumnName="GCFReservoirPR" />
+          <ScalarProperty Name="GCFReservoirPRUoM" ColumnName="GCFReservoirPRUoM" />
+          <ScalarProperty Name="GCFClosurePR" ColumnName="GCFClosurePR" />
+          <ScalarProperty Name="GCFClosurePRUoM" ColumnName="GCFClosurePRUoM" />
+          <ScalarProperty Name="GCFContainmentPR" ColumnName="GCFContainmentPR" />
+          <ScalarProperty Name="GCFContainmentPRUoM" ColumnName="GCFContainmentPRUoM" />
+          <ScalarProperty Name="GCFPGTotalPR" ColumnName="GCFPGTotalPR" />
+          <ScalarProperty Name="GCFPGTotalPRUoM" ColumnName="GCFPGTotalPRUoM" />
+          <ScalarProperty Name="ExpectedPG" ColumnName="ExpectedPG" />
+          <ScalarProperty Name="CurrentPG" ColumnName="CurrentPG" />
+          <ScalarProperty Name="MethodParID" ColumnName="MethodParID" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TX_ProsResourcesTarget">
+      <EntityTypeMapping TypeName="DB_PHE_ExplorationModel.TX_ProsResourcesTarget">
+        <MappingFragment StoreEntitySet="TX_ProsResourcesTarget">
+          <ScalarProperty Name="TargetID" ColumnName="TargetID" />
+          <ScalarProperty Name="TargetName" ColumnName="TargetName" />
+          <ScalarProperty Name="xStructureID" ColumnName="xStructureID" />
+          <ScalarProperty Name="P90InPlaceOil" ColumnName="P90InPlaceOil" />
+          <ScalarProperty Name="P90InPlaceOilUoM" ColumnName="P90InPlaceOilUoM" />
+          <ScalarProperty Name="P50InPlaceOil" ColumnName="P50InPlaceOil" />
+          <ScalarProperty Name="P50InPlaceOilUoM" ColumnName="P50InPlaceOilUoM" />
+          <ScalarProperty Name="PMeanInPlaceOil" ColumnName="PMeanInPlaceOil" />
+          <ScalarProperty Name="PMeanInPlaceOilUoM" ColumnName="PMeanInPlaceOilUoM" />
+          <ScalarProperty Name="P10InPlaceOil" ColumnName="P10InPlaceOil" />
+          <ScalarProperty Name="P10InPlaceOilUoM" ColumnName="P10InPlaceOilUoM" />
+          <ScalarProperty Name="P90InPlaceGas" ColumnName="P90InPlaceGas" />
+          <ScalarProperty Name="P90InPlaceGasUoM" ColumnName="P90InPlaceGasUoM" />
+          <ScalarProperty Name="P50InPlaceGas" ColumnName="P50InPlaceGas" />
+          <ScalarProperty Name="P50InPlaceGasUoM" ColumnName="P50InPlaceGasUoM" />
+          <ScalarProperty Name="PMeanInPlaceGas" ColumnName="PMeanInPlaceGas" />
+          <ScalarProperty Name="PMeanInPlaceGasUoM" ColumnName="PMeanInPlaceGasUoM" />
+          <ScalarProperty Name="P10InPlaceGas" ColumnName="P10InPlaceGas" />
+          <ScalarProperty Name="P10InPlaceGasUoM" ColumnName="P10InPlaceGasUoM" />
+          <ScalarProperty Name="P90InPlaceTotal" ColumnName="P90InPlaceTotal" />
+          <ScalarProperty Name="P90InPlaceTotalUoM" ColumnName="P90InPlaceTotalUoM" />
+          <ScalarProperty Name="P50InPlaceTotal" ColumnName="P50InPlaceTotal" />
+          <ScalarProperty Name="P50InPlaceTotalUoM" ColumnName="P50InPlaceTotalUoM" />
+          <ScalarProperty Name="PMeanInPlaceTotal" ColumnName="PMeanInPlaceTotal" />
+          <ScalarProperty Name="PMeanInPlaceTotalUoM" ColumnName="PMeanInPlaceTotalUoM" />
+          <ScalarProperty Name="P10InPlaceTotal" ColumnName="P10InPlaceTotal" />
+          <ScalarProperty Name="P10InPlaceTotalUoM" ColumnName="P10InPlaceTotalUoM" />
+          <ScalarProperty Name="RFOil" ColumnName="RFOil" />
+          <ScalarProperty Name="RFGas" ColumnName="RFGas" />
+          <ScalarProperty Name="P90RecoverableOil" ColumnName="P90RecoverableOil" />
+          <ScalarProperty Name="P90RecoverableOilUoM" ColumnName="P90RecoverableOilUoM" />
+          <ScalarProperty Name="P50RecoverableOil" ColumnName="P50RecoverableOil" />
+          <ScalarProperty Name="P50RecoverableOilUoM" ColumnName="P50RecoverableOilUoM" />
+          <ScalarProperty Name="PMeanRecoverableOil" ColumnName="PMeanRecoverableOil" />
+          <ScalarProperty Name="PMeanRecoverableOilUoM" ColumnName="PMeanRecoverableOilUoM" />
+          <ScalarProperty Name="P10RecoverableOil" ColumnName="P10RecoverableOil" />
+          <ScalarProperty Name="P10RecoverableOilUoM" ColumnName="P10RecoverableOilUoM" />
+          <ScalarProperty Name="P90RecoverableGas" ColumnName="P90RecoverableGas" />
+          <ScalarProperty Name="P90RecoverableGasUoM" ColumnName="P90RecoverableGasUoM" />
+          <ScalarProperty Name="P50RecoverableGas" ColumnName="P50RecoverableGas" />
+          <ScalarProperty Name="P50RecoverableGasUoM" ColumnName="P50RecoverableGasUoM" />
+          <ScalarProperty Name="PMeanRecoverableGas" ColumnName="PMeanRecoverableGas" />
+          <ScalarProperty Name="PMeanRecoverableGasUoM" ColumnName="PMeanRecoverableGasUoM" />
+          <ScalarProperty Name="P10RecoverableGas" ColumnName="P10RecoverableGas" />
+          <ScalarProperty Name="P10RecoverableGasUoM" ColumnName="P10RecoverableGasUoM" />
+          <ScalarProperty Name="P90RecoverableTotal" ColumnName="P90RecoverableTotal" />
+          <ScalarProperty Name="P90RecoverableTotalUoM" ColumnName="P90RecoverableTotalUoM" />
+          <ScalarProperty Name="P50RecoverableTotal" ColumnName="P50RecoverableTotal" />
+          <ScalarProperty Name="P50RecoverableTotalUoM" ColumnName="P50RecoverableTotalUoM" />
+          <ScalarProperty Name="PMeanRecoverableTotal" ColumnName="PMeanRecoverableTotal" />
+          <ScalarProperty Name="PMeanRecoverableTotalUoM" ColumnName="PMeanRecoverableTotalUoM" />
+          <ScalarProperty Name="P10RecoverableTotal" ColumnName="P10RecoverableTotal" />
+          <ScalarProperty Name="P10RecoverableTotalUoM" ColumnName="P10RecoverableTotalUoM" />
+          <ScalarProperty Name="HydrocarbonTypeParID" ColumnName="HydrocarbonTypeParID" />
+          <ScalarProperty Name="GCFSR" ColumnName="GCFSR" />
+          <ScalarProperty Name="GCFSRUoM" ColumnName="GCFSRUoM" />
+          <ScalarProperty Name="GCFTM" ColumnName="GCFTM" />
+          <ScalarProperty Name="GCFTMUoM" ColumnName="GCFTMUoM" />
+          <ScalarProperty Name="GCFReservoir" ColumnName="GCFReservoir" />
+          <ScalarProperty Name="GCFReservoirUoM" ColumnName="GCFReservoirUoM" />
+          <ScalarProperty Name="GCFClosure" ColumnName="GCFClosure" />
+          <ScalarProperty Name="GCFClosureUoM" ColumnName="GCFClosureUoM" />
+          <ScalarProperty Name="GCFContainment" ColumnName="GCFContainment" />
+          <ScalarProperty Name="GCFContainmentUoM" ColumnName="GCFContainmentUoM" />
+          <ScalarProperty Name="GCFPGTotal" ColumnName="GCFPGTotal" />
+          <ScalarProperty Name="GCFPGTotalUoM" ColumnName="GCFPGTotalUoM" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vw_Country">
+      <EntityTypeMapping TypeName="DB_PHE_ExplorationModel.vw_Country">
+        <MappingFragment StoreEntitySet="vw_Country">
+          <ScalarProperty Name="CountriesID" ColumnName="CountriesID" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+          <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+          <ScalarProperty Name="ISOCountriesID" ColumnName="ISOCountriesID" />
+          <ScalarProperty Name="NameIDNVer" ColumnName="NameIDNVer" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vw_DIM_Entity">
+      <EntityTypeMapping TypeName="DB_PHE_ExplorationModel.vw_DIM_Entity">
+        <MappingFragment StoreEntitySet="vw_DIM_Entity">
+          <ScalarProperty Name="EntityID" ColumnName="EntityID" />
+          <ScalarProperty Name="EntityName" ColumnName="EntityName" />
+          <ScalarProperty Name="EntityType" ColumnName="EntityType" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

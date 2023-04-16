@@ -1,0 +1,311 @@
+﻿@using SHUNetMVC.Abstraction.Model.View;
+@model IEnumerable<Field>
+
+@foreach (var field in Model)
+{
+    if (field.FieldType == FieldType.Hidden)
+    {
+        <input type="hidden" id="@field.Id" name="@field.Id" value="@field.Value" />
+    }
+    else
+    {
+        var errorClass = "";
+        if (field.HasError)
+        {
+            errorClass = "is-invalid";
+        }
+
+        var requiredClass = "";
+        var requiredInput = "";
+        if (field.IsRequired)
+        {
+            requiredClass = "is-required";
+            requiredInput = "required";
+        }
+
+<div class="mb-3" style="display:inline-block;margin-left:60px;width:40%;">
+
+
+    @if (field.Label != null)
+    {
+        if (field.FieldType == FieldType.Radio)
+        {
+            <label class="form-label @requiredClass" for="@field.Id">
+                @field.Label <span class="text-muted fw-normal"> (select on of options)</span>
+            </label>
+        }
+        else if (field.FieldType != FieldType.Switch)
+        {
+            <label class="form-label @requiredClass" for="@field.Id">
+                @field.Label
+            </label>
+        }
+    }
+
+
+
+    @if (field.FieldType == FieldType.Text)
+    {
+        if (field.IsDisabled)
+        {
+            <input disabled class="form-control text-box single-line @errorClass" id="@field.Id" name="@field.Id" type="text" value="@field.Value" placeholder="@field.Label" @requiredInput>
+        }
+        else
+        {
+            if (field.Id == "CAPEX" || field.Id == "OPEXProduction" || field.Id == "OPEXFacility" || field.Id == "ASR" || field.Id == "ContractorNPV" || field.Id == "IRR" || field.Id == "ContractorPOT" || field.Id == "PIncome" || field.Id == "EMV" || field.Id == "NPV")
+            {
+                <input class="form-control text-box single-line @errorClass" id="@field.Id" name="@field.Id" type="text" value="@field.Value" placeholder="0" maxlength="4" @requiredInput onkeypress='validate(event)'>
+            }
+            else
+            {
+                if (field.Id == "xStructureName")
+                {
+                    <input class="form-control text-box single-line @errorClass" id="@field.Id" name="@field.Id" type="text" value="@field.Value" placeholder="@field.Label" @requiredInput onblur="checkExplorationName()">
+                    <label class="form-label" id="explorationNameMessage" style="display:none;color:red">This exploration structure Name is already exist</label>
+                }
+                else if (field.Label == "Field ID")
+                {
+                    <i class="fa fa-circle-info" title="ID Field diambil dari data aplikasi eSDC SKK Migas"></i>
+                    <input class="form-control text-box single-line @errorClass" id="@field.Id" name="@field.Id" type="text" value="@field.Value" placeholder="@field.Label" @requiredInput>
+                }
+                else if (field.Label == "Project ID")
+                {
+                    <i class="fa fa-circle-info" title="ID Project diambil dari data aplikasi eSDC SKK Migas"></i>
+                    <input class="form-control text-box single-line @errorClass" id="@field.Id" name="@field.Id" type="text" value="@field.Value" placeholder="@field.Label" @requiredInput>
+                }
+                else
+                {
+                    <input class="form-control text-box single-line @errorClass" id="@field.Id" name="@field.Id" type="text" value="@field.Value" placeholder="@field.Label" @requiredInput>
+                }
+
+            }
+        }
+    }
+    else if (field.FieldType == FieldType.TextArea)
+    {
+        <textarea class="form-control  @errorClass" id="@field.Id" name="@field.Id" rows="3">@field.Value</textarea>
+
+    }
+    else if (field.FieldType == FieldType.Number)
+    {
+        <input class="form-control text-box single-line  @errorClass" id="@field.Id" name="@field.Id" type="number" value="@field.Value" min="1" max="99999" step=".01" placeholder="@field.Label" maxlength="5" @requiredInput onkeypress='validate(event)' onchange='changeHandlerEcoCAPEX(this)'>
+    }
+    else if (field.FieldType == FieldType.Decimal)
+    {
+        if (field.Id == "CAPEX" || field.Id == "OPEXProduction" || field.Id == "OPEXFacility")
+        {
+            <input class="form-control text-box single-line  @errorClass" id="@field.Id" name="@field.Id" type="number" value="@field.Value" min="1" max="99999" step=".01" placeholder="@field.Label" maxlength="5" @requiredInput onkeypress='validate(event)' onchange='changeHandlerEcoCAPEX(this)'>
+        }
+        else
+        {
+            <input class="form-control text-box single-line  @errorClass" id="@field.Id" name="@field.Id" type="number" value="@field.Value" min="1" max="9999" step=".01" placeholder="@field.Label" maxlength="4" @requiredInput onkeypress='validate(event)' onchange='changeHandlerEco(this)'>
+        }
+
+    }
+    else if (field.FieldType == FieldType.Percentage)
+    {
+        <input class="form-control text-box single-line  @errorClass" id="@field.Id" name="@field.Id" type="number" value="@field.Value" min="1" max="100" step=".01" placeholder="@field.Label" maxlength="3" @requiredInput onkeypress='validate(event)' onchange='changeHandlerEcoPercent(this)'>
+    }
+    else if (field.FieldType == FieldType.Email)
+    {
+        <input class="form-control text-box single-line  @errorClass" id="@field.Id" name="@field.Id" type="email" value="@field.Value" placeholder="@field.Label">
+    }
+    else if (field.FieldType == FieldType.Phone)
+    {
+        <input class="form-control text-box single-line  @errorClass" id="@field.Id" name="@field.Id" type="tel" value="@field.Value" placeholder="@field.Label">
+    }
+    else if (field.FieldType == FieldType.Date)
+    {
+        <!--<input type="date" class="form-control text-box single-line  @errorClass" id="@field.Id" name="@field.Id" value="@field.Value">-->
+        @(Html.Kendo().DatePicker()
+          .Name(@field.Id)
+          .Format("dd-MMM-yyyy")
+          .Value(Convert.ToDateTime(@field.Value))
+          .Events(e => e.Change("blockdate_changed"))
+          .HtmlAttributes(new { style = "width: 100%", title = @field.Id })
+        )
+    }
+    else if (field.FieldType == FieldType.DateTime)
+    {
+        <input class="form-control text-box single-line  @errorClass" id="@field.Id" name="@field.Id" type="datetime-local" value="@field.Value">
+    }
+    else if (field.FieldType == FieldType.Dropdown)
+    {
+        if (field.IsDisabled)
+        {
+            if (field.Label == "UD Classification")
+            {
+                <select class="form-select" id="@field.Id" name="@field.Id" onChange="handleSubPhase(this);" disabled>
+                    @if (field.LookUpList != null)
+                    {
+                        foreach (var item in field.LookUpList.Items)
+                        {
+                            if (item.Value == field.Value?.ToString())
+                            {
+                                <option value="@item.Value" selected>@item.Text</option>
+                            }
+                        }
+                    }
+                </select>
+            }
+            else if (field.Label == "UD Type")
+            {
+                <i class="fa fa-circle-info" title="UD Type mengacu klasifikasi eSDC SKK Migas"></i>
+                <select class="form-select" id="@field.Id" name="@field.Id" onChange="handleSubPhase(this);" disabled>
+                    @if (field.LookUpList != null)
+                    {
+                        foreach (var item in field.LookUpList.Items)
+                        {
+                            if (item.Value == field.Value?.ToString())
+                            {
+                                <option value="@item.Value" selected>@item.Text</option>
+                            }
+                        }
+                    }
+                </select>
+            }
+            else if (field.Label == "UD Sub Classification")
+            {
+                <i class="fa fa-circle-info" title="Hanya untuk K7"></i>
+                <select class="form-select" id="@field.Id" name="@field.Id" onChange="handleSubPhase(this);" disabled>
+                    @if (field.LookUpList != null)
+                    {
+                        foreach (var item in field.LookUpList.Items)
+                        {
+                            if (item.Value == field.Value?.ToString())
+                            {
+                                <option value="@item.Value" selected>@item.Text</option>
+                            }
+                        }
+                    }
+                </select>
+            }
+            else if (field.Id == "EntityID")
+            {
+                <div>
+                    <button id="@field.Id" name="@field.Id" style="width:100%;" class="btn btn-primary" onclick="showQuickFindDialogGrid(this);"><i class="fa fa-magnifying-glass"></i>&nbsp; @field.Label</button>
+                </div>
+            }
+            else
+            {
+                <select class="form-select" id="@field.Id" name="@field.Id" disabled @requiredInput>
+                    @if (field.LookUpList != null)
+                    {
+                        foreach (var item in field.LookUpList.Items)
+                        {
+                            if (item.Value == field.Value?.ToString())
+                            {
+                                <option value="@item.Value" selected="@item.Selected">@item.Text</option>
+                            }
+                        }
+                    }
+                </select>
+            }
+        }
+        else
+        {
+            if (field.Id == "xStructureStatusParID")
+            {
+                <select class="form-select" id="@field.Id" name="@field.Id" onChange="handlePhase(this); @requiredInput">
+                    @foreach (var item in field.LookUpList.Items)
+                    {
+                        if (item.Value == field.Value?.ToString())
+                        {
+                            <option value="@item.Value" selected>@item.Text</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Value">@item.Text</option>
+                        }
+
+                    }
+                </select>
+            }
+            else if (field.Id == "EffectiveYear")
+            {
+                <select class="form-select" id="@field.Id" name="@field.Id" onChange="changeDataSourceGrid(this);">
+                    @foreach (var item in field.LookUpList.Items)
+                    {
+                        if (item.Value == field.Value?.ToString())
+                        {
+                            <option value="@item.Value" selected>@item.Text</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Value">@item.Text</option>
+                        }
+
+                    }
+                </select>
+            }
+            else
+            {
+                @Html.Partial("Component/Form/_Field-Dropdown", field)
+            }
+        }
+    }
+    else if (field.FieldType == FieldType.Switch)
+    {
+        @Html.Partial("Component/Form/_Field-Switch", field)
+    }
+    else if (field.FieldType == FieldType.Radio)
+    {
+        @Html.Partial("Component/Form/_Field-Radio", field)
+    }
+    else if (field.FieldType == FieldType.MultiCheckbox)
+    {
+        @Html.Partial("Component/Form/_Field-MultiCheckbox", field)
+
+    }
+    else if (field.FieldType == FieldType.Lookup)
+    {
+        <input class="select-lookup id" id="@field.Id" name="@field.Id" type="hidden" value="@field.Value">
+        if (field.Value == null)
+        {
+            <input class="form-select select-lookup  @errorClass" style="cursor:pointer" onclick="showLookupModal(this, '@field.LookUpController', '@field.LookUpOrderBy')" readonly type="text" value="@field.Value" placeholder="@field.Label">
+        }
+        else
+        {
+            Html.RenderAction("GetLookupText", field.LookUpController, field);
+        }
+
+    }
+    else if (field.FieldType == FieldType.Grid)
+    {
+        @Html.Partial("Component/Form/_Field-Grid", field)
+    }
+    else if (field.FieldType == FieldType.FileUpload)
+    {
+        <input id="fileID_@(field.Id)" value="@field.FileID" type="hidden" />
+        <input id="fileType_@(field.Id)" value="@field.FileType" type="hidden" />
+        <input id="fileUrl_@(field.Id)" value="@field.Value" type="hidden" />
+        <input id="fileName_@(field.Id)" value="@field.Filename" type="hidden" />
+        if (!field.FileUploadESDC)
+        {
+            if (field.Id == "OnePagerMontage")
+            {
+                <input id="@field.Id" name="@field.Id" @errorClass class="form-control text-box single-line" type="file" accept=".pptx,.pdf" onchange="ImgPre@(field.Id)(this)" />
+            }
+            else
+            {
+                <input id="@field.Id" name="@field.Id" @errorClass class="form-control text-box single-line" type="file" accept=".shp" onchange="ImgPre@(field.Id)(this)" />
+            }
+
+        }
+        <div id="preview_@(field.Id)">
+        </div>
+        <input id="@(field.Id)_tmp" value="0" type="hidden" />
+        if (!field.FileUploadESDC)
+        {
+            <a id="btn@(field.Id)" class="btn btn-danger" style="margin-top:10px;display:none" onclick="Clear@(field.Id)(this);">Delete</a>
+        }
+    }
+    @if (field.HasError)
+    {
+        <div class="invalid-feedback">
+            @field.ErrorMessage
+        </div>
+    }
+</div>
+    }
+}

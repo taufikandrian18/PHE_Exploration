@@ -1,0 +1,299 @@
+﻿@using Kendo.Mvc.UI
+@using SHUNetMVC.Abstraction.Model.View;
+@using SHUNetMVC.Abstraction.Model.Dto;
+@using SHUNetMVC.Abstraction.Model.Response;
+@model FormDefinition
+@{
+    string CurrentControllerName = Convert.ToString(HttpContext.Current.Request.RequestContext.RouteData.Values["Controller"]);
+    var formUrl = CurrentControllerName;
+    var modalTitle = $"Add New {Model.Title}";
+    var formState = "create";
+    if (Model.State == FormState.Create)
+    {
+        formUrl = Model.Title + "/Create";
+    }
+    else
+    {
+        formState = "edit";
+        modalTitle = $"Edit {Model.Title}";
+        formUrl = Model.Title + "/Edit";
+    }
+
+}
+<style>
+    .k-grid-header, .k-grid-header .k-header {
+        background-color: #D6E7F3;
+        border-color: #A5CAE6;
+    }
+
+    .k-grid-toolbar {
+        background-color: #D6E7F3;
+        border-color: #A5CAE6;
+    }
+
+    .k-button {
+        background-color: #D6E7F3;
+        border-color: #A5CAE6;
+        transition-duration: 0.4s;
+    }
+
+        .k-button:hover {
+            background-color: #8fa2b1;
+            border-color: #A5CAE6;
+        }
+</style>
+<form action="@formUrl" method="post" onsubmit="event.preventDefault()" form-state="@Model.State">
+    <div class="table-title">
+        <div class="heading-Text">
+            Forecast Data
+        </div>
+        <div class="table-subtitle">
+            This is the list of Forecast
+        </div>
+    </div>
+    <div style="padding-left:15px; margin-bottom:5px">
+        <label>Download Template Copy Paste :</label>
+        <a href="~/Assets/Template/Template_Pengisian_eSDC_Forecast.xlsx" download>
+            Template_Pengisian_eSDC_Forecast
+        </a>
+    </div>
+    <div class="modal-body">
+        <input id="formStateDrl" type="hidden" value="@formState" />
+        <input id="paramIDDrl" type="hidden" value="@Model.paramID" />
+        <div>
+            @(Html.Kendo().Grid<SHUNetMVC.Abstraction.Model.Dto.TXESDCForecastDto>()
+            .Name("gridESDCForecast")
+            .Columns(columns =>
+            {
+                columns.Bound(p => p.xStructureID).Width(100);
+                columns.Bound(p => p.Year).Width(100).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                columns.Group(group1 => group1
+                    .HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" })
+                    .Title("Total Potensial Forecast")
+                    .Columns(info =>
+                    {
+                        info.Bound(c => c.TPFOil).Width(250).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.TPFCondensate).Width(250).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.TPFAssociated).Width(250).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.TPFNonAssociated).Width(250).HtmlAttributes(new { style = "text-align: " +
+                            "center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                    })
+                );
+                columns.Group(group2 => group2
+                    .HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" })
+                    .Title("Sales Forecast")
+                    .Columns(info =>
+                    {
+                        info.Bound(c => c.SFOil).Width(250).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.SFCondensate).Width(250).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.SFAssociated).Width(250).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.SFNonAssociated).Width(250).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                    })
+                );
+                columns.Group(group3 => group3
+                    .HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" })
+                    .Title("Consumed in Operation")
+                    .Columns(info =>
+                    {
+                        info.Bound(c => c.CIOOil).Width(250).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.CIOCondensate).Width(250).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.CIOAssociated).Width(250).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.CIONonAssociated).Width(250).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                    })
+                );
+                columns.Group(group2 => group2
+                    .HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" })
+                    .Title("Loss in Production")
+                    .Columns(info =>
+                    {
+                        info.Bound(c => c.LPOil).Width(250).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.LPCondensate).Width(250).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.LPAssociated).Width(250).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.LPNonAssociated).Width(250).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                    })
+                );
+                columns.Bound(p => p.AverageGrossHeat).Sortable(false).Width(250).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                columns.Bound(p => p.Remarks).Sortable(false).Width(300).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                columns.Command(command => command.Destroy()).Width(250).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+            })
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .Batch(true)
+                .ServerOperation(false)
+                .Events(events => events.Error("error_handler").Change("onChange"))
+                .Model(model =>
+                {
+                    model.Id(p => p.xStructureID);
+                    model.Field(p => p.xStructureID).Editable(false);
+                })
+                .PageSize(20)
+                .Read(read => read.Action("EditingCustomESDCForecast_Read", "ESDCForecast").Data("getClientFormStateDrl"))
+                .Create(create => create.Action("EditingCustomESDCForecast_Create", "ESDCForecast"))
+                .Update(update => update.Action("EditingCustomESDCForecast_Update", "ESDCForecast"))
+                .Destroy(destroy => destroy.Action("EditingCustomESDCForecast_Destroy", "ESDCForecast"))
+            )
+            .ToolBar(toolBar =>
+            {
+                toolBar.Create().Text("Add New Year");
+                toolBar.Save();
+            })
+            .Editable(editable => editable.Mode(GridEditMode.InCell).CreateAt(position:GridInsertRowPosition.Bottom))
+            .Pageable()
+            .Selectable(selectable => selectable
+            .Mode(GridSelectionMode.Multiple)
+            .Type(GridSelectionType.Cell))
+            .Navigatable()
+            .AllowCopy(true)
+            .Scrollable(x => x.Height(250)))
+        </div>
+    </div>
+</form>
+<script type="text/javascript">
+    function error_handler(e) {
+        if (e.errors) {
+            var message = "Errors:\n";
+            $.each(e.errors, function (key, value) {
+                if ('errors' in value) {
+                    $.each(value.errors, function () {
+                        message += this + "\n";
+                    });
+                }
+            });
+            alert(message);
+        }
+    }
+    function returnFalse() {
+        return false;
+    }
+    function onChange(e) {
+        if (e.field == "TPFOil") {
+            var grid = $('#gridESDCForecast').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#TPFOil").val();
+            firstItem["TPFOil"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "TPFCondensate") {
+            var grid = $('#gridESDCForecast').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#TPFCondensate").val();
+            firstItem["TPFCondensate"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "TPFAssociated") {
+            var grid = $('#gridESDCForecast').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#TPFAssociated").val();
+            firstItem["TPFAssociated"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "TPFNonAssociated") {
+            var grid = $('#gridESDCForecast').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#TPFNonAssociated").val();
+            firstItem["TPFNonAssociated"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "SFOil") {
+            var grid = $('#gridESDCForecast').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#SFOil").val();
+            firstItem["SFOil"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "SFCondensate") {
+            var grid = $('#gridESDCForecast').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#SFCondensate").val();
+            firstItem["SFCondensate"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "SFAssociated") {
+            var grid = $('#gridESDCForecast').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#SFAssociated").val();
+            firstItem["SFAssociated"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "SFNonAssociated") {
+            var grid = $('#gridESDCForecast').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#SFNonAssociated").val();
+            firstItem["SFNonAssociated"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "CIOOil") {
+            var grid = $('#gridESDCForecast').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#CIOOil").val();
+            firstItem["CIOOil"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "CIOCondensate") {
+            var grid = $('#gridESDCForecast').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#CIOCondensate").val();
+            firstItem["CIOCondensate"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "CIOAssociated") {
+            var grid = $('#gridESDCForecast').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#CIOAssociated").val();
+            firstItem["CIOAssociated"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "CIONonAssociated") {
+            var grid = $('#gridESDCForecast').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#CIONonAssociated").val();
+            firstItem["CIONonAssociated"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "LPOil") {
+            var grid = $('#gridESDCForecast').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#LPOil").val();
+            firstItem["LPOil"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "LPCondensate") {
+            var grid = $('#gridESDCForecast').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#LPCondensate").val();
+            firstItem["LPCondensate"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "LPAssociated") {
+            var grid = $('#gridESDCForecast').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#LPAssociated").val();
+            firstItem["LPAssociated"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "LPNonAssociated") {
+            var grid = $('#gridESDCForecast').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#LPNonAssociated").val();
+            firstItem["LPNonAssociated"] = parseFloat(dvalue).toFixed(2);
+        }
+    }
+    function tsvJSON(tsv) {
+        var lines = tsv.trim().split("\n");
+        var result = [];
+        var headers = lines[0].split("\t");
+        for (var i = 1; i < lines.length; i++) {
+            var obj = {};
+            var currentline = lines[i].split("\t");
+            for (var j = 0; j < headers.length; j++) {
+                obj[headers[j].trim()] = currentline[j];
+            }
+            result.push(obj);
+        }
+        return result; //JSON
+    }
+    document.getElementById('gridESDCForecast').addEventListener('paste', function (e) {
+        var tsv;
+        if (e.ctrlKey && (e.keyCode == 17)) {
+            tsv = window.clipboardData.getData('Text');
+        } else {
+            tsv = e.clipboardData.getData('Text')
+        }
+        if (tsv) {
+            const grid = $('#gridESDCForecast').data('kendoGrid');
+            const pastedData = tsvJSON(tsv);
+            console.log(pastedData);
+            $.map(pastedData, function (val, i) {
+                // Do something
+                console.log(val);
+                grid.dataSource.add(val).set("", { Year: true, TPFOil: true, TPFCondensate: true, TPFAssociated: true, TPFNonAssociated: true, SFOil: true, SFCondensate: true, SFAssociated: true, SFNonAssociated: true, CIOOil: true, CIOCondensate: true, CIOAssociated: true, CIONonAssociated: true, LPOil: true, LPCondensate: true, LPAssociated: true, LPNonAssociated: true, AverageGrossHeat: true, Remark: true });
+            });
+        }
+    });
+</script>
+

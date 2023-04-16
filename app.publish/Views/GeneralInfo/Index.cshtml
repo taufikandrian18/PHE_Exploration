@@ -1,0 +1,2291 @@
+﻿<style type="text/css">
+    .loadingMask {
+        background: url('https://webappdev01.phe.pertamina.com/phe_xplore/loader.gif') center 50% no-repeat #000000;
+        top: 0;
+        left: 0;
+        position: fixed;
+        height: 100%;
+        width: 100%;
+        opacity: 0.7;
+        z-index: 12030
+    }
+</style>
+<link href="~/Scripts/kendo/2022.3.1109/styles/kendo.bootstrap-main.min.css" rel="stylesheet" type="text/css" />
+<script src="~/Scripts/kendo/2022.3.1109/js/jquery.min.js"></script>
+<script src="~/Scripts/kendo/2022.3.1109/js/jszip.min.js"></script>
+<script src="~/Scripts/kendo/2022.3.1109/js/kendo.all.min.js"></script>
+<script src="~/Scripts/kendo/2022.3.1109/js/kendo.aspnetmvc.min.js"></script>
+@*<link href="https://cdn.kendostatic.com/2022.3.1109/styles/kendo.bootstrap-main.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.kendostatic.com/2022.3.1109/js/jquery.min.js"></script>
+    <script src="https://cdn.kendostatic.com/2022.3.1109/js/jszip.min.js"></script>
+    <script src="https://cdn.kendostatic.com/2022.3.1109/js/kendo.all.min.js"></script>
+    <script src="https://cdn.kendostatic.com/2022.3.1109/js/kendo.aspnetmvc.min.js"></script>*@
+@using SHUNetMVC.Abstraction.Model.View
+@model FormDefinition
+<div class="table-title">
+    @if (!string.IsNullOrEmpty(Model.paramID))
+    {
+        <div class="heading-Text">
+            Edit Data <span id="crud-grid-count"></span>
+        </div>
+        <div class="table-subtitle">
+            Exploration Structure / @Model.paramID @*(@Model.DataEx.xStructureName)*@
+        </div>
+    }
+    else
+    {
+        <div class="heading-Text">
+            Create Data <span id="crud-grid-count"></span>
+        </div>
+        <div class="table-subtitle">
+            Exploration Structure / New Draft
+        </div>
+    }
+</div>
+<div class="loadingMask" id="loadingMask" style="visibility: hidden;"></div>
+<div class="gridlist">
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link disabled active" data-bs-toggle="tab" href="#generalinfo">General Info</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled" data-bs-toggle="tab" href="#prospectiveresources">Prospective Resources</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled" data-bs-toggle="tab" href="#contingentresources">Contingent Resources</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled" data-bs-toggle="tab" href="#drilling">Drilling</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled" data-bs-toggle="tab" href="#economic">Economic</a>
+        </li>
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content">
+        @if (Model.State == FormState.Create)
+        {
+            <div class="tab-pane active" id="generalinfo" style="margin-left:10px;">
+                @{Html.RenderAction(Model.Title, "GeneralInfo");}
+                <div class="modal-footer" style="margin-top:10px; padding-bottom: 25px">
+                    <button type="button" class="btn btn-outline-primary" onclick="location.href='@Url.Action("Index", "ExplorationStructure")'" style="width: 90px; margin-right: 10px">Discard</button>
+                    <button type="button" class="btn btn-outline-primary" onclick="saveAllFormCheck(this);" style="width:200px;margin-right:10px">Save and Exit</button>
+                    <a class="btn btn-primary btnNext" style="margin-right:50px">Next</a>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="prospectiveresources">
+                @{Html.RenderAction("EditingCustom", "ProsResources");}
+                <div class="modal-footer" style="margin-top:10px; padding-bottom: 25px">
+                    <button type="button" class="btn btn-outline-primary" onclick="location.href='@Url.Action("Index", "ExplorationStructure")'" style="width: 90px; margin-right: 10px">Discard</button>
+                    <button type="button" class="btn btn-outline-primary" onclick="saveAllFormCheck(this);" style="width:200px;margin-right:10px">Save and Exit</button>
+                    <a class="btn btn-primary btnPrevious" style="margin-right:10px">Back</a>
+                    <a class="btn btn-primary btnNext" style="margin-right:50px">Next</a>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="contingentresources">
+                @{Html.RenderAction("EditingCustomCR", "ContingenResources");}
+                <div class="modal-footer" style="margin-top:10px; padding-bottom: 25px">
+                    <button type="button" class="btn btn-outline-primary" onclick="location.href='@Url.Action("Index", "ExplorationStructure")'" style="width: 90px; margin-right: 10px">Discard</button>
+                    <button type="button" class="btn btn-outline-primary" onclick="saveAllFormCheck(this);" style="width:200px;margin-right:10px">Save and Exit</button>
+                    <a class="btn btn-primary btnPrevious" style="margin-right:10px">Back</a>
+                    <a class="btn btn-primary btnNext" style="margin-right:50px">Next</a>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="drilling">
+                @{Html.RenderAction("EditingCustomDR", "Drilling");}
+                <div class="modal-footer" style="margin-top:10px; padding-bottom: 25px">
+                    <button type="button" class="btn btn-outline-primary" onclick="location.href='@Url.Action("Index", "ExplorationStructure")'" style="width: 90px; margin-right: 10px ">Discard</button>
+                    <button type="button" class="btn btn-outline-primary" onclick="saveAllFormCheck(this);" style="width:200px;margin-right:10px">Save and Exit</button>
+                    <a class="btn btn-primary btnPrevious" style="margin-right:10px">Back</a>
+                    <a class="btn btn-primary btnNext" style="margin-right:50px">Next</a>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="economic">
+                @{Html.RenderAction(Model.Title, "Economic");}
+                <div class="modal-footer" style="margin-top:10px; padding-bottom: 25px">
+                    <button type="button" class="btn btn-outline-primary" onclick="location.href='@Url.Action("Index", "ExplorationStructure")'" style="width: 90px; margin-right: 10px">Discard</button>
+                    <button type="button" class="btn btn-outline-primary" onclick="saveAllFormCheck(this);" style="width:200px;margin-right:10px">Save and Exit</button>
+                    <a class="btn btn-primary btnPrevious" style="margin-right:10px">Back</a>
+                    <button type="submit" class="btn btn-primary" onclick="submitAllFormsCheck(this);" style="width: 90px; margin-right: 50px">Submit</button>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="tab-pane active" id="generalinfo" style="margin-left:10px;">
+                @{Html.RenderAction(Model.Title, "GeneralInfo");}
+                <div class="modal-footer" style="margin-top:10px; padding-bottom: 25px">
+                    <button type="button" class="btn btn-outline-primary" onclick="location.href='@Url.Action("Index", "ExplorationStructure")'" style="width: 90px; margin-right: 10px">Discard</button>
+                    <button type="button" class="btn btn-outline-primary" onclick="saveAllFormCheck(this);" style="width:200px;margin-right:10px">Save and Exit</button>
+                    <a class="btn btn-primary btnNext" style="margin-right:50px">Next</a>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="prospectiveresources">
+                @{Html.RenderAction("EditingCustomEdit", "ProsResources", new { structureID = Model.paramID });}
+                <div class="modal-footer" style="margin-top:10px; padding-bottom: 25px">
+                    <button type="button" class="btn btn-outline-primary" onclick="location.href='@Url.Action("Index", "ExplorationStructure")'" style="width: 90px; margin-right: 10px">Discard</button>
+                    <button type="button" class="btn btn-outline-primary" onclick="saveAllFormCheck(this);" style="width:200px;margin-right:10px">Save and Exit</button>
+                    <a class="btn btn-primary btnPrevious" style="margin-right:10px">Back</a>
+                    <a class="btn btn-primary btnNext" style="margin-right:50px">Next</a>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="contingentresources">
+                @{Html.RenderAction("EditingCustomEdit", "ContingenResources", new { structureID = Model.paramID });}
+                <div class="modal-footer" style="margin-top:10px; padding-bottom: 25px">
+                    <button type="button" class="btn btn-outline-primary" onclick="location.href='@Url.Action("Index", "ExplorationStructure")'" style="width: 90px; margin-right: 10px">Discard</button>
+                    <button type="button" class="btn btn-outline-primary" onclick="saveAllFormCheck(this);" style="width:200px;margin-right:10px">Save and Exit</button>
+                    <a class="btn btn-primary btnPrevious" style="margin-right:10px">Back</a>
+                    <a class="btn btn-primary btnNext" style="margin-right:50px">Next</a>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="drilling">
+                @{Html.RenderAction("EditingCustomEditDR", "Drilling", new { structureID = Model.paramID });}
+                <div class="modal-footer" style="margin-top:10px; padding-bottom: 25px">
+                    <button type="button" class="btn btn-outline-primary" onclick="location.href='@Url.Action("Index", "ExplorationStructure")'" style="width: 90px; margin-right: 10px ">Discard</button>
+                    <button type="button" class="btn btn-outline-primary" onclick="saveAllFormCheck(this);" style="width:200px;margin-right:10px">Save and Exit</button>
+                    <a class="btn btn-primary btnPrevious" style="margin-right:10px">Back</a>
+                    <a class="btn btn-primary btnNext" style="margin-right:50px">Next</a>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="economic">
+                @{Html.RenderAction(Model.Title, "Economic");}
+                <div class="modal-footer" style="margin-top:10px; padding-bottom: 25px">
+                    <button type="button" class="btn btn-outline-primary" onclick="location.href='@Url.Action("Index", "ExplorationStructure")'" style="width: 90px; margin-right: 10px">Discard</button>
+                    <button type="button" class="btn btn-outline-primary" onclick="saveAllFormCheck(this);" style="width:200px;margin-right:10px">Save and Exit</button>
+                    <a class="btn btn-primary btnPrevious" style="margin-right:10px">Back</a>
+                    <button type="submit" class="btn btn-primary" onclick="submitAllFormsCheck(this);" style="width: 90px; margin-right: 50px">Submit</button>
+                </div>
+            </div>
+            <input id="updStructureID" type="hidden" value="@Model.paramID" />
+            <input id="updBlockID" type="hidden" value="@Model.BlockID" />
+        }
+    </div>
+</div>
+<input id="formState" type="hidden" value="@Model.State" name="formState" />
+@*MODAL CONTAINER Grid*@
+<div id="QuickFindModalGrid" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-body" style="cursor : pointer">
+                @(Html.Kendo().Grid<SHUNetMVC.Abstraction.Model.Dto.MDEntityDto>()
+                    .Name("rowSelection")
+                    .Events(events => events.Change("Grid_OnRowSelect"))
+                    .Columns(columns => {
+                        columns.Bound(o => o.EffectiveYear).Width(300);
+                        columns.Bound(p => p.SubholdingID).Width(300);
+                        columns.Bound(p => p.EntityName).Width(300);
+                        columns.Bound(o => o.RegionalID).Width(300);
+                        columns.Bound(p => p.RegionalName).Width(300);
+                        columns.Bound(p => p.ZonaID).Width(300);
+                        columns.Bound(p => p.ZonaName).Width(300);
+                        columns.Bound(o => o.xBlockID).Width(300);
+                        columns.Bound(o => o.xBlockName).Width(300);
+                        columns.Bound(p => p.BasinID).Width(300);
+                        columns.Bound(p => p.BasinName).Width(300);
+                        columns.Bound(p => p.xAssetID).Width(300);
+                        columns.Bound(p => p.xAssetName).Width(300);
+                        columns.Bound(p => p.APHID).Width(300);
+                        columns.Bound(p => p.APHName).Width(300);
+                        columns.Bound(p => p.xAreaID).Width(300);
+                        columns.Bound(p => p.xAreaName).Width(300);
+                    })
+                    .Pageable(pageable => pageable.ButtonCount(5))
+                    .Sortable()
+                    .Selectable(selectable => selectable
+                        .Mode(GridSelectionMode.Single))
+                    .PersistSelection(true)
+                    .Navigatable()
+                    .DataSource(dataSource => dataSource
+                        .Ajax()
+                        .Model(m=>m.Id("EffectiveYear"))
+                        .PageSize(30)
+                        .Read(read => read.Action("Selection_Orders_Read", "GeneralInfo").Data("getClientEffectiveYear"))
+                     )
+                )
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    let QuickFindModalGrid;
+
+    function showQuickFindDialogGrid() {
+        if (!QuickFindModalGrid) {
+            let modalId = "#QuickFindModalGrid";
+
+            let modalElement = $(modalId);
+            quickFindModal = new bootstrap.Modal(modalElement);
+        }
+        quickFindModal.show();
+    }
+    function getClientEffectiveYear() {
+        var queryStringParameters = document.getElementById('EffectiveYear').value
+        return {
+            Data: queryStringParameters
+        };
+    }
+    function getClientFormState() {
+        var queryStringParameters1 = document.getElementById('formState').value
+        var queryStringParameters2 = document.getElementById('paramID').value
+        return {
+            Data: queryStringParameters2,
+            State: queryStringParameters1
+        };
+    }
+    function getClientFormStateView() {
+        var queryStringParameters1 = document.getElementById('formState').value
+        var queryStringParameters2 = document.getElementById('paramID').value
+        return {
+            Data: queryStringParameters2,
+            State: queryStringParameters1
+        };
+    }
+    function getClientFormStateCont() {
+        var queryStringParameters1 = document.getElementById('formStateCont').value
+        var queryStringParameters2 = document.getElementById('paramIDCont').value
+        return {
+            Data: queryStringParameters2,
+            State: queryStringParameters1
+        };
+    }
+    function getClientFormStateDrl() {
+        var queryStringParameters1 = document.getElementById('formStateDrl').value
+        var queryStringParameters2 = document.getElementById('paramIDDrl').value
+        return {
+            Data: queryStringParameters2,
+            State: queryStringParameters1
+        };
+    }
+    function getClientBlockID() {
+        var queryStringParameters = document.getElementById('blockID').value
+        return {
+            Data: queryStringParameters
+        };
+    }
+    function getClientBlockIDEdit() {
+        var queryStringParameters = document.getElementById('updBlockID').value
+        return {
+            Data: queryStringParameters
+        };
+    }
+    Grid_OnRowSelect = function (e) {
+        var data = this.dataItem(this.select());
+        var shuId = data.SubholdingID;
+        var regId = data.RegionalID;
+        var zonId = data.ZonaID;
+        var blcId = data.xBlockID;
+        var basId = data.BasinID;
+        var astId = data.xAssetID;
+        var aphId = data.APHID;
+        var areaId = data.xAreaID;
+        var param = {
+            shuId,
+            regId,
+            zonId,
+            blcId,
+            basId,
+            astId,
+            aphId,
+            areaId
+        };
+        $.get('GeneralInfo/GenerateGeneralInfoDropDownLst', param, function (MPEntityListITem) {
+
+            var $selectExplorationAreaParID = $('#ExplorationAreaParID');
+            $selectExplorationAreaParID.html('');
+            $selectExplorationAreaParID.append("<option value=\"" + areaId + "\">" + MPEntityListITem.AreaName + "</option>");
+
+            var $selectCountriesID = $('#CountriesID');
+            $selectCountriesID.html('');
+            $selectCountriesID.append("<option value=\"" + MPEntityListITem.BlockObject.Country + "\">" + MPEntityListITem.BlockObject.CountryName + "</option>");
+
+            var $selectSubholdingID = $('#SubholdingID');
+            $selectSubholdingID.html('');
+            $selectSubholdingID.append("<option value=\"" + shuId + "\">" + MPEntityListITem.EntityName + "</option>");
+
+            var $selectRegionalID = $('#RegionalID');
+            $selectRegionalID.html('');
+            $selectRegionalID.append("<option value=\"" + regId + "\">" + MPEntityListITem.RegionName + "</option>");
+
+            var $selectZonaID = $('#ZonaID');
+            $selectZonaID.html('');
+            $selectZonaID.append("<option value=\"" + zonId + "\">" + MPEntityListITem.ZonaName + "</option>");
+
+            var $selectBlockID = $('#xBlockID');
+            $selectBlockID.html('');
+            $selectBlockID.append("<option value=\"" + blcId + "\">" + MPEntityListITem.BlockObject.BlockName + "</option>");
+
+            var $selectAPHID = $('#APHID');
+            $selectAPHID.html('');
+            $selectAPHID.append("<option value=\"" + aphId + "\">" + MPEntityListITem.APHName + "</option>");
+            //$('#APHID').val('');
+            //$('#APHID').val(aphId);
+
+            var $selectAssetID = $('#xAssetID');
+            $selectAssetID.html('');
+            $selectAssetID.append("<option value=\"" + astId + "\">" + MPEntityListITem.AssetName + "</option>");
+            //$('#xAssetID').val('');
+            //$('#xAssetID').val(astId);
+
+            var $selectBasinID = $('#BasinID');
+            $selectBasinID.html('');
+            $selectBasinID.append("<option value=\"" + basId + "\">" + MPEntityListITem.BasinName + "</option>");
+
+            var fDateAwardDate = new Date(Date.parse(MPEntityListITem.BlockObject.AwardDate));
+            var MM = fDateAwardDate.getMonth() + 1;   // javascript month start with 0
+            var DD = fDateAwardDate.getDate();
+            var YY = fDateAwardDate.getFullYear();
+            if (MM == 1) MM = "Jan";
+            else if (MM == 2) MM = "Feb";
+            else if (MM == 3) MM = "Mar";
+            else if (MM == 4) MM = "Apr";
+            else if (MM == 5) MM = "Mei";
+            else if (MM == 6) MM = "Jun";
+            else if (MM == 7) MM = "Jul";
+            else if (MM == 8) MM = "Agu";
+            else if (MM == 9) MM = "Sep";
+            else if (MM == 10) MM = "Okt";
+            else if (MM == 11) MM = "Nov";
+            else MM = "Des";
+            if (DD < 10) DD = "0" + DD;
+            var dtAwardDate = DD + "-" + MM + "-" + YY;
+
+            var fDateExpiredDate = new Date(Date.parse(MPEntityListITem.BlockObject.ExpiredDate));
+            var MMex = fDateExpiredDate.getMonth() + 1;   // javascript month start with 0
+            var DDex = fDateExpiredDate.getDate();
+            var YYex = fDateExpiredDate.getFullYear();
+            if (MMex == 1) MMex = "Jan";
+            else if (MMex == 2) MMex = "Feb";
+            else if (MMex == 3) MMex = "Mar";
+            else if (MMex == 4) MMex = "Apr";
+            else if (MMex == 5) MMex = "Mei";
+            else if (MMex == 6) MMex = "Jun";
+            else if (MMex == 7) MMex = "Jul";
+            else if (MMex == 8) MMex = "Agu";
+            else if (MMex == 9) MMex = "Sep";
+            else if (MMex == 10) MMex = "Okt";
+            else if (MMex == 11) MMex = "Nov";
+            else MMex = "Des";
+            if (DDex < 10) DDex = "0" + DDex;
+            var dtExpiredDate = DDex + "-" + MMex + "-" + YYex;
+
+            var queryStringParameters = document.getElementById('formState').value
+            if (queryStringParameters == 'create') {
+                $('input[name="blockID"]').attr('value', blcId);
+            }
+            else {
+                document.getElementById("updBlockID").value = blcId;
+            }
+
+            var grid = $('#gridEco').data('kendoGrid');
+            grid.dataSource.read();
+
+            document.getElementById("AwardDate").value = dtAwardDate;
+            document.getElementById("ExpiredDate").value = dtExpiredDate;
+
+            var $selectxBlockStatusParID = $('#xBlockStatusParID');
+            $selectxBlockStatusParID.html('');
+            $selectxBlockStatusParID.append("<option value=\"" + MPEntityListITem.BlockObject.BlockStatusParID + "\">" + MPEntityListITem.BlockObject.BlockStatusParValueID + "</option>");
+
+            var $selectxOpereatorShipStatusParID = $('#OperatorshipStatusParID');
+            $selectxOpereatorShipStatusParID.html('');
+            $selectxOpereatorShipStatusParID.append("<option value=\"" + MPEntityListITem.BlockObject.OperatorshipStatusParID + "\">" + MPEntityListITem.BlockObject.OperatorshipStatusParValueID + "</option>");
+
+            document.getElementById("OperatorName").value = MPEntityListITem.BlockObject.OperatorName;
+        });
+
+        $(function () {
+            $('#QuickFindModalGrid').modal('toggle');
+        });
+    }
+    function changeDataSourceGrid() {
+        var grid = $('#rowSelection').data('kendoGrid');
+        grid.dataSource.read();
+    }
+    $('.btnNext').click(function () {
+        const nextTabLinkEl = $('.nav-tabs .active').closest('li').find('a')[0];
+        if (nextTabLinkEl.innerHTML == 'General Info') {
+            if (document.getElementById('xStructureName').value != ''
+                && document.getElementById('ExplorationTypeParID').value != '0'
+                && document.getElementById('xStructureStatusParID').value != '0'
+                && document.getElementById('ExplorationAreaParID').value != ''
+                && document.getElementById('CountriesID').value != ''
+                && document.getElementById('SubholdingID').value != ''
+                && document.getElementById('RegionalID').value != ''
+                && document.getElementById('ZonaID').value != ''
+                && document.getElementById('xBlockID').value != ''
+                && document.getElementById('APHID').value != ''
+                && document.getElementById('xAssetID').value != ''
+                && document.getElementById('BasinID').value != ''
+                && $('#explorationNameMessage').css('display') == 'none') {
+                // ajax here
+                var valueofddls = document.getElementById('xStructureStatusParID').value
+                if (valueofddls == '1' || valueofddls == '2' || valueofddls == '3') {
+                    if (valueofddls == '1' || valueofddls == '2') {
+                        const nextTabLinkEl = $('.nav-tabs .active').closest('li').next('li').find('a')[0];
+                        if (nextTabLinkEl.innerHTML == 'Contingent Resources') {
+                            const nextDoubleTabLinkEl = $('.nav-tabs .active').closest('li').next('li').next('li').find('a')[0];
+                            const nextTab = new bootstrap.Tab(nextDoubleTabLinkEl);
+                            nextTab.show();
+                        }
+                        else {
+                            const nextTab = new bootstrap.Tab(nextTabLinkEl);
+                            nextTab.show();
+                        }
+                    }
+                    else {
+                        if (document.getElementById('EffectiveYear').value != '0') {
+                            const nextTabLinkEl = $('.nav-tabs .active').closest('li').next('li').find('a')[0];
+                            if (nextTabLinkEl.innerHTML == 'Contingent Resources') {
+                                const nextDoubleTabLinkEl = $('.nav-tabs .active').closest('li').next('li').next('li').find('a')[0];
+                                const nextTab = new bootstrap.Tab(nextDoubleTabLinkEl);
+                                nextTab.show();
+                            }
+                            else {
+                                const nextTab = new bootstrap.Tab(nextTabLinkEl);
+                                nextTab.show();
+                            }
+                        }
+                        else {
+                            alert('please fill in all form fields.');
+                        }
+                    }
+                }
+                else if (valueofddls == '4') {
+                    if (document.getElementById('xStructureName').value != ''
+                        && document.getElementById('ExplorationTypeParID').value != '0'
+                        && document.getElementById('xStructureStatusParID').value != '0'
+                        && document.getElementById('ExplorationAreaParID').value != ''
+                        && document.getElementById('CountriesID').value != ''
+                        && document.getElementById('SubholdingID').value != ''
+                        && document.getElementById('RegionalID').value != ''
+                        && document.getElementById('ZonaID').value != ''
+                        && document.getElementById('xBlockID').value != ''
+                        && document.getElementById('APHID').value != ''
+                        && document.getElementById('xAssetID').value != ''
+                        && document.getElementById('BasinID').value != '') {
+                        const nextTabLinkEl = $('.nav-tabs .active').closest('li').next('li').find('a')[0];
+                        if (nextTabLinkEl.innerHTML == 'Prospective Resources') {
+                            const nextDoubleTabLinkEl = $('.nav-tabs .active').closest('li').next('li').next('li').find('a')[0];
+                            const nextTab = new bootstrap.Tab(nextDoubleTabLinkEl);
+                            nextTab.show();
+                        }
+                        else {
+                            const nextTab = new bootstrap.Tab(nextTabLinkEl);
+                            nextTab.show();
+                        }
+                    }
+                    else {
+                        alert('please fill in all form fields.');
+                    }
+                }
+                else {
+                    const nextTabLinkEl = $('.nav-tabs .active').closest('li').next('li').find('a')[0];
+                    const nextTab = new bootstrap.Tab(nextTabLinkEl);
+                    nextTab.show();
+                }
+            }
+            else {
+                alert('please fill in all form fields.');
+            }
+        }
+        else if (nextTabLinkEl.innerHTML == 'Prospective Resources') {
+            const gridObjectiveTarget = $('#grid').data('kendoGrid');
+            const gridObjectiveRR = $('#grid2').data('kendoGrid');
+            var result = true;
+            var resultRR = true;
+            if ($('#grid').data().kendoGrid.editable != null) {
+                result = $('#grid').data().kendoGrid.editable.validatable.validate();
+            }
+            for (let i = 0; i < gridObjectiveTarget._data.length; i++) {
+                var firstItem = gridObjectiveTarget._data[i];
+                if (firstItem["TargetName"] != '' && firstItem["HydrocarbonTypeParID"] != '') {
+                    result = true;
+                }
+                else {
+                    result = false;
+                }
+            }
+            for (let i = 0; i < gridObjectiveRR._data.length; i++) {
+                var firstItem = gridObjectiveRR._data[i];
+                if (firstItem["HydrocarbonTypePRParID"] != '') {
+                    resultRR = true;
+                }
+                else {
+                    resultRR = false;
+                }
+            }
+
+            if (document.getElementById('recoverableResourceOption').value != '0'
+                && document.getElementById('current').value != ''
+                && document.getElementById('expected').value != ''
+                && gridObjectiveTarget._data.length > 0
+                && result
+                && resultRR) {
+                var valueofddls = document.getElementById('xStructureStatusParID').value
+                if (valueofddls == '1' || valueofddls == '2' || valueofddls == '3') {
+                    const nextTabLinkEl = $('.nav-tabs .active').closest('li').next('li').find('a')[0];
+                    if (nextTabLinkEl.innerHTML == 'Contingent Resources') {
+                        const nextDoubleTabLinkEl = $('.nav-tabs .active').closest('li').next('li').next('li').find('a')[0];
+                        const nextTab = new bootstrap.Tab(nextDoubleTabLinkEl);
+                        nextTab.show();
+                    }
+                    else {
+                        const nextTab = new bootstrap.Tab(nextTabLinkEl);
+                        nextTab.show();
+                    }
+                }
+                else if (valueofddls == '4') {
+                    if (document.getElementById('UDSubClassificationParID').value != ''
+                        && document.getElementById('xStructureName').value != ''
+                        && document.getElementById('ExplorationTypeParID').value != '0'
+                        && document.getElementById('xStructureStatusParID').value != '0'
+                        && document.getElementById('ExplorationAreaParID').value != ''
+                        && document.getElementById('CountriesID').value != ''
+                        && document.getElementById('SubholdingID').value != ''
+                        && document.getElementById('RegionalID').value != ''
+                        && document.getElementById('ZonaID').value != ''
+                        && document.getElementById('xBlockID').value != ''
+                        && document.getElementById('APHID').value != ''
+                        && document.getElementById('xAssetID').value != ''
+                        && document.getElementById('BasinID').value != '') {
+                        const nextTabLinkEl = $('.nav-tabs .active').closest('li').next('li').find('a')[0];
+                        if (nextTabLinkEl.innerHTML == 'Prospective Resources') {
+                            const nextDoubleTabLinkEl = $('.nav-tabs .active').closest('li').next('li').next('li').find('a')[0];
+                            const nextTab = new bootstrap.Tab(nextDoubleTabLinkEl);
+                            nextTab.show();
+                        }
+                        else {
+                            const nextTab = new bootstrap.Tab(nextTabLinkEl);
+                            nextTab.show();
+                        }
+                    }
+                    else {
+                        alert('please fill in all form fields.');
+                    }
+                }
+                else {
+                    const nextTabLinkEl = $('.nav-tabs .active').closest('li').next('li').find('a')[0];
+                    const nextTab = new bootstrap.Tab(nextTabLinkEl);
+                    nextTab.show();
+                }
+            }
+            else {
+                alert('please fill in all form fields.');
+            }
+        }
+        else {
+            if (nextTabLinkEl.innerHTML == 'Drilling') {
+                var valueofddls = document.getElementById('xStructureStatusParID').value
+                if (valueofddls == '3') {
+                    const gridDrilling = $('#gridDrl').data('kendoGrid');
+                    var result = true;
+                    if ($('#gridDrl').data().kendoGrid.editable != null) {
+                        result = $('#gridDrl').data().kendoGrid.editable.validatable.validate();
+                    }
+                    for (let i = 0; i < gridDrilling._data.length; i++) {
+                        var firstItem = gridDrilling._data[i];
+                        if (firstItem["xWellName"] != ''
+                            && firstItem["DrillingLocation"] != ''
+                            && firstItem["RigTypeParID"] != ''
+                            && firstItem["WellTypeParID"] != ''
+                            && firstItem["ExpectedDrillingDate"] != '') {
+                            result = true;
+                        }
+                        else {
+                            result = false;
+                        }
+                    }
+                    if (gridDrilling._data.length > 0 && result) {
+                        const nextTabLinkEl = $('.nav-tabs .active').closest('li').next('li').find('a')[0];
+                        if (nextTabLinkEl.innerHTML == 'Prospective Resources') {
+                            const nextDoubleTabLinkEl = $('.nav-tabs .active').closest('li').next('li').next('li').find('a')[0];
+                            const nextTab = new bootstrap.Tab(nextDoubleTabLinkEl);
+                            nextTab.show();
+                        }
+                        else {
+                            const nextTab = new bootstrap.Tab(nextTabLinkEl);
+                            nextTab.show();
+                        }
+                    }
+                    else {
+                        alert('please fill in all form fields.');
+                    }
+                }
+                else {
+                    var valueofddls = document.getElementById('xStructureStatusParID').value
+                    if (valueofddls == '1' || valueofddls == '2' || valueofddls == '3') {
+                        const nextTabLinkEl = $('.nav-tabs .active').closest('li').next('li').find('a')[0];
+                        if (nextTabLinkEl.innerHTML == 'Contingent Resources') {
+                            const nextDoubleTabLinkEl = $('.nav-tabs .active').closest('li').next('li').next('li').find('a')[0];
+                            const nextTab = new bootstrap.Tab(nextDoubleTabLinkEl);
+                            nextTab.show();
+                        }
+                        else {
+                            const nextTab = new bootstrap.Tab(nextTabLinkEl);
+                            nextTab.show();
+                        }
+                    }
+                    else if (valueofddls == '4') {
+                        const nextTabLinkEl = $('.nav-tabs .active').closest('li').next('li').find('a')[0];
+                        if (nextTabLinkEl.innerHTML == 'Prospective Resources') {
+                            const nextDoubleTabLinkEl = $('.nav-tabs .active').closest('li').next('li').next('li').find('a')[0];
+                            const nextTab = new bootstrap.Tab(nextDoubleTabLinkEl);
+                            nextTab.show();
+                        }
+                        else {
+                            const nextTab = new bootstrap.Tab(nextTabLinkEl);
+                            nextTab.show();
+                        }
+                    }
+                    else {
+                        const nextTabLinkEl = $('.nav-tabs .active').closest('li').next('li').find('a')[0];
+                        const nextTab = new bootstrap.Tab(nextTabLinkEl);
+                        nextTab.show();
+                    }
+                }
+            }
+            else {
+                if (nextTabLinkEl.innerHTML == 'Contingent Resources') {
+                    const gridContingent = $('#gridCont').data('kendoGrid');
+                    var result = true;
+                    if ($('#gridCont').data().kendoGrid.editable != null) {
+                        result = $('#gridCont').data().kendoGrid.editable.validatable.validate();
+                    }
+                    for (let i = 0; i < gridContingent._data.length; i++) {
+                        var firstItem = gridContingent._data[i];
+                        if (firstItem["ExplorationStructureName"] != '') {
+                            result = true;
+                        }
+                        else {
+                            result = false;
+                        }
+                    }
+                    if (result) {
+                        var valueofddls = document.getElementById('xStructureStatusParID').value
+                        if (valueofddls == '1' || valueofddls == '2' || valueofddls == '3') {
+                            const nextTabLinkEl = $('.nav-tabs .active').closest('li').next('li').find('a')[0];
+                            if (nextTabLinkEl.innerHTML == 'Contingent Resources') {
+                                const nextDoubleTabLinkEl = $('.nav-tabs .active').closest('li').next('li').next('li').find('a')[0];
+                                const nextTab = new bootstrap.Tab(nextDoubleTabLinkEl);
+                                nextTab.show();
+                            }
+                            else {
+                                const nextTab = new bootstrap.Tab(nextTabLinkEl);
+                                nextTab.show();
+                            }
+                        }
+                        else if (valueofddls == '4') {
+                            const nextTabLinkEl = $('.nav-tabs .active').closest('li').next('li').find('a')[0];
+                            if (nextTabLinkEl.innerHTML == 'Prospective Resources') {
+                                const nextDoubleTabLinkEl = $('.nav-tabs .active').closest('li').next('li').next('li').find('a')[0];
+                                const nextTab = new bootstrap.Tab(nextDoubleTabLinkEl);
+                                nextTab.show();
+                            }
+                            else {
+                                const nextTab = new bootstrap.Tab(nextTabLinkEl);
+                                nextTab.show();
+                            }
+                        }
+                        else {
+                            const nextTabLinkEl = $('.nav-tabs .active').closest('li').next('li').find('a')[0];
+                            const nextTab = new bootstrap.Tab(nextTabLinkEl);
+                            nextTab.show();
+                        }
+                    } else {
+                        alert('please fill in all form fields.');
+                    }
+                } else {
+                    var valueofddls = document.getElementById('xStructureStatusParID').value
+                    if (valueofddls == '1' || valueofddls == '2' || valueofddls == '3') {
+                        const nextTabLinkEl = $('.nav-tabs .active').closest('li').next('li').find('a')[0];
+                        if (nextTabLinkEl.innerHTML == 'Contingent Resources') {
+                            const nextDoubleTabLinkEl = $('.nav-tabs .active').closest('li').next('li').next('li').find('a')[0];
+                            const nextTab = new bootstrap.Tab(nextDoubleTabLinkEl);
+                            nextTab.show();
+                        }
+                        else {
+                            const nextTab = new bootstrap.Tab(nextTabLinkEl);
+                            nextTab.show();
+                        }
+                    }
+                    else if (valueofddls == '4') {
+                        const nextTabLinkEl = $('.nav-tabs .active').closest('li').next('li').find('a')[0];
+                        if (nextTabLinkEl.innerHTML == 'Prospective Resources') {
+                            const nextDoubleTabLinkEl = $('.nav-tabs .active').closest('li').next('li').next('li').find('a')[0];
+                            const nextTab = new bootstrap.Tab(nextDoubleTabLinkEl);
+                            nextTab.show();
+                        }
+                        else {
+                            const nextTab = new bootstrap.Tab(nextTabLinkEl);
+                            nextTab.show();
+                        }
+                    }
+                    else {
+                        const nextTabLinkEl = $('.nav-tabs .active').closest('li').next('li').find('a')[0];
+                        const nextTab = new bootstrap.Tab(nextTabLinkEl);
+                        nextTab.show();
+                    }
+                }
+            }
+        }
+    });
+    $('.btnPrevious').click(function () {
+        var valueofddls = document.getElementById('xStructureStatusParID').value
+        if (valueofddls == '1' || valueofddls == '2' || valueofddls == '3') {
+            const prevTabLinkEl = $('.nav-tabs .active').closest('li').prev('li').find('a')[0];
+            if (prevTabLinkEl.innerHTML == 'Contingent Resources') {
+                const prevDoubleTabLinkEl = $('.nav-tabs .active').closest('li').prev('li').prev('li').find('a')[0];
+                const prevTab = new bootstrap.Tab(prevDoubleTabLinkEl);
+                prevTab.show();
+            }
+            else {
+                const prevTab = new bootstrap.Tab(prevTabLinkEl);
+                prevTab.show();
+            }
+        }
+        else if (valueofddls == '4') {
+            const prevTabLinkEl = $('.nav-tabs .active').closest('li').prev('li').find('a')[0];
+            if (prevTabLinkEl.innerHTML == 'Prospective Resources') {
+                const prevDoubleTabLinkEl = $('.nav-tabs .active').closest('li').prev('li').prev('li').find('a')[0];
+                const prevTab = new bootstrap.Tab(prevDoubleTabLinkEl);
+                prevTab.show();
+            }
+            else {
+                const prevTab = new bootstrap.Tab(prevTabLinkEl);
+                prevTab.show();
+            }
+        }
+        else {
+            const prevTabLinkEl = $('.nav-tabs .active').closest('li').prev('li').find('a')[0];
+            const prevTab = new bootstrap.Tab(prevTabLinkEl);
+            prevTab.show();
+        }
+    });
+    function submitAllFormsCheck() {
+        var recoverableResourceOption = $("#recoverableResourceOption").val();
+        var current = $("#current").val();
+        var expected = $("#expected").val();
+        var AwardDate = $("#AwardDate").val();
+        var ExpiredDate = $("#ExpiredDate").val();
+        var xBlockStatusParID = $("#xBlockStatusParID").val();
+        var OperatorshipStatusParID = $("input[type='radio'][name='OperatorshipStatusParID']:checked").val();
+        var OperatorName = $("#OperatorName").val();
+        var DevConcept = $("#DevConcept").val();
+        var EconomicAssumption = $("#EconomicAssumption").val();
+        var CAPEX = $("#CAPEX").val();
+        var OPEXProduction = $("#OPEXProduction").val();
+        var OPEXFacility = $("#OPEXFacility").val();
+        var ASR = $("#ASR").val();
+        var EconomicResult = $("#EconomicResult").val();
+        var ContractorNPV = $("#ContractorNPV").val();
+        var IRR = $("#IRR").val();
+        var ContractorPOT = $("#ContractorPOT").val();
+        var PIncome = $("#PIncome").val();
+        var EMV = $("#EMV").val();
+        var NPV = $("#NPV").val();
+        var valueofddls = document.getElementById('xStructureStatusParID').value
+        if (valueofddls == '3') {
+            if (DevConcept == '' || EconomicAssumption == '' || CAPEX == '' || OPEXProduction == '' || OPEXFacility == '' || ASR == '' || EconomicResult == '' || ContractorNPV == '' || IRR == '' || ContractorPOT == '' || PIncome == '' || EMV == '' || NPV == '') {
+                alert('please fill in all form fields.');
+            } else {
+                var queryStringParameters = document.getElementById('formState').value
+                if (queryStringParameters == 'create') {
+                    //pros resources target
+                    var grid = $("#grid").data("kendoGrid");
+                    // Get the dataSource of the Grid
+                    var dataSource = grid.dataSource;
+
+                    // Parse the data of the dataSource to JSON format
+                    var rows = JSON.stringify({ 'rows': dataSource.data().toJSON() });
+
+                    //pros resources
+                    var gridPros = $("#grid2").data("kendoGrid");
+                    // Get the dataSource of the Grid
+                    var dataSourcePros = gridPros.dataSource;
+
+                    // Parse the data of the dataSource to JSON
+                    var rowsPros = JSON.stringify({ 'rows': dataSourcePros.data().toJSON() });
+
+                    //contingen resource
+                    var gridCont = $("#gridCont").data("kendoGrid");
+                    // Get the dataSource of the Grid
+                    var dataSourceCont = gridCont.dataSource;
+
+                    // Parse the data of the dataSource to JSON
+                    var rowsCont = JSON.stringify({ 'rows': dataSourceCont.data().toJSON() });
+
+                    //Drilling
+                    var gridDrl = $("#gridDrl").data("kendoGrid");
+                    // Get the dataSource of the Grid
+                    var dataSourceDrilling = gridDrl.dataSource;
+
+                    // Parse the data of the dataSource to JSON
+                    var rowsDrl = JSON.stringify({ 'rows': dataSourceDrilling.data().toJSON() });
+
+                    var fileUpload = $("#OnePagerMontage").get(0);
+                    var fileUpload2 = $("#StructureOutline").get(0);
+                    var files = fileUpload.files;
+                    var files2 = fileUpload2.files;
+
+                    var fileId1 = $("#OnePagerMontage_tmp").val();
+                    var fileId2 = $("#StructureOutline_tmp").val();
+
+                    // Create FormData object
+                    var fileData = new FormData();
+
+                    // Looping over all files and add it to FormData object
+                    for (var i = 0; i < files.length; i++) {
+                        fileData.append('OPM', files[i]);
+                    }
+                    for (var i = 0; i < files2.length; i++) {
+                        fileData.append('SO', files2[i]);
+                    }
+
+                    fileData.append('fileId1', fileId1);
+                    fileData.append('fileId2', fileId2);
+
+                    $.ajax({
+                        url: "@Url.Action("SubmitAll", "GeneralInfo")",
+                        type: "POST",
+                        data: JSON.stringify({
+                            StructureName: $("#xStructureName").val(),
+                            CountriesID: $("#CountriesID").val(),
+                            SingleOrMultiParID: $("#SingleOrMultiParID").val(),
+                            StructureStatusParID: $("#xStructureStatusParID").val(),
+                            SubholdingID: $("#SubholdingID").val(),
+                            ExplorationAreaParID: $("#ExplorationAreaParID").val(),
+                            ExplorationTypeParID: $("#ExplorationTypeParID").val(),
+                            Play: $("#Play").val(),
+                            UDSubTypeParID: $("#UDSubTypeParID").val(),
+                            UDClassificationParID: $("#UDClassificationParID").val(),
+                            RegionalID: $("#RegionalID").val(),
+                            UDSubClassificationParID: $("#UDSubClassificationParID").val(),
+                            ZonaID: $("#ZonaID").val(),
+                            EffectiveYear: $("#EffectiveYear").val(),
+                            BlockID: $("#xBlockID").val(),
+                            APHID: $("#APHID").val(),
+                            AssetID: $("#xAssetID").val(),
+                            BasinID: $("#BasinID").val(),
+                            prosResourcesTarget: rows,
+                            prosResources: rowsPros,
+                            recoverableOption: recoverableResourceOption,
+                            currentPG: current,
+                            expectedPG: expected,
+                            contResources: rowsCont,
+                            drillingResources: rowsDrl,
+                            economicxBlockStatusParID: xBlockStatusParID,
+                            economicOperatorshipStatusParID: OperatorshipStatusParID,
+                            economicAwardDate: AwardDate,
+                            economicExpiredDate: ExpiredDate,
+                            economicDevConcept: DevConcept,
+                            economicEconomicAssumption: EconomicAssumption,
+                            economicCAPEX: CAPEX,
+                            economicOPEXProduction: OPEXProduction,
+                            economicOPEXFacility: OPEXFacility,
+                            economicASR: ASR,
+                            economicEconomicResult: EconomicResult,
+                            economicContractorNPV: ContractorNPV,
+                            economicIRR: IRR,
+                            economicContractorPOT: ContractorPOT,
+                            economicPIncome: PIncome,
+                            economicEMV: EMV,
+                            economicNPV: NPV
+                        }),
+                        contentType: "application/json;charset=utf-8",
+                        dataType: "json",
+                        beforeSend: function () {
+                            $("#loadingMask").css('visibility', 'visible');
+                        },
+                        success: function (result) {
+                            $("#loadingMask").css('visibility', 'visible');
+                            let userObj = result;
+                            fileData.append('structureid', userObj.structureid);
+                            console.log(userObj.structureid);
+                            $.ajax({
+                                url: "@Url.Action("UploadFiles", "GeneralInfo")",
+                                type: "POST",
+                                contentType: false, // Not to set any content header
+                                processData: false, // Not to process data
+                                data: fileData,
+                                success: function (result) {
+                                    $("#loadingMask").css('visibility', 'visible');
+                                    //alert(result);
+                                    //alert("Success");
+                                    location.href = '@Url.Action("Index", "ExplorationStructure", new { Status = "Success" })';
+                                },
+                                error: function (err) {
+                                    //alert(err.statusText);
+                                }
+                            });
+                        },
+                        error: function () {
+                            //alert("Error");
+                        }
+                    });
+                }
+                else {
+                    var structureID = $("#updStructureID").val();
+                    //pros resources target
+                    var grid = $("#grid").data("kendoGrid");
+                    // Get the dataSource of the Grid
+                    var dataSource = grid.dataSource;
+
+                    // Parse the data of the dataSource to JSON format
+                    var rows = JSON.stringify({ 'rows': dataSource.data().toJSON() });
+
+                    //pros resources
+                    var gridPros = $("#grid2").data("kendoGrid");
+                    // Get the dataSource of the Grid
+                    var dataSourcePros = gridPros.dataSource;
+
+                    // Parse the data of the dataSource to JSON
+                    var rowsPros = JSON.stringify({ 'rows': dataSourcePros.data().toJSON() });
+
+                    //contingen resource
+                    var gridCont = $("#gridCont").data("kendoGrid");
+                    // Get the dataSource of the Grid
+                    var dataSourceCont = gridCont.dataSource;
+
+                    // Parse the data of the dataSource to JSON
+                    var rowsCont = JSON.stringify({ 'rows': dataSourceCont.data().toJSON() });
+
+                    //Drilling
+                    var gridDrl = $("#gridDrl").data("kendoGrid");
+                    // Get the dataSource of the Grid
+                    var dataSourceDrilling = gridDrl.dataSource;
+
+                    // Parse the data of the dataSource to JSON
+                    var rowsDrl = JSON.stringify({ 'rows': dataSourceDrilling.data().toJSON() });
+
+                    var fileUpload = $("#OnePagerMontage").get(0);
+                    var fileUpload2 = $("#StructureOutline").get(0);
+                    var files = fileUpload.files;
+                    var files2 = fileUpload2.files;
+
+                    var fileId1 = $("#OnePagerMontage_tmp").val();
+                    var fileId2 = $("#StructureOutline_tmp").val();
+
+                    // Create FormData object
+                    var fileData = new FormData();
+
+                    // Looping over all files and add it to FormData object
+                    for (var i = 0; i < files.length; i++) {
+                        fileData.append('OPM', files[i]);
+                    }
+                    for (var i = 0; i < files2.length; i++) {
+                        fileData.append('SO', files2[i]);
+                    }
+
+                    fileData.append('fileId1', fileId1);
+                    fileData.append('fileId2', fileId2);
+
+                    $.ajax({
+                        url: "@Url.Action("UpdateAll", "GeneralInfo")",
+                        type: "POST",
+                        data: JSON.stringify({
+                            StructureName: $("#xStructureName").val(),
+                            StructureID: structureID,
+                            CountriesID: $("#CountriesID").val(),
+                            SingleOrMultiParID: $("#SingleOrMultiParID").val(),
+                            StructureStatusParID: $("#xStructureStatusParID").val(),
+                            SubholdingID: $("#SubholdingID").val(),
+                            ExplorationAreaParID: $("#ExplorationAreaParID").val(),
+                            ExplorationTypeParID: $("#ExplorationTypeParID").val(),
+                            Play: $("#Play").val(),
+                            UDSubTypeParID: $("#UDSubTypeParID").val(),
+                            UDClassificationParID: $("#UDClassificationParID").val(),
+                            RegionalID: $("#RegionalID").val(),
+                            UDSubClassificationParID: $("#UDSubClassificationParID").val(),
+                            ZonaID: $("#ZonaID").val(),
+                            EffectiveYear: $("#EffectiveYear").val(),
+                            BlockID: $("#xBlockID").val(),
+                            APHID: $("#APHID").val(),
+                            AssetID: $("#xAssetID").val(),
+                            BasinID: $("#BasinID").val(),
+                            prosResourcesTarget: rows,
+                            prosResources: rowsPros,
+                            recoverableOption: recoverableResourceOption,
+                            currentPG: current,
+                            expectedPG: expected,
+                            contResources: rowsCont,
+                            drillingResources: rowsDrl,
+                            economicxBlockStatusParID: xBlockStatusParID,
+                            economicOperatorshipStatusParID: OperatorshipStatusParID,
+                            economicAwardDate: AwardDate,
+                            economicExpiredDate: ExpiredDate,
+                            economicDevConcept: DevConcept,
+                            economicEconomicAssumption: EconomicAssumption,
+                            economicCAPEX: CAPEX,
+                            economicOPEXProduction: OPEXProduction,
+                            economicOPEXFacility: OPEXFacility,
+                            economicASR: ASR,
+                            economicEconomicResult: EconomicResult,
+                            economicContractorNPV: ContractorNPV,
+                            economicIRR: IRR,
+                            economicContractorPOT: ContractorPOT,
+                            economicPIncome: PIncome,
+                            economicEMV: EMV,
+                            economicNPV: NPV
+                        }),
+                        contentType: "application/json;charset=utf-8",
+                        dataType: "json",
+                        beforeSend: function () {
+                            $("#loadingMask").css('visibility', 'visible');
+                        },
+                        success: function (result) {
+                            $("#loadingMask").css('visibility', 'visible');
+                            let userObj = result;
+                            fileData.append('structureid', userObj.structureid);
+                            console.log(userObj.structureid);
+                            $.ajax({
+                                url: "@Url.Action("UploadFiles", "GeneralInfo")",
+                                type: "POST",
+                                contentType: false, // Not to set any content header
+                                processData: false, // Not to process data
+                                data: fileData,
+                                success: function (result) {
+                                    $("#loadingMask").css('visibility', 'visible');
+                                    //alert(result);
+                                    //alert("Success");
+                                    location.href = '@Url.Action("Index", "ExplorationStructure", new { Status = "Success" })';
+                                },
+                                error: function (err) {
+                                    //alert(err.statusText);
+                                }
+                            });
+                        },
+                        error: function () {
+                            //alert("Error");
+                        }
+                    });
+                }
+            }
+        }
+        else {
+            var queryStringParameters = document.getElementById('formState').value
+            if (queryStringParameters == 'create') {
+                //pros resources target
+                var grid = $("#grid").data("kendoGrid");
+                // Get the dataSource of the Grid
+                var dataSource = grid.dataSource;
+
+                // Parse the data of the dataSource to JSON format
+                var rows = JSON.stringify({ 'rows': dataSource.data().toJSON() });
+
+                //pros resources
+                var gridPros = $("#grid2").data("kendoGrid");
+                // Get the dataSource of the Grid
+                var dataSourcePros = gridPros.dataSource;
+
+                // Parse the data of the dataSource to JSON
+                var rowsPros = JSON.stringify({ 'rows': dataSourcePros.data().toJSON() });
+
+                //contingen resource
+                var gridCont = $("#gridCont").data("kendoGrid");
+                // Get the dataSource of the Grid
+                var dataSourceCont = gridCont.dataSource;
+
+                // Parse the data of the dataSource to JSON
+                var rowsCont = JSON.stringify({ 'rows': dataSourceCont.data().toJSON() });
+
+                //Drilling
+                var gridDrl = $("#gridDrl").data("kendoGrid");
+                // Get the dataSource of the Grid
+                var dataSourceDrilling = gridDrl.dataSource;
+
+                // Parse the data of the dataSource to JSON
+                var rowsDrl = JSON.stringify({ 'rows': dataSourceDrilling.data().toJSON() });
+
+                var fileUpload = $("#OnePagerMontage").get(0);
+                var fileUpload2 = $("#StructureOutline").get(0);
+                var files = fileUpload.files;
+                var files2 = fileUpload2.files;
+
+                var fileId1 = $("#OnePagerMontage_tmp").val();
+                var fileId2 = $("#StructureOutline_tmp").val();
+
+                // Create FormData object
+                var fileData = new FormData();
+
+                // Looping over all files and add it to FormData object
+                for (var i = 0; i < files.length; i++) {
+                    fileData.append('OPM', files[i]);
+                }
+                for (var i = 0; i < files2.length; i++) {
+                    fileData.append('SO', files2[i]);
+                }
+
+                fileData.append('fileId1', fileId1);
+                fileData.append('fileId2', fileId2);
+
+                $.ajax({
+                    url: "@Url.Action("SubmitAll", "GeneralInfo")",
+                    type: "POST",
+                    data: JSON.stringify({
+                        StructureName: $("#xStructureName").val(),
+                        CountriesID: $("#CountriesID").val(),
+                        SingleOrMultiParID: $("#SingleOrMultiParID").val(),
+                        StructureStatusParID: $("#xStructureStatusParID").val(),
+                        SubholdingID: $("#SubholdingID").val(),
+                        ExplorationAreaParID: $("#ExplorationAreaParID").val(),
+                        ExplorationTypeParID: $("#ExplorationTypeParID").val(),
+                        Play: $("#Play").val(),
+                        UDSubTypeParID: $("#UDSubTypeParID").val(),
+                        UDClassificationParID: $("#UDClassificationParID").val(),
+                        RegionalID: $("#RegionalID").val(),
+                        UDSubClassificationParID: $("#UDSubClassificationParID").val(),
+                        ZonaID: $("#ZonaID").val(),
+                        EffectiveYear: $("#EffectiveYear").val(),
+                        BlockID: $("#xBlockID").val(),
+                        APHID: $("#APHID").val(),
+                        AssetID: $("#xAssetID").val(),
+                        BasinID: $("#BasinID").val(),
+                        prosResourcesTarget: rows,
+                        prosResources: rowsPros,
+                        recoverableOption: recoverableResourceOption,
+                        currentPG: current,
+                        expectedPG: expected,
+                        contResources: rowsCont,
+                        drillingResources: rowsDrl,
+                        economicxBlockStatusParID: xBlockStatusParID,
+                        economicOperatorshipStatusParID: OperatorshipStatusParID,
+                        economicAwardDate: AwardDate,
+                        economicExpiredDate: ExpiredDate,
+                        economicDevConcept: DevConcept,
+                        economicEconomicAssumption: EconomicAssumption,
+                        economicCAPEX: CAPEX,
+                        economicOPEXProduction: OPEXProduction,
+                        economicOPEXFacility: OPEXFacility,
+                        economicASR: ASR,
+                        economicEconomicResult: EconomicResult,
+                        economicContractorNPV: ContractorNPV,
+                        economicIRR: IRR,
+                        economicContractorPOT: ContractorPOT,
+                        economicPIncome: PIncome,
+                        economicEMV: EMV,
+                        economicNPV: NPV
+                    }),
+                    contentType: "application/json;charset=utf-8",
+                    dataType: "json",
+                    beforeSend: function () {
+                        $("#loadingMask").css('visibility', 'visible');
+                    },
+                    success: function (result) {
+                        $("#loadingMask").css('visibility', 'visible');
+                        let userObj = result;
+                        fileData.append('structureid', userObj.structureid);
+                        console.log(userObj.structureid);
+                        $.ajax({
+                            url: "@Url.Action("UploadFiles", "GeneralInfo")",
+                            type: "POST",
+                            contentType: false, // Not to set any content header
+                            processData: false, // Not to process data
+                            data: fileData,
+                            success: function (result) {
+                                $("#loadingMask").css('visibility', 'visible');
+                                //alert(result);
+                                //alert("Success");
+                                location.href = '@Url.Action("Index", "ExplorationStructure", new { Status = "Success" })';
+                            },
+                            error: function (err) {
+                                //alert(err.statusText);
+                            }
+                        });
+                    },
+                    error: function () {
+                        //alert("Error");
+                    }
+                });
+            }
+            else {
+                var structureID = $("#updStructureID").val();
+                //pros resources target
+                var grid = $("#grid").data("kendoGrid");
+                // Get the dataSource of the Grid
+                var dataSource = grid.dataSource;
+
+                // Parse the data of the dataSource to JSON format
+                var rows = JSON.stringify({ 'rows': dataSource.data().toJSON() });
+
+                //pros resources
+                var gridPros = $("#grid2").data("kendoGrid");
+                // Get the dataSource of the Grid
+                var dataSourcePros = gridPros.dataSource;
+
+                // Parse the data of the dataSource to JSON
+                var rowsPros = JSON.stringify({ 'rows': dataSourcePros.data().toJSON() });
+
+                //contingen resource
+                var gridCont = $("#gridCont").data("kendoGrid");
+                // Get the dataSource of the Grid
+                var dataSourceCont = gridCont.dataSource;
+
+                // Parse the data of the dataSource to JSON
+                var rowsCont = JSON.stringify({ 'rows': dataSourceCont.data().toJSON() });
+
+                //Drilling
+                var gridDrl = $("#gridDrl").data("kendoGrid");
+                // Get the dataSource of the Grid
+                var dataSourceDrilling = gridDrl.dataSource;
+
+                // Parse the data of the dataSource to JSON
+                var rowsDrl = JSON.stringify({ 'rows': dataSourceDrilling.data().toJSON() });
+
+                var fileUpload = $("#OnePagerMontage").get(0);
+                var fileUpload2 = $("#StructureOutline").get(0);
+                var files = fileUpload.files;
+                var files2 = fileUpload2.files;
+
+                var fileId1 = $("#OnePagerMontage_tmp").val();
+                var fileId2 = $("#StructureOutline_tmp").val();
+
+                // Create FormData object
+                var fileData = new FormData();
+
+                // Looping over all files and add it to FormData object
+                for (var i = 0; i < files.length; i++) {
+                    fileData.append('OPM', files[i]);
+                }
+                for (var i = 0; i < files2.length; i++) {
+                    fileData.append('SO', files2[i]);
+                }
+
+                fileData.append('fileId1', fileId1);
+                fileData.append('fileId2', fileId2);
+
+                $.ajax({
+                    url: "@Url.Action("UpdateAll", "GeneralInfo")",
+                    type: "POST",
+                    data: JSON.stringify({
+                        StructureName: $("#xStructureName").val(),
+                        StructureID: structureID,
+                        CountriesID: $("#CountriesID").val(),
+                        SingleOrMultiParID: $("#SingleOrMultiParID").val(),
+                        StructureStatusParID: $("#xStructureStatusParID").val(),
+                        SubholdingID: $("#SubholdingID").val(),
+                        ExplorationAreaParID: $("#ExplorationAreaParID").val(),
+                        ExplorationTypeParID: $("#ExplorationTypeParID").val(),
+                        Play: $("#Play").val(),
+                        UDSubTypeParID: $("#UDSubTypeParID").val(),
+                        UDClassificationParID: $("#UDClassificationParID").val(),
+                        RegionalID: $("#RegionalID").val(),
+                        UDSubClassificationParID: $("#UDSubClassificationParID").val(),
+                        ZonaID: $("#ZonaID").val(),
+                        EffectiveYear: $("#EffectiveYear").val(),
+                        BlockID: $("#xBlockID").val(),
+                        APHID: $("#APHID").val(),
+                        AssetID: $("#xAssetID").val(),
+                        BasinID: $("#BasinID").val(),
+                        prosResourcesTarget: rows,
+                        prosResources: rowsPros,
+                        recoverableOption: recoverableResourceOption,
+                        currentPG: current,
+                        expectedPG: expected,
+                        contResources: rowsCont,
+                        drillingResources: rowsDrl,
+                        economicxBlockStatusParID: xBlockStatusParID,
+                        economicOperatorshipStatusParID: OperatorshipStatusParID,
+                        economicAwardDate: AwardDate,
+                        economicExpiredDate: ExpiredDate,
+                        economicDevConcept: DevConcept,
+                        economicEconomicAssumption: EconomicAssumption,
+                        economicCAPEX: CAPEX,
+                        economicOPEXProduction: OPEXProduction,
+                        economicOPEXFacility: OPEXFacility,
+                        economicASR: ASR,
+                        economicEconomicResult: EconomicResult,
+                        economicContractorNPV: ContractorNPV,
+                        economicIRR: IRR,
+                        economicContractorPOT: ContractorPOT,
+                        economicPIncome: PIncome,
+                        economicEMV: EMV,
+                        economicNPV: NPV
+                    }),
+                    contentType: "application/json;charset=utf-8",
+                    dataType: "json",
+                    beforeSend: function () {
+                        $("#loadingMask").css('visibility', 'visible');
+                    },
+                    success: function (result) {
+                        $("#loadingMask").css('visibility', 'visible');
+                        let userObj = result;
+                        fileData.append('structureid', userObj.structureid);
+                        console.log(userObj.structureid);
+                        $.ajax({
+                            url: "@Url.Action("UploadFiles", "GeneralInfo")",
+                            type: "POST",
+                            contentType: false, // Not to set any content header
+                            processData: false, // Not to process data
+                            data: fileData,
+                            success: function (result) {
+                                $("#loadingMask").css('visibility', 'visible');
+                                //alert(result);
+                                //alert("Success");
+                                location.href = '@Url.Action("Index", "ExplorationStructure", new { Status = "Success" })';
+                            },
+                            error: function (err) {
+                                //alert(err.statusText);
+                            }
+                        });
+                    },
+                    error: function () {
+                        //alert("Error");
+                    }
+                });
+            }
+        }
+    }
+    function saveAllFormCheck() {
+        var recoverableResourceOption = $("#recoverableResourceOption").val();
+        var current = $("#current").val();
+        var expected = $("#expected").val();
+        var AwardDate = $("#AwardDate").val();
+        var ExpiredDate = $("#ExpiredDate").val();
+        var xBlockStatusParID = $("#xBlockStatusParID").val();
+        var OperatorshipStatusParID = $("input[type='radio'][name='OperatorshipStatusParID']:checked").val();
+        var OperatorName = $("#OperatorName").val();
+        var DevConcept = $("#DevConcept").val();
+        var EconomicAssumption = $("#EconomicAssumption").val();
+        var CAPEX = $("#CAPEX").val();
+        var OPEXProduction = $("#OPEXProduction").val();
+        var OPEXFacility = $("#OPEXFacility").val();
+        var ASR = $("#ASR").val();
+        var EconomicResult = $("#EconomicResult").val();
+        var ContractorNPV = $("#ContractorNPV").val();
+        var IRR = $("#IRR").val();
+        var ContractorPOT = $("#ContractorPOT").val();
+        var PIncome = $("#PIncome").val();
+        var EMV = $("#EMV").val();
+        var NPV = $("#NPV").val();
+        var StructureName = $("#xStructureName").val();
+        var CountriesID = $("#CountriesID").val();
+        var SingleOrMultiParID = $("#SingleOrMultiParID").val();
+        var StructureStatusParID = $("#xStructureStatusParID").val();
+        var SubholdingID = $("#SubholdingID").val();
+        var ExplorationAreaParID = $("#ExplorationAreaParID").val();
+        var ExplorationTypeParID = $("#ExplorationTypeParID").val();
+        var Play = $("#Play").val();
+        var UDSubTypeParID = $("#UDSubTypeParID").val();
+        var UDClassificationParID = $("#UDClassificationParID").val();
+        var RegionalID = $("#RegionalID").val();
+        var UDSubClassificationParID = $("#UDSubClassificationParID").val();
+        var ZonaID = $("#ZonaID").val();
+        var EffectiveYear = $("#EffectiveYear").val();
+        var BlockID = $("#xBlockID").val();
+        var APHID = $("#APHID").val();
+        var AssetID = $("#xAssetID").val();
+        var BasinID = $("#BasinID").val();
+        var valueofddls = document.getElementById('xStructureStatusParID').value
+        if (valueofddls == '1' || valueofddls == '2' || valueofddls == '4') {
+            if (StructureName == '' || CountriesID == '' || SingleOrMultiParID == '' || StructureStatusParID == '0' || SubholdingID == '' || ExplorationAreaParID == '' || ExplorationTypeParID == '0' || RegionalID == '' || ZonaID == '' || EffectiveYear == '' || BlockID == '' || APHID == '' || AssetID == '' || BasinID == '' || $('#explorationNameMessage').css('display') == 'block') {
+                alert('please fill in all form fields.');
+            }
+            else {
+                var queryStringParameters = document.getElementById('formState').value
+                if (queryStringParameters == 'create') {
+                    //pros resources target
+                    var grid = $("#grid").data("kendoGrid");
+                    // Get the dataSource of the Grid
+                    var dataSource = grid.dataSource;
+
+                    // Parse the data of the dataSource to JSON format
+                    var rows = JSON.stringify({ 'rows': dataSource.data().toJSON() });
+
+                    //pros resources
+                    var gridPros = $("#grid2").data("kendoGrid");
+                    // Get the dataSource of the Grid
+                    var dataSourcePros = gridPros.dataSource;
+
+                    // Parse the data of the dataSource to JSON
+                    var rowsPros = JSON.stringify({ 'rows': dataSourcePros.data().toJSON() });
+
+                    //contingen resource
+                    var gridCont = $("#gridCont").data("kendoGrid");
+                    // Get the dataSource of the Grid
+                    var dataSourceCont = gridCont.dataSource;
+
+                    // Parse the data of the dataSource to JSON
+                    var rowsCont = JSON.stringify({ 'rows': dataSourceCont.data().toJSON() });
+
+                    //Drilling
+                    var gridDrl = $("#gridDrl").data("kendoGrid");
+                    // Get the dataSource of the Grid
+                    var dataSourceDrilling = gridDrl.dataSource;
+
+                    // Parse the data of the dataSource to JSON
+                    var rowsDrl = JSON.stringify({ 'rows': dataSourceDrilling.data().toJSON() });
+
+                    var fileUpload = $("#OnePagerMontage").get(0);
+                    var fileUpload2 = $("#StructureOutline").get(0);
+                    var files = fileUpload.files;
+                    var files2 = fileUpload2.files;
+
+                    var fileId1 = $("#OnePagerMontage_tmp").val();
+                    var fileId2 = $("#StructureOutline_tmp").val();
+
+                    // Create FormData object
+                    var fileData = new FormData();
+
+                    // Looping over all files and add it to FormData object
+                    for (var i = 0; i < files.length; i++) {
+                        fileData.append('OPM', files[i]);
+                    }
+                    for (var i = 0; i < files2.length; i++) {
+                        fileData.append('SO', files2[i]);
+                    }
+
+                    fileData.append('fileId1', fileId1);
+                    fileData.append('fileId2', fileId2);
+
+                    var delay = 2000;
+                    var res = {
+                        loader: $("<div />", {
+                            class: "loader"
+                        })
+                    };
+
+                    $.ajax({
+                        url: "@Url.Action("SaveAll", "GeneralInfo")",
+                        type: "POST",
+                        data: JSON.stringify({
+                            StructureName: $("#xStructureName").val(),
+                            CountriesID: $("#CountriesID").val(),
+                            SingleOrMultiParID: $("#SingleOrMultiParID").val(),
+                            StructureStatusParID: $("#xStructureStatusParID").val(),
+                            SubholdingID: $("#SubholdingID").val(),
+                            ExplorationAreaParID: $("#ExplorationAreaParID").val(),
+                            ExplorationTypeParID: $("#ExplorationTypeParID").val(),
+                            Play: $("#Play").val(),
+                            UDSubTypeParID: $("#UDSubTypeParID").val(),
+                            UDClassificationParID: $("#UDClassificationParID").val(),
+                            RegionalID: $("#RegionalID").val(),
+                            UDSubClassificationParID: $("#UDSubClassificationParID").val(),
+                            ZonaID: $("#ZonaID").val(),
+                            EffectiveYear: $("#EffectiveYear").val(),
+                            BlockID: $("#xBlockID").val(),
+                            APHID: $("#APHID").val(),
+                            AssetID: $("#xAssetID").val(),
+                            BasinID: $("#BasinID").val(),
+                            prosResourcesTarget: rows,
+                            prosResources: rowsPros,
+                            recoverableOption: recoverableResourceOption,
+                            currentPG: current,
+                            expectedPG: expected,
+                            contResources: rowsCont,
+                            drillingResources: rowsDrl,
+                            economicxBlockStatusParID: xBlockStatusParID,
+                            economicOperatorshipStatusParID: OperatorshipStatusParID,
+                            economicAwardDate: AwardDate,
+                            economicExpiredDate: ExpiredDate,
+                            economicDevConcept: DevConcept,
+                            economicEconomicAssumption: EconomicAssumption,
+                            economicCAPEX: CAPEX,
+                            economicOPEXProduction: OPEXProduction,
+                            economicOPEXFacility: OPEXFacility,
+                            economicASR: ASR,
+                            economicEconomicResult: EconomicResult,
+                            economicContractorNPV: ContractorNPV,
+                            economicIRR: IRR,
+                            economicContractorPOT: ContractorPOT,
+                            economicPIncome: PIncome,
+                            economicEMV: EMV,
+                            economicNPV: NPV
+                        }),
+                        contentType: "application/json;charset=utf-8",
+                        dataType: "json",
+                        beforeSend: function () {
+                            $("#loadingMask").css('visibility', 'visible');
+                        },
+                        success: function (result) {
+                            $("#loadingMask").css('visibility', 'visible');
+                            let userObj = result;
+                            fileData.append('structureid', userObj.structureid);
+                            console.log(userObj.structureid);
+                            $.ajax({
+                                url: "@Url.Action("UploadFiles", "GeneralInfo")",
+                                type: "POST",
+                                contentType: false, // Not to set any content header
+                                processData: false, // Not to process data
+                                data: fileData,
+                                success: function (result) {
+                                    $("#loadingMask").css('visibility', 'visible');
+                                    //alert(result);
+                                    //alert("Success");
+                                    location.href = '@Url.Action("Index", "ExplorationStructure", new { Status = "Success" })';
+                                },
+                                error: function (err) {
+                                    //alert(err.statusText);
+                                }
+                            });
+                        },
+                        error: function () {
+                            //alert("Error");
+                        }
+                    });
+                }
+                else {
+                    var structureID = $("#updStructureID").val();
+                    //pros resources target
+                    var grid = $("#grid").data("kendoGrid");
+                    // Get the dataSource of the Grid
+                    var dataSource = grid.dataSource;
+
+                    // Parse the data of the dataSource to JSON format
+                    var rows = JSON.stringify({ 'rows': dataSource.data().toJSON() });
+
+                    //pros resources
+                    var gridPros = $("#grid2").data("kendoGrid");
+                    // Get the dataSource of the Grid
+                    var dataSourcePros = gridPros.dataSource;
+
+                    // Parse the data of the dataSource to JSON
+                    var rowsPros = JSON.stringify({ 'rows': dataSourcePros.data().toJSON() });
+
+                    //contingen resource
+                    var gridCont = $("#gridCont").data("kendoGrid");
+                    // Get the dataSource of the Grid
+                    var dataSourceCont = gridCont.dataSource;
+
+                    // Parse the data of the dataSource to JSON
+                    var rowsCont = JSON.stringify({ 'rows': dataSourceCont.data().toJSON() });
+
+                    //Drilling
+                    var gridDrl = $("#gridDrl").data("kendoGrid");
+                    // Get the dataSource of the Grid
+                    var dataSourceDrilling = gridDrl.dataSource;
+
+                    // Parse the data of the dataSource to JSON
+                    var rowsDrl = JSON.stringify({ 'rows': dataSourceDrilling.data().toJSON() });
+
+                    var fileUpload = $("#OnePagerMontage").get(0);
+                    var fileUpload2 = $("#StructureOutline").get(0);
+                    var files = fileUpload.files;
+                    var files2 = fileUpload2.files;
+
+                    var fileId1 = $("#OnePagerMontage_tmp").val();
+                    var fileId2 = $("#StructureOutline_tmp").val();
+
+                    // Create FormData object
+                    var fileData = new FormData();
+
+                    // Looping over all files and add it to FormData object
+                    for (var i = 0; i < files.length; i++) {
+                        fileData.append('OPM', files[i]);
+                    }
+                    for (var i = 0; i < files2.length; i++) {
+                        fileData.append('SO', files2[i]);
+                    }
+
+                    fileData.append('fileId1', fileId1);
+                    fileData.append('fileId2', fileId2);
+
+                    $.ajax({
+                        url: "@Url.Action("SaveUpdateAll", "GeneralInfo")",
+                        type: "POST",
+                        data: JSON.stringify({
+                            StructureName: $("#xStructureName").val(),
+                            StructureID: structureID,
+                            CountriesID: $("#CountriesID").val(),
+                            SingleOrMultiParID: $("#SingleOrMultiParID").val(),
+                            StructureStatusParID: $("#xStructureStatusParID").val(),
+                            SubholdingID: $("#SubholdingID").val(),
+                            ExplorationAreaParID: $("#ExplorationAreaParID").val(),
+                            ExplorationTypeParID: $("#ExplorationTypeParID").val(),
+                            Play: $("#Play").val(),
+                            UDSubTypeParID: $("#UDSubTypeParID").val(),
+                            UDClassificationParID: $("#UDClassificationParID").val(),
+                            RegionalID: $("#RegionalID").val(),
+                            UDSubClassificationParID: $("#UDSubClassificationParID").val(),
+                            ZonaID: $("#ZonaID").val(),
+                            EffectiveYear: $("#EffectiveYear").val(),
+                            BlockID: $("#xBlockID").val(),
+                            APHID: $("#APHID").val(),
+                            AssetID: $("#xAssetID").val(),
+                            BasinID: $("#BasinID").val(),
+                            prosResourcesTarget: rows,
+                            prosResources: rowsPros,
+                            recoverableOption: recoverableResourceOption,
+                            currentPG: current,
+                            expectedPG: expected,
+                            contResources: rowsCont,
+                            drillingResources: rowsDrl,
+                            economicxBlockStatusParID: xBlockStatusParID,
+                            economicOperatorshipStatusParID: OperatorshipStatusParID,
+                            economicAwardDate: AwardDate,
+                            economicExpiredDate: ExpiredDate,
+                            economicDevConcept: DevConcept,
+                            economicEconomicAssumption: EconomicAssumption,
+                            economicCAPEX: CAPEX,
+                            economicOPEXProduction: OPEXProduction,
+                            economicOPEXFacility: OPEXFacility,
+                            economicASR: ASR,
+                            economicEconomicResult: EconomicResult,
+                            economicContractorNPV: ContractorNPV,
+                            economicIRR: IRR,
+                            economicContractorPOT: ContractorPOT,
+                            economicPIncome: PIncome,
+                            economicEMV: EMV,
+                            economicNPV: NPV
+                        }),
+                        contentType: "application/json;charset=utf-8",
+                        dataType: "json",
+                        beforeSend: function () {
+                            $("#loadingMask").css('visibility', 'visible');
+                        },
+                        success: function (result) {
+                            $("#loadingMask").css('visibility', 'visible');
+                            let userObj = result;
+                            fileData.append('structureid', userObj.structureid);
+                            console.log(userObj.structureid);
+                            $.ajax({
+                                url: "@Url.Action("UploadFiles", "GeneralInfo")",
+                                type: "POST",
+                                contentType: false, // Not to set any content header
+                                processData: false, // Not to process data
+                                data: fileData,
+                                success: function (result) {
+                                    $("#loadingMask").css('visibility', 'visible');
+                                    //alert(result);
+                                    //alert("Success");
+                                    location.href = '@Url.Action("Index", "ExplorationStructure", new { Status = "Success" })';
+                                },
+                                error: function (err) {
+                                    //alert(err.statusText);
+                                }
+                            });
+                        },
+                        error: function () {
+                            //alert("Error");
+                        }
+                    });
+                }
+            }
+        }
+        else {
+            if (StructureName == ''
+                || CountriesID == ''
+                || SingleOrMultiParID == ''
+                || StructureStatusParID == '0'
+                || SubholdingID == ''
+                || ExplorationAreaParID == ''
+                || ExplorationTypeParID == '0'
+                || RegionalID == ''
+                || ZonaID == ''
+                || BlockID == ''
+                || APHID == ''
+                || AssetID == ''
+                || BasinID == ''
+                || $('#explorationNameMessage').css('display') == 'block'
+                || DevConcept == ''
+                || EconomicAssumption == ''
+                || CAPEX == ''
+                || OPEXProduction == ''
+                || OPEXFacility == ''
+                || ASR == ''
+                || EconomicResult == ''
+                || ContractorNPV == ''
+                || IRR == ''
+                || ContractorPOT == ''
+                || PIncome == ''
+                || EMV == ''
+                || NPV == '') {
+                alert('please fill in all form fields.');
+            }
+            else {
+                var queryStringParameters = document.getElementById('formState').value
+                if (queryStringParameters == 'create') {
+                    //pros resources target
+                    var grid = $("#grid").data("kendoGrid");
+                    // Get the dataSource of the Grid
+                    var dataSource = grid.dataSource;
+
+                    // Parse the data of the dataSource to JSON format
+                    var rows = JSON.stringify({ 'rows': dataSource.data().toJSON() });
+
+                    //pros resources
+                    var gridPros = $("#grid2").data("kendoGrid");
+                    // Get the dataSource of the Grid
+                    var dataSourcePros = gridPros.dataSource;
+
+                    // Parse the data of the dataSource to JSON
+                    var rowsPros = JSON.stringify({ 'rows': dataSourcePros.data().toJSON() });
+
+                    //contingen resource
+                    var gridCont = $("#gridCont").data("kendoGrid");
+                    // Get the dataSource of the Grid
+                    var dataSourceCont = gridCont.dataSource;
+
+                    // Parse the data of the dataSource to JSON
+                    var rowsCont = JSON.stringify({ 'rows': dataSourceCont.data().toJSON() });
+
+                    //Drilling
+                    var gridDrl = $("#gridDrl").data("kendoGrid");
+                    // Get the dataSource of the Grid
+                    var dataSourceDrilling = gridDrl.dataSource;
+
+                    // Parse the data of the dataSource to JSON
+                    var rowsDrl = JSON.stringify({ 'rows': dataSourceDrilling.data().toJSON() });
+
+                    var fileUpload = $("#OnePagerMontage").get(0);
+                    var fileUpload2 = $("#StructureOutline").get(0);
+                    var files = fileUpload.files;
+                    var files2 = fileUpload2.files;
+
+                    var fileId1 = $("#OnePagerMontage_tmp").val();
+                    var fileId2 = $("#StructureOutline_tmp").val();
+
+                    // Create FormData object
+                    var fileData = new FormData();
+
+                    // Looping over all files and add it to FormData object
+                    for (var i = 0; i < files.length; i++) {
+                        fileData.append('OPM', files[i]);
+                    }
+                    for (var i = 0; i < files2.length; i++) {
+                        fileData.append('SO', files2[i]);
+                    }
+
+                    fileData.append('fileId1', fileId1);
+                    fileData.append('fileId2', fileId2);
+
+                    var delay = 2000;
+                    var res = {
+                        loader: $("<div />", {
+                            class: "loader"
+                        })
+                    };
+
+                    $.ajax({
+                        url: "@Url.Action("SaveAll", "GeneralInfo")",
+                        type: "POST",
+                        data: JSON.stringify({
+                            StructureName: $("#xStructureName").val(),
+                            CountriesID: $("#CountriesID").val(),
+                            SingleOrMultiParID: $("#SingleOrMultiParID").val(),
+                            StructureStatusParID: $("#xStructureStatusParID").val(),
+                            SubholdingID: $("#SubholdingID").val(),
+                            ExplorationAreaParID: $("#ExplorationAreaParID").val(),
+                            ExplorationTypeParID: $("#ExplorationTypeParID").val(),
+                            Play: $("#Play").val(),
+                            UDSubTypeParID: $("#UDSubTypeParID").val(),
+                            UDClassificationParID: $("#UDClassificationParID").val(),
+                            RegionalID: $("#RegionalID").val(),
+                            UDSubClassificationParID: $("#UDSubClassificationParID").val(),
+                            ZonaID: $("#ZonaID").val(),
+                            EffectiveYear: $("#EffectiveYear").val(),
+                            BlockID: $("#xBlockID").val(),
+                            APHID: $("#APHID").val(),
+                            AssetID: $("#xAssetID").val(),
+                            BasinID: $("#BasinID").val(),
+                            prosResourcesTarget: rows,
+                            prosResources: rowsPros,
+                            recoverableOption: recoverableResourceOption,
+                            currentPG: current,
+                            expectedPG: expected,
+                            contResources: rowsCont,
+                            drillingResources: rowsDrl,
+                            economicxBlockStatusParID: xBlockStatusParID,
+                            economicOperatorshipStatusParID: OperatorshipStatusParID,
+                            economicAwardDate: AwardDate,
+                            economicExpiredDate: ExpiredDate,
+                            economicDevConcept: DevConcept,
+                            economicEconomicAssumption: EconomicAssumption,
+                            economicCAPEX: CAPEX,
+                            economicOPEXProduction: OPEXProduction,
+                            economicOPEXFacility: OPEXFacility,
+                            economicASR: ASR,
+                            economicEconomicResult: EconomicResult,
+                            economicContractorNPV: ContractorNPV,
+                            economicIRR: IRR,
+                            economicContractorPOT: ContractorPOT,
+                            economicPIncome: PIncome,
+                            economicEMV: EMV,
+                            economicNPV: NPV
+                        }),
+                        contentType: "application/json;charset=utf-8",
+                        dataType: "json",
+                        beforeSend: function () {
+                            $("#loadingMask").css('visibility', 'visible');
+                        },
+                        success: function (result) {
+                            $("#loadingMask").css('visibility', 'visible');
+                            let userObj = result;
+                            fileData.append('structureid', userObj.structureid);
+                            console.log(userObj.structureid);
+                            $.ajax({
+                                url: "@Url.Action("UploadFiles", "GeneralInfo")",
+                                type: "POST",
+                                contentType: false, // Not to set any content header
+                                processData: false, // Not to process data
+                                data: fileData,
+                                success: function (result) {
+                                    $("#loadingMask").css('visibility', 'visible');
+                                    //alert(result);
+                                    //alert("Success");
+                                    location.href = '@Url.Action("Index", "ExplorationStructure", new { Status = "Success" })';
+                                },
+                                error: function (err) {
+                                    //alert(err.statusText);
+                                }
+                            });
+                        },
+                        error: function () {
+                            //alert("Error");
+                        }
+                    });
+                }
+                else {
+                    var structureID = $("#updStructureID").val();
+                    //pros resources target
+                    var grid = $("#grid").data("kendoGrid");
+                    // Get the dataSource of the Grid
+                    var dataSource = grid.dataSource;
+
+                    // Parse the data of the dataSource to JSON format
+                    var rows = JSON.stringify({ 'rows': dataSource.data().toJSON() });
+
+                    //pros resources
+                    var gridPros = $("#grid2").data("kendoGrid");
+                    // Get the dataSource of the Grid
+                    var dataSourcePros = gridPros.dataSource;
+
+                    // Parse the data of the dataSource to JSON
+                    var rowsPros = JSON.stringify({ 'rows': dataSourcePros.data().toJSON() });
+
+                    //contingen resource
+                    var gridCont = $("#gridCont").data("kendoGrid");
+                    // Get the dataSource of the Grid
+                    var dataSourceCont = gridCont.dataSource;
+
+                    // Parse the data of the dataSource to JSON
+                    var rowsCont = JSON.stringify({ 'rows': dataSourceCont.data().toJSON() });
+
+                    //Drilling
+                    var gridDrl = $("#gridDrl").data("kendoGrid");
+                    // Get the dataSource of the Grid
+                    var dataSourceDrilling = gridDrl.dataSource;
+
+                    // Parse the data of the dataSource to JSON
+                    var rowsDrl = JSON.stringify({ 'rows': dataSourceDrilling.data().toJSON() });
+
+                    var fileUpload = $("#OnePagerMontage").get(0);
+                    var fileUpload2 = $("#StructureOutline").get(0);
+                    var files = fileUpload.files;
+                    var files2 = fileUpload2.files;
+
+                    var fileId1 = $("#OnePagerMontage_tmp").val();
+                    var fileId2 = $("#StructureOutline_tmp").val();
+
+                    // Create FormData object
+                    var fileData = new FormData();
+
+                    // Looping over all files and add it to FormData object
+                    for (var i = 0; i < files.length; i++) {
+                        fileData.append('OPM', files[i]);
+                    }
+                    for (var i = 0; i < files2.length; i++) {
+                        fileData.append('SO', files2[i]);
+                    }
+
+                    fileData.append('fileId1', fileId1);
+                    fileData.append('fileId2', fileId2);
+
+                    $.ajax({
+                        url: "@Url.Action("SaveUpdateAll", "GeneralInfo")",
+                        type: "POST",
+                        data: JSON.stringify({
+                            StructureName: $("#xStructureName").val(),
+                            StructureID: structureID,
+                            CountriesID: $("#CountriesID").val(),
+                            SingleOrMultiParID: $("#SingleOrMultiParID").val(),
+                            StructureStatusParID: $("#xStructureStatusParID").val(),
+                            SubholdingID: $("#SubholdingID").val(),
+                            ExplorationAreaParID: $("#ExplorationAreaParID").val(),
+                            ExplorationTypeParID: $("#ExplorationTypeParID").val(),
+                            Play: $("#Play").val(),
+                            UDSubTypeParID: $("#UDSubTypeParID").val(),
+                            UDClassificationParID: $("#UDClassificationParID").val(),
+                            RegionalID: $("#RegionalID").val(),
+                            UDSubClassificationParID: $("#UDSubClassificationParID").val(),
+                            ZonaID: $("#ZonaID").val(),
+                            EffectiveYear: $("#EffectiveYear").val(),
+                            BlockID: $("#xBlockID").val(),
+                            APHID: $("#APHID").val(),
+                            AssetID: $("#xAssetID").val(),
+                            BasinID: $("#BasinID").val(),
+                            prosResourcesTarget: rows,
+                            prosResources: rowsPros,
+                            recoverableOption: recoverableResourceOption,
+                            currentPG: current,
+                            expectedPG: expected,
+                            contResources: rowsCont,
+                            drillingResources: rowsDrl,
+                            economicxBlockStatusParID: xBlockStatusParID,
+                            economicOperatorshipStatusParID: OperatorshipStatusParID,
+                            economicAwardDate: AwardDate,
+                            economicExpiredDate: ExpiredDate,
+                            economicDevConcept: DevConcept,
+                            economicEconomicAssumption: EconomicAssumption,
+                            economicCAPEX: CAPEX,
+                            economicOPEXProduction: OPEXProduction,
+                            economicOPEXFacility: OPEXFacility,
+                            economicASR: ASR,
+                            economicEconomicResult: EconomicResult,
+                            economicContractorNPV: ContractorNPV,
+                            economicIRR: IRR,
+                            economicContractorPOT: ContractorPOT,
+                            economicPIncome: PIncome,
+                            economicEMV: EMV,
+                            economicNPV: NPV
+                        }),
+                        contentType: "application/json;charset=utf-8",
+                        dataType: "json",
+                        beforeSend: function () {
+                            $("#loadingMask").css('visibility', 'visible');
+                        },
+                        success: function (result) {
+                            $("#loadingMask").css('visibility', 'visible');
+                            let userObj = result;
+                            fileData.append('structureid', userObj.structureid);
+                            console.log(userObj.structureid);
+                            $.ajax({
+                                url: "@Url.Action("UploadFiles", "GeneralInfo")",
+                                type: "POST",
+                                contentType: false, // Not to set any content header
+                                processData: false, // Not to process data
+                                data: fileData,
+                                success: function (result) {
+                                    $("#loadingMask").css('visibility', 'visible');
+                                    //alert(result);
+                                    //alert("Success");
+                                    location.href = '@Url.Action("Index", "ExplorationStructure", new { Status = "Success" })';
+                                },
+                                error: function (err) {
+                                    //alert(err.statusText);
+                                }
+                            });
+                        },
+                        error: function () {
+                            //alert("Error");
+                        }
+                    });
+                }
+            }
+        }
+
+    }
+    function handlePhase() {
+
+        var dropdownId = "xStructureStatusParID";
+        var transactionValueId = $("#xStructureStatusParID").val();
+        if (transactionValueId == "4") {
+            $('#gridCont').data("kendoGrid").refresh();
+            var gridCont = $('#gridCont').data('kendoGrid');
+            gridCont.dataSource.read();
+            var param = {
+                dropdownId,
+                transactionValueId
+            };
+
+            $.get('GeneralInfo/GenerateUDType', param, function (lookupList) {
+                var $select = $('#UDSubTypeParID');
+                $("#UDSubTypeParID").prop("disabled", false);
+                $select.html('');
+
+                for (var i = 0; i < lookupList.length; i++) {
+                    var item = lookupList[i];
+                    if (item.Value) {
+                        $select.append("<option value=\"" + item.Value + "\">" + item.Text + "</option>");
+                    }
+
+                }
+
+            });
+
+            $.get('GeneralInfo/GenerateUDClassification', param, function (lookupList) {
+                var $select = $('#UDClassificationParID');
+                $("#UDClassificationParID").prop("disabled", false);
+                $select.html('');
+
+                for (var i = 0; i < lookupList.length; i++) {
+                    var item = lookupList[i];
+                    if (item.Value) {
+                        $select.append("<option value=\"" + item.Value + "\">" + item.Text + "</option>");
+                    }
+
+                }
+
+            });
+        }
+        else {
+            var $select = $('#UDSubTypeParID');
+            $("#UDSubTypeParID").prop("disabled", true);
+            $select.html('');
+
+            var $select2 = $('#UDClassificationParID');
+            $("#UDClassificationParID").prop("disabled", true);
+            $select2.html('');
+
+            var $select3 = $('#UDSubClassificationParID');
+            $("#UDSubClassificationParID").prop("disabled", true);
+            $select3.html('');
+        }
+    }
+    function handleSubPhase() {
+
+        var dropdownId = "UDClassificationParID";
+        var transactionValueId = $("#UDClassificationParID").val();
+        if (transactionValueId == "K7") {
+            var param = {
+                dropdownId,
+                transactionValueId
+            };
+
+            $.get('GeneralInfo/GenerateUDSubClassification', param, function (lookupList) {
+                var $select = $('#UDSubClassificationParID');
+                $("#UDSubClassificationParID").prop("disabled", false);
+                $select.html('');
+
+                for (var i = 0; i < lookupList.length; i++) {
+                    var item = lookupList[i];
+                    if (item.Value) {
+                        $select.append("<option value=\"" + item.Value + "\">" + item.Text + "</option>");
+                    }
+
+                }
+
+            });
+        }
+        else {
+            var $select = $('#UDSubClassificationParID');
+            $("#UDSubClassificationParID").prop("disabled", true);
+            $select.html('');
+        }
+    }
+    function blockdate_changed() {
+        var dvalue = this.value();
+        var fDate = new Date(Date.parse(dvalue));
+        var MM = fDate.getMonth() + 1;   // javascript month start with 0
+        var DD = fDate.getDate();
+        var YY = fDate.getFullYear();
+        if (MM == 1) MM = "Jan";
+        else if (MM == 2) MM = "Feb";
+        else if (MM == 3) MM = "Mar";
+        else if (MM == 4) MM = "Apr";
+        else if (MM == 5) MM = "Mei";
+        else if (MM == 6) MM = "Jun";
+        else if (MM == 7) MM = "Jul";
+        else if (MM == 8) MM = "Agu";
+        else if (MM == 9) MM = "Sep";
+        else if (MM == 10) MM = "Okt";
+        else if (MM == 11) MM = "Nov";
+        else MM = "Des";
+        if (DD < 10) DD = "0" + DD;
+        var dtEnd = DD + "-" + MM + "-" + YY;
+        document.getElementById(this.element[0].id).value = dtEnd;
+    }
+    function validate(evt) {
+        var theEvent = evt || window.event;
+
+        // Handle paste
+        if (theEvent.type === 'paste') {
+            key = event.clipboardData.getData('text/plain');
+        } else {
+            // Handle key press
+            var key = theEvent.keyCode || theEvent.which;
+            key = String.fromCharCode(key);
+        }
+        var regex = /[0-9]|\./;
+        if (!regex.test(key)) {
+            theEvent.returnValue = false;
+            if (theEvent.preventDefault) theEvent.preventDefault();
+        }
+    }
+    function changeHandlerEcoCAPEX(val) {
+        if (Number(val.value) > 99999) {
+            val.value = 99999
+        }
+    }
+    function changeHandlerEco(val) {
+        if (Number(val.value) > 9999) {
+            val.value = 9999
+        }
+    }
+    function changeHandlerEcoPercent(val) {
+        if (Number(val.value) > 100) {
+            val.value = 100
+        }
+    }
+    (function ($, kendo) {
+        $.extend(true, kendo.ui.validator, {
+            rules: {
+                AorBRequired: function (input, params) {
+                    var isValid = true;
+                    if (input.is("#TargetName") || input.is("#HydrocarbonTypeParID")) {
+                        var grid = $('#grid').data("kendoGrid");
+                        input.attr("data-AorBRequired-msg", "You must enter Target Name or Hydrocarbon Type");
+                        //Compare input value of A to dataItem value of B and vice-versa
+                        //In-cell grid only allows us to enter edit for one cell at a time thus we cannot compare two inputs directly
+
+                        //if (input.is("#TargetName")) {
+                        //    return !($("#TargetName").val() === '');
+                        //} else if (input.is("#HydrocarbonTypeParID")) {
+                        //    return !($("#HydrocarbonTypeParID").val() === '');
+                        //}
+
+                        if (input.is("#TargetName")) {
+                            var grid = $('#grid').data("kendoGrid");
+                            input.attr("data-AorBRequired-msg", "You must enter Target Name");
+                            //Compare input value of A to dataItem value of B and vice-versa
+                            //In-cell grid only allows us to enter edit for one cell at a time thus we cannot compare two inputs directly
+                            if ($("#TargetName").val() === '') {
+                                isValid = false;
+                                input.attr("data-AorBRequired-msg", "You must enter Target Name");
+                            }
+                            else {
+                                for (var i = 0; i < grid.dataSource._data.length; i++) {
+                                    var rowInEditMode = $("#grid").find("tr.k-grid-edit-row");
+                                    if (i != rowInEditMode[0].sectionRowIndex) {
+                                        if ($("#TargetName").val() == grid.dataSource._data[i]["TargetName"]) {
+                                            isValid = false;
+                                            input.attr("data-AorBRequired-msg", "Target Name is already in data");
+                                        }
+                                    }
+                                }
+                            }
+                        } else if (input.is("#HydrocarbonTypeParID")) {
+                            var grid = $('#grid').data("kendoGrid");
+                            input.attr("data-AorBRequired-msg", "You must enter Hydrocarbon Type Par ID");
+                            //Compare input value of A to dataItem value of B and vice-versa
+                            //In-cell grid only allows us to enter edit for one cell at a time thus we cannot compare two inputs directly
+                            if ($("#HydrocarbonTypeParID").val() === '') {
+                                isValid = false;
+                                input.attr("data-AorBRequired-msg", "You must enter HydrocarbonTypeParID Name");
+                            }
+                        }
+                        return isValid;
+
+                    }
+                    if (input.is("#xWellName") || input.is("#DrillingLocation") || input.is("#RigTypeParID") || input.is("#WellTypeParID") || input.is("#ExpectedDrillingDate") || input.is("#PlayOpenerBit") || input.is("#Location") || input.is("#CommitmentWellBit") || input.is("#OperationalContextParId") || input.is("#PotentialDelayBit")) {
+                        var grid = $('#gridDrl').data("kendoGrid");
+                        var dataItem = grid.dataItem($(".k-grid-edit-row"));
+                        input.attr("data-AorBRequired-msg", "You must enter Well Name or Drilling Location or Rig Type or Well Type or Expected Drilling Date");
+                        //Compare input value of A to dataItem value of B and vice-versa
+                        //In-cell grid only allows us to enter edit for one cell at a time thus we cannot compare two inputs directly
+                        if (input.is("#xWellName")) {
+                            if ($("#xWellName").val() === '') {
+                                isValid = false;
+                                input.attr("data-AorBRequired-msg", "You must enter Well Name");
+                            }
+                            else {
+                                for (var i = 0; i < grid.dataSource._data.length; i++) {
+                                    var rowInEditMode = $("#gridDrl").find("tr.k-grid-edit-row");
+                                    if (i != rowInEditMode[0].sectionRowIndex) {
+                                        if ($("#xWellName").val() == grid.dataSource._data[i]["xWellName"]) {
+                                            isValid = false;
+                                            input.attr("data-AorBRequired-msg", "Well Name is already in data");
+                                        }
+                                    }
+                                }
+                            }
+                        } else if (input.is("#DrillingLocation")) {
+                            if ($("#DrillingLocation").val() === '') {
+                                isValid = false;
+                                input.attr("data-AorBRequired-msg", "You must enter Drilling Location");
+                            }
+                        }
+                        else if (input.is("#RigTypeParID")) {
+                            if ($("#RigTypeParID").val() === '') {
+                                isValid = false;
+                                input.attr("data-AorBRequired-msg", "You must enter Rig Type");
+                            }
+                        }
+                        else if (input.is("#WellTypeParID")) {
+                            if ($("#WellTypeParID").val() === '') {
+                                isValid = false;
+                                input.attr("data-AorBRequired-msg", "You must enter Well Type");
+                            }
+                        }
+                        else if (input.is("#ExpectedDrillingDate")) {
+                            if ($("#ExpectedDrillingDate").val() === '') {
+                                isValid = false;
+                                input.attr("data-AorBRequired-msg", "You must enter Expected Drilling Date");
+                            }
+                        }
+                        else if (input.is("#PlayOpenerBit")) {
+                            if ($("#PlayOpenerBit").val() === '') {
+                                isValid = false;
+                                input.attr("data-AorBRequired-msg", "You must enter Play Opener");
+                            }
+                        }
+                        else if (input.is("#Location")) {
+                            if ($("#Location").val() === '') {
+                                isValid = false;
+                                input.attr("data-AorBRequired-msg", "You must enter Location");
+                            }
+                        }
+                        else if (input.is("#CommitmentWellBit")) {
+                            if ($("#CommitmentWellBit").val() === '') {
+                                isValid = false;
+                                input.attr("data-AorBRequired-msg", "You must enter Commitment Well");
+                            }
+                        }
+                        else if (input.is("#OperationalContextParId")) {
+                            if ($("#OperationalContextParId").val() === '') {
+                                isValid = false;
+                                input.attr("data-AorBRequired-msg", "You must enter Operational Context");
+                            }
+                        }
+                        else if (input.is("#PotentialDelayBit")) {
+                            if ($("#PotentialDelayBit").val() === '') {
+                                isValid = false;
+                                input.attr("data-AorBRequired-msg", "You must enter Potential Delay");
+                            }
+                        }
+                        return isValid;
+
+                    }
+                    if (input.is("#xExplorationStructureName")) {
+                        var grid = $('#gridCont').data("kendoGrid");
+                        var dataItem = grid.dataItem($(".k-grid-edit-row"));
+                        input.attr("data-AorBRequired-msg", "You must enter Exploration Structure Name");
+                        //Compare input value of A to dataItem value of B and vice-versa
+                        //In-cell grid only allows us to enter edit for one cell at a time thus we cannot compare two inputs directly
+                        if (input.is("#xExplorationStructureName")) {
+                            return !($("#ExplorationStructureName").val() === '');
+                        }
+                    }
+                    return true;
+                }
+            },
+            messages: {
+                customrequired: function (input) {
+                    return input.attr("data-val-customrequired");
+                },
+                AorBRequired: function (input) {
+                    return input.attr("data-val-AorBRequired");
+                }
+            }
+        });
+    })(jQuery, kendo);
+    function checkExplorationName() {
+        let x = document.getElementById("xStructureName");
+        x.value = x.value.toLowerCase();
+        var xStructureName = x.value;
+        var param = {
+            xStructureName
+        };
+        $.get('GeneralInfo/CheckExplorationName', param, function (result) {
+            if (result.IsExist == true) {
+                $("#explorationNameMessage").css("display", "block");
+            }
+            else {
+                x.innerHTML = "";
+                $("#explorationNameMessage").css("display", "none");
+            }
+        });
+    }
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>

@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{027C845F-15F8-493F-AC24-32AC4EBBBEB0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ASPNetMVC.Infrastructure.EntityFramework</RootNamespace>
+    <AssemblyName>ASPNetMVC.Infrastructure.EntityFramework</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.2.0.123\lib\net461\Dapper.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.9\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.9\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.9\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.9\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.9\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Queries\BaseCrudQuery.cs" />
+    <Compile Include="Queries\BaseQueries.cs" />
+    <Compile Include="Queries\ExportExcelESDCQuery.cs" />
+    <Compile Include="Queries\ExportExcelExplorationQuery.cs" />
+    <Compile Include="Queries\FilterBuilder.cs" />
+    <Compile Include="Queries\HRISDevQuery.cs" />
+    <Compile Include="Queries\MDEntityQuery.cs" />
+    <Compile Include="Queries\MDExplorationAreaQuery.cs" />
+    <Compile Include="Queries\MDExplorationAssetQuery.cs" />
+    <Compile Include="Queries\MDExplorationBasinQuery.cs" />
+    <Compile Include="Queries\MDExplorationBlockPartnerQuery.cs" />
+    <Compile Include="Queries\MDExplorationBlockQuery.cs" />
+    <Compile Include="Queries\MDExplorationStructureESDCQuery.cs" />
+    <Compile Include="Queries\MDExplorationStructureQuery.cs" />
+    <Compile Include="Queries\MDExplorationWellQuery.cs" />
+    <Compile Include="Queries\MDParameterListQuery.cs" />
+    <Compile Include="Queries\MDParameterQuery.cs" />
+    <Compile Include="Queries\TXAttachmentQuery.cs" />
+    <Compile Include="Queries\TXContingenResourcesQuery.cs" />
+    <Compile Include="Queries\TXDrillingQuery.cs" />
+    <Compile Include="Queries\TXEConomicQuery.cs" />
+    <Compile Include="Queries\TXESDCProductionQuery.cs" />
+    <Compile Include="Queries\TXESDCQuery.cs" />
+    <Compile Include="Queries\TXESDCForecastQuery.cs" />
+    <Compile Include="Queries\TXESDCDiscrepancyQuery.cs" />
+    <Compile Include="Queries\TXESDCInPlaceQuery.cs" />
+    <Compile Include="Queries\TXESDCVolumetricQuery.cs" />
+    <Compile Include="Queries\TXProsResourcesQuery.cs" />
+    <Compile Include="Queries\TXProsResourcesTargetQuery.cs" />
+    <Compile Include="Queries\VWCountryQuery.cs" />
+    <Compile Include="Queries\VWDIMEntityQuery.cs" />
+    <Compile Include="Repositories\BaseCrudRepository.cs" />
+    <Compile Include="Repositories\BaseRepository.cs" />
+    <Compile Include="Repositories\HRISDevOrgUnitHierarchyRepository.cs" />
+    <Compile Include="Repositories\LGContingenResourcesRepository.cs" />
+    <Compile Include="Repositories\LGActivityRepository.cs" />
+    <Compile Include="Repositories\LGDrillingRepository.cs" />
+    <Compile Include="Repositories\LGExplorationStructureRepository.cs" />
+    <Compile Include="Repositories\LGProsResourcesRepository.cs" />
+    <Compile Include="Repositories\LGProsResourcesTargetRepository.cs" />
+    <Compile Include="Repositories\LookupRepository.cs" />
+    <Compile Include="Repositories\MDEntityRepository.cs" />
+    <Compile Include="Repositories\MDExplorationAreaRepository.cs" />
+    <Compile Include="Repositories\MDExplorationAssetRepository.cs" />
+    <Compile Include="Repositories\MDExplorationBasinRepository.cs" />
+    <Compile Include="Repositories\MDExplorationBlockPartnerRepository.cs" />
+    <Compile Include="Repositories\MDExplorationBlockRepository.cs" />
+    <Compile Include="Repositories\MDExplorationStructureESDCRepository.cs" />
+    <Compile Include="Repositories\MDExplorationStructureRepository.cs" />
+    <Compile Include="Repositories\MDExplorationWellRepository.cs" />
+    <Compile Include="Repositories\MDParameterListRepository.cs" />
+    <Compile Include="Repositories\MDParameterRepository.cs" />
+    <Compile Include="Repositories\TXAttachmentRepository.cs" />
+    <Compile Include="Repositories\TXContingenResourcesRepository.cs" />
+    <Compile Include="Repositories\TXDrillingRepository.cs" />
+    <Compile Include="Repositories\LGEconomicRepository.cs" />
+    <Compile Include="Repositories\TXEconomicRepository.cs" />
+    <Compile Include="Repositories\TXESDCProductionRepository.cs" />
+    <Compile Include="Repositories\TXESDCRepository.cs" />
+    <Compile Include="Repositories\TXESDCForecastRepository.cs" />
+    <Compile Include="Repositories\TXESDCDiscrepancyRepository.cs" />
+    <Compile Include="Repositories\TXESDCInPlaceRepository.cs" />
+    <Compile Include="Repositories\TXESDCVolumetricRepository.cs" />
+    <Compile Include="Repositories\TXProsResourcesRepository.cs" />
+    <Compile Include="Repositories\TXProsResourcesTargetRepository.cs" />
+    <Compile Include="Repositories\VWCountryRepository.cs" />
+    <Compile Include="Repositories\VWDIMEntityRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SHUNetMVC.Abstraction\SHUNetMVC.Abstraction.csproj">
+      <Project>{915A51EB-CC1E-41A8-93E3-0CC28B84CD65}</Project>
+      <Name>SHUNetMVC.Abstraction</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+</Project>

@@ -1,0 +1,543 @@
+﻿@using Kendo.Mvc.UI
+@using SHUNetMVC.Abstraction.Model.View;
+@model FormDefinition
+@{
+    string CurrentControllerName = Convert.ToString(HttpContext.Current.Request.RequestContext.RouteData.Values["Controller"]);
+    var formUrl = CurrentControllerName;
+    var modalTitle = $"Add New {Model.Title}";
+    if (Model.State == FormState.Create)
+    {
+        formUrl = Model.Title + "/Create";
+    }
+    else
+    {
+        modalTitle = $"Edit {Model.Title}";
+        formUrl = Model.Title + "/Edit";
+    }
+
+}
+<style>
+    .k-grid-header, .k-grid-header .k-header {
+        background-color: #D6E7F3;
+        border-color: #A5CAE6;
+    }
+    .k-grid-toolbar {
+        background-color: #D6E7F3;
+        border-color: #A5CAE6;
+    }
+    .k-button {
+        background-color: #D6E7F3;
+        border-color: #A5CAE6;
+        transition-duration: 0.4s;
+    }
+    .k-button:hover {
+        background-color: #8fa2b1;
+        border-color: #A5CAE6;
+    }
+</style>
+<form action="@formUrl" method="post" onsubmit="event.preventDefault()" form-state="@Model.State">
+    <div class="table-title">
+        <div class="heading-Text">
+            Objective Target
+        </div>
+        <div class="table-subtitle">
+            This is the list of objective target
+        </div>
+    </div>
+    <div class="modal-body">
+        <div>
+            @(Html.Kendo().Grid<SHUNetMVC.Abstraction.Model.Dto.TXProsResourcesTargetDto>()
+            .Name("grid")
+            .Columns(columns =>
+            {
+                columns.Bound(p => p.TargetID).Width(100);
+                columns.Bound(p => p.TargetName).Width(300).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                columns.Group(group1 => group1
+                    .HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" })
+                    .Title("In Place")
+                    .Columns(info =>
+                    {
+                        info.Group(o => o.Title("Oil")
+                            .HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" })
+                            .Columns(location =>
+                            {
+                                location.Bound(c => c.P90InPlaceOil).Width(100).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                                location.Bound(c => c.P50InPlaceOil).Width(100).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                                location.Bound(c => c.PMeanInPlaceOil).Width(100).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                                location.Bound(c => c.P10InPlaceOil).Width(100).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                            })
+                        );
+                        info.Group(g => g.Title("Gas")
+                            .HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" })
+                            .Columns(location =>
+                            {
+                                location.Bound(c => c.P90InPlaceGas).Width(100).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                                location.Bound(c => c.P50InPlaceGas).Width(100).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                                location.Bound(c => c.PMeanInPlaceGas).Width(100).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                                location.Bound(c => c.P10InPlaceGas).Width(100).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                            })
+                        );
+                        info.Group(t => t.Title("Total")
+                            .HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" })
+                            .Columns(location =>
+                            {
+                                location.Bound(c => c.P90InPlaceTotal).Width(100).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" }).Editable("returnFalse");
+                                location.Bound(c => c.P50InPlaceTotal).Width(100).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" }).Editable("returnFalse");
+                                location.Bound(c => c.PMeanInPlaceTotal).Width(100).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" }).Editable("returnFalse");
+                                location.Bound(c => c.P10InPlaceTotal).Width(100).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" }).Editable("returnFalse");
+                            })
+                        );
+                    })
+                );
+                columns.Group(group2 => group2
+                    .HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" })
+                    .Title("Recoverable")
+                    .Columns(info =>
+                    {
+                        info.Group(o => o.Title("Oil")
+                            .HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" })
+                            .Columns(location =>
+                            {
+                                location.Bound(c => c.P90RecoverableOil).Width(100).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                                location.Bound(c => c.P50RecoverableOil).Width(100).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                                location.Bound(c => c.PMeanRecoverableOil).Width(100).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                                location.Bound(c => c.P10RecoverableOil).Width(100).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                            })
+                        );
+                        info.Group(g => g.Title("Gas")
+                            .HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" })
+                            .Columns(location =>
+                            {
+                                location.Bound(c => c.P90RecoverableGas).Width(100).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                                location.Bound(c => c.P50RecoverableGas).Width(100).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                                location.Bound(c => c.PMeanRecoverableGas).Width(100).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                                location.Bound(c => c.P10RecoverableGas).Width(100).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                            })
+                        );
+                        info.Group(t => t.Title("Total")
+                            .HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" })
+                            .Columns(location =>
+                            {
+                                location.Bound(c => c.P90RecoverableTotal).Width(100).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" }).Editable("returnFalse");
+                                location.Bound(c => c.P50RecoverableTotal).Width(100).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" }).Editable("returnFalse");
+                                location.Bound(c => c.PMeanRecoverableTotal).Width(100).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" }).Editable("returnFalse");
+                                location.Bound(c => c.P10RecoverableTotal).Width(100).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" }).Editable("returnFalse");
+                            })
+                        );
+                    })
+                );
+                columns.Bound(p => p.HydrocarbonTypeParID).Sortable(false).Width(200).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                columns.Bound(p => p.GCFSR).Width(130).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                columns.Bound(p => p.GCFTM).Width(130).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                columns.Bound(p => p.GCFReservoir).Width(130).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                columns.Bound(p => p.GCFClosure).Width(130).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                columns.Bound(p => p.GCFContainment).Width(160).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                columns.Bound(p => p.GCFPGTotal).Width(130).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                columns.Command(command => command.Destroy()).Width(250).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+            })
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .Batch(true)
+                .ServerOperation(false)
+                .Events(events => events.Error("error_handler").Change("onChangeTarget"))
+                .Model(model =>
+                {
+                    model.Id(p => p.TargetID);
+                    model.Field(p => p.TargetID).Editable(false);
+                    model.Field(p => p.HydrocarbonTypeParID).DefaultValue(
+                        ViewData["defaultCategory"] as string);
+                })
+                .PageSize(20)
+                .Read(read => read.Action("EditingCustom_Read", "ProsResources"))
+                .Create(create => create.Action("EditingCustom_Create", "ProsResources"))
+                .Update(update => update.Action("EditingCustom_Update", "ProsResources"))
+                .Destroy(destroy => destroy.Action("EditingCustom_Destroy", "ProsResources"))
+            )
+            .ToolBar(toolBar =>
+            {
+                toolBar.Create();
+                toolBar.Save();
+            })
+            .Editable(editable => editable.Mode(GridEditMode.InCell))
+            .Pageable()
+            .Selectable(selectable => selectable
+            .Mode(GridSelectionMode.Multiple)
+            .Type(GridSelectionType.Cell))
+            .Navigatable()
+            .AllowCopy(true)
+            .Scrollable()
+            .HtmlAttributes(new { style = "height:550px" }))
+        </div>
+    </div>
+    <div class="table-title">
+        <div class="heading-Text">
+            Total Recoverable Resources
+        </div>
+        <div class="table-subtitle">
+            This is the list of objective target
+        </div>
+        <div class="mb-3" style="display:flex;position:absolute;margin-left:300px">
+            <select id="recoverableResourceOption" class="form-select">
+                <option value="0" selected>Open this select menu</option>
+                <option value="arithmethic">Arithmethic</option>
+                <option value="mzm">MZM</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-body">
+        <div>
+            @(Html.Kendo().Grid<SHUNetMVC.Abstraction.Model.Dto.TXProsResourceDto>()
+            .Name("grid2")
+            .Columns(columns =>
+            {
+                columns.Bound(p => p.xStructureID).Width(100);
+                columns.Bound(p => p.ExplorationStructureName).Width(300).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                columns.Group(group1 => group1
+                    .HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" })
+                    .Title("Recoverable Resources")
+                    .Columns(info =>
+                    {
+                        info.Group(o => o.Title("Oil")
+                            .HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" })
+                            .Columns(location =>
+                            {
+                                location.Bound(c => c.P90RROil).Width(100).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                                location.Bound(c => c.P50RROil).Width(100).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                                location.Bound(c => c.PMeanRROil).Width(100).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                                location.Bound(c => c.P10RROil).Width(100).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                            })
+                        );
+                        info.Group(g => g.Title("Gas")
+                            .HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" })
+                            .Columns(location =>
+                            {
+                                location.Bound(c => c.P90RRGas).Width(100).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                                location.Bound(c => c.P50RRGas).Width(100).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                                location.Bound(c => c.PMeanRRGas).Width(100).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                                location.Bound(c => c.P10RRGas).Width(100).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                            })
+                        );
+                        info.Group(t => t.Title("Total")
+                            .HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" })
+                            .Columns(location =>
+                            {
+                                location.Bound(c => c.P90RRTotal).Width(100).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" }).Editable("returnFalse");
+                                location.Bound(c => c.P50RRTotal).Width(100).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" }).Editable("returnFalse");
+                                location.Bound(c => c.PMeanRRTotal).Width(100).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" }).Editable("returnFalse");
+                                location.Bound(c => c.P10RRTotal).Width(100).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" }).Editable("returnFalse");
+                            })
+                        );
+                    })
+                );
+            })
+            .ToolBar(toolBar =>
+            {
+                toolBar.Save();
+            })
+            .Editable(editable => editable.Mode(GridEditMode.InCell))
+            .Pageable()
+            .Selectable(selectable => selectable
+            .Mode(GridSelectionMode.Multiple)
+            .Type(GridSelectionType.Cell))
+            .Navigatable()
+            .AllowCopy(true)
+            .Sortable()
+            .Scrollable()
+            .HtmlAttributes(new { style = "height:550px" })
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .Batch(true)
+                .ServerOperation(false)
+                .Events(events => events.Error("error_handler").Change("onChangeProsRecoverable"))
+                .Model(model =>
+                {
+                    model.Id(p => p.xStructureID);
+                    model.Field(p => p.xStructureID).Editable(false);
+                })
+                .PageSize(20)
+                .Read(read => read.Action("EditingCustomPR_Read", "ProsResources"))
+                .Create(create => create.Action("EditingCustomPR_Create", "ProsResources"))
+                .Update(update => update.Action("EditingCustomPR_Update", "ProsResources"))
+                .Destroy(destroy => destroy.Action("EditingCustomPR_Destroy", "ProsResources"))
+            )
+        )
+        </div>
+        <div class="mb-3" style="display:inline-block;margin-left:10px;margin-top:30px;width:100%;text-align:center">
+            <table width="98%" cellpadding="15">
+                <thead>
+                    <tr>
+                        <th>Current PG (%)</th>
+                        <th>Expected PG (%)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <input class="form-control text-box single-line" id="current" name="current" type="text" placeholder="Input Current PG" maxlength="2" onkeypress='validate(event)'>
+                        </td>
+                        <td>
+                            <input class="form-control text-box single-line" id="expected" name="expected" type="text" placeholder="Input Expected PG" maxlength="2" onkeypress='validate(event)'>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</form>
+<script type="text/javascript">
+    function error_handler(e) {
+        if (e.errors) {
+            var message = "Errors:\n";
+            $.each(e.errors, function (key, value) {
+                if ('errors' in value) {
+                    $.each(value.errors, function () {
+                        message += this + "\n";
+                    });
+                }
+            });
+            alert(message);
+        }
+    }
+    function tsvJSON(tsv) {
+        var lines = tsv.trim().split("\n");
+        var result = [];
+        var headers = lines[0].split("\t");
+        for (var i = 1; i < lines.length; i++) {
+            var obj = {};
+            var currentline = lines[i].split("\t");
+            for (var j = 0; j < headers.length; j++) {
+                obj[headers[j].trim()] = currentline[j];
+            }
+            result.push(obj);
+        }
+        return result; //JSON
+    }
+    function returnFalse() {
+        return false;
+    }
+    function onChangeTarget(e) {
+        const numberFormatter = Intl.NumberFormat('en-US');
+        if (e.field == "P90InPlaceOil") {
+            var grid = $('#grid').data('kendoGrid');
+            var selectedRows = grid.select();
+            var firstItem = $('#grid').data().kendoGrid.dataSource.data()[selectedRows.length - 1];
+            var test = parseFloat(firstItem["P90InPlaceOil"]) + (parseFloat(firstItem["P90InPlaceGas"]) * 0.1726)
+            firstItem["P90InPlaceTotal"] = numberFormatter.format(parseFloat(test).toFixed(2));
+            $('#grid').data("kendoGrid").refresh();
+        }
+        if (e.field == "P90InPlaceGas") {
+            var grid = $('#grid').data('kendoGrid');
+            var selectedRows = grid.select();
+            var firstItem = $('#grid').data().kendoGrid.dataSource.data()[selectedRows.length - 1];
+            var test = parseFloat(firstItem["P90InPlaceOil"]) + (parseFloat(firstItem["P90InPlaceGas"]) * 0.1726)
+            firstItem["P90InPlaceTotal"] = numberFormatter.format(parseFloat(test).toFixed(2));
+            $('#grid').data("kendoGrid").refresh();
+        }
+        if (e.field == "P50InPlaceOil") {
+            var grid = $('#grid').data('kendoGrid');
+            var selectedRows = grid.select();
+            var firstItem = $('#grid').data().kendoGrid.dataSource.data()[selectedRows.length - 1];
+            var test = parseFloat(firstItem["P50InPlaceOil"]) + (parseFloat(firstItem["P50InPlaceGas"]) * 0.1726)
+            firstItem["P50InPlaceTotal"] = numberFormatter.format(parseFloat(test).toFixed(2));
+            $('#grid').data("kendoGrid").refresh();
+        }
+        if (e.field == "P50InPlaceGas") {
+            var grid = $('#grid').data('kendoGrid');
+            var selectedRows = grid.select();
+            var firstItem = $('#grid').data().kendoGrid.dataSource.data()[selectedRows.length - 1];
+            var test = parseFloat(firstItem["P50InPlaceOil"]) + (parseFloat(firstItem["P50InPlaceGas"]) * 0.1726)
+            firstItem["P50InPlaceTotal"] = numberFormatter.format(parseFloat(test).toFixed(2));
+            $('#grid').data("kendoGrid").refresh();
+        }
+        if (e.field == "PMeanInPlaceOil") {
+            var grid = $('#grid').data('kendoGrid');
+            var selectedRows = grid.select();
+            var firstItem = $('#grid').data().kendoGrid.dataSource.data()[selectedRows.length - 1];
+            var test = parseFloat(firstItem["PMeanInPlaceOil"]) + (parseFloat(firstItem["PMeanInPlaceGas"]) * 0.1726)
+            firstItem["PMeanInPlaceTotal"] = numberFormatter.format(parseFloat(test).toFixed(2));
+            $('#grid').data("kendoGrid").refresh();
+        }
+        if (e.field == "PMeanInPlaceGas") {
+            var grid = $('#grid').data('kendoGrid');
+            var selectedRows = grid.select();
+            var firstItem = $('#grid').data().kendoGrid.dataSource.data()[selectedRows.length - 1];
+            var test = parseFloat(firstItem["PMeanInPlaceOil"]) + (parseFloat(firstItem["PMeanInPlaceGas"]) * 0.1726)
+            firstItem["PMeanInPlaceTotal"] = numberFormatter.format(parseFloat(test).toFixed(2));
+            $('#grid').data("kendoGrid").refresh();
+        }
+        if (e.field == "P10InPlaceOil") {
+            var grid = $('#grid').data('kendoGrid');
+            var selectedRows = grid.select();
+            var firstItem = $('#grid').data().kendoGrid.dataSource.data()[selectedRows.length - 1];
+            var test = parseFloat(firstItem["P10InPlaceOil"]) + (parseFloat(firstItem["P10InPlaceGas"]) * 0.1726)
+            firstItem["P10InPlaceTotal"] = numberFormatter.format(parseFloat(test).toFixed(2));
+            $('#grid').data("kendoGrid").refresh();
+        }
+        if (e.field == "P10InPlaceGas") {
+            var grid = $('#grid').data('kendoGrid');
+            var selectedRows = grid.select();
+            var firstItem = $('#grid').data().kendoGrid.dataSource.data()[selectedRows.length - 1];
+            var test = parseFloat(firstItem["P10InPlaceOil"]) + (parseFloat(firstItem["P10InPlaceGas"]) * 0.1726)
+            firstItem["P10InPlaceTotal"] = numberFormatter.format(parseFloat(test).toFixed(2));
+            $('#grid').data("kendoGrid").refresh();
+        }
+        if (e.field == "P90InPlaceOil") {
+            var grid = $('#grid').data('kendoGrid');
+            var selectedRows = grid.select();
+            var firstItem = $('#grid').data().kendoGrid.dataSource.data()[selectedRows.length - 1];
+            var test = parseFloat(firstItem["P90InPlaceOil"]) + (parseFloat(firstItem["P90InPlaceGas"]) * 0.1726)
+            firstItem["P90InPlaceTotal"] = numberFormatter.format(parseFloat(test).toFixed(2));
+            $('#grid').data("kendoGrid").refresh();
+        }
+        if (e.field == "P90RecoverableOil") {
+            var grid = $('#grid').data('kendoGrid');
+            var selectedRows = grid.select();
+            var firstItem = $('#grid').data().kendoGrid.dataSource.data()[selectedRows.length - 1];
+            var test = parseFloat(firstItem["P90RecoverableOil"]) + (parseFloat(firstItem["P90RecoverableGas"]) * 0.1726)
+            firstItem["P90RecoverableTotal"] = numberFormatter.format(parseFloat(test).toFixed(2));
+            $('#grid').data("kendoGrid").refresh();
+        }
+        if (e.field == "P90RecoverableGas") {
+            var grid = $('#grid').data('kendoGrid');
+            var selectedRows = grid.select();
+            var firstItem = $('#grid').data().kendoGrid.dataSource.data()[selectedRows.length - 1];
+            var test = parseFloat(firstItem["P90RecoverableOil"]) + (parseFloat(firstItem["P90RecoverableGas"]) * 0.1726)
+            firstItem["P90RecoverableTotal"] = numberFormatter.format(parseFloat(test).toFixed(2));
+            $('#grid').data("kendoGrid").refresh();
+        }
+        if (e.field == "P50RecoverableOil") {
+            var grid = $('#grid').data('kendoGrid');
+            var selectedRows = grid.select();
+            var firstItem = $('#grid').data().kendoGrid.dataSource.data()[selectedRows.length - 1];
+            var test = parseFloat(firstItem["P50RecoverableOil"]) + (parseFloat(firstItem["P50RecoverableGas"]) * 0.1726)
+            firstItem["P50RecoverableTotal"] = numberFormatter.format(parseFloat(test).toFixed(2));
+            $('#grid').data("kendoGrid").refresh();
+        }
+        if (e.field == "P50RecoverableGas") {
+            var grid = $('#grid').data('kendoGrid');
+            var selectedRows = grid.select();
+            var firstItem = $('#grid').data().kendoGrid.dataSource.data()[selectedRows.length - 1];
+            var test = parseFloat(firstItem["P50RecoverableOil"]) + (parseFloat(firstItem["P50RecoverableGas"]) * 0.1726)
+            firstItem["P50RecoverableTotal"] = numberFormatter.format(parseFloat(test).toFixed(2));
+            $('#grid').data("kendoGrid").refresh();
+        }
+        if (e.field == "PMeanRecoverableOil") {
+            var grid = $('#grid').data('kendoGrid');
+            var selectedRows = grid.select();
+            var firstItem = $('#grid').data().kendoGrid.dataSource.data()[selectedRows.length - 1];
+            var test = parseFloat(firstItem["PMeanRecoverableOil"]) + (parseFloat(firstItem["PMeanRecoverableGas"]) * 0.1726)
+            firstItem["PMeanRecoverableTotal"] = numberFormatter.format(parseFloat(test).toFixed(2));
+            $('#grid').data("kendoGrid").refresh();
+        }
+        if (e.field == "PMeanRecoverableGas") {
+            var grid = $('#grid').data('kendoGrid');
+            var selectedRows = grid.select();
+            var firstItem = $('#grid').data().kendoGrid.dataSource.data()[selectedRows.length - 1];
+            var test = parseFloat(firstItem["PMeanRecoverableOil"]) + (parseFloat(firstItem["PMeanRecoverableGas"]) * 0.1726)
+            firstItem["PMeanRecoverableTotal"] = numberFormatter.format(parseFloat(test).toFixed(2));
+            $('#grid').data("kendoGrid").refresh();
+        }
+        if (e.field == "P10RecoverableOil") {
+            var grid = $('#grid').data('kendoGrid');
+            var selectedRows = grid.select();
+            var firstItem = $('#grid').data().kendoGrid.dataSource.data()[selectedRows.length - 1];
+            var test = parseFloat(firstItem["P10RecoverableOil"]) + (parseFloat(firstItem["P10RecoverableGas"]) * 0.1726)
+            firstItem["P10RecoverableTotal"] = numberFormatter.format(parseFloat(test).toFixed(2));
+            $('#grid').data("kendoGrid").refresh();
+        }
+        if (e.field == "P10RecoverableGas") {
+            var grid = $('#grid').data('kendoGrid');
+            var selectedRows = grid.select();
+            var firstItem = $('#grid').data().kendoGrid.dataSource.data()[selectedRows.length - 1];
+            var test = parseFloat(firstItem["P10RecoverableOil"]) + (parseFloat(firstItem["P10RecoverableGas"]) * 0.1726)
+            firstItem["P10RecoverableTotal"] = numberFormatter.format(parseFloat(test).toFixed(2));
+            $('#grid').data("kendoGrid").refresh();
+        }
+    }
+    function onChangeProsRecoverable(e) {
+        const numberFormatter = Intl.NumberFormat('en-US');
+        if (e.field == "P90RROil") {
+            var grid = $('#grid2').data('kendoGrid');
+            var selectedRows = grid.select();
+            var firstItem = $('#grid2').data().kendoGrid.dataSource.data()[selectedRows.length - 1];
+            var test = parseFloat(firstItem["P90RROil"]) + (parseFloat(firstItem["P90RRGas"]) * 0.1726)
+            firstItem["P90RRTotal"] = numberFormatter.format(parseFloat(test).toFixed(2));
+            $('#grid2').data("kendoGrid").refresh();
+        }
+        if (e.field == "P90RRGas") {
+            var grid = $('#grid2').data('kendoGrid');
+            var selectedRows = grid.select();
+            var firstItem = $('#grid2').data().kendoGrid.dataSource.data()[selectedRows.length - 1];
+            var test = parseFloat(firstItem["P90RROil"]) + (parseFloat(firstItem["P90RRGas"]) * 0.1726)
+            firstItem["P90RRTotal"] = numberFormatter.format(parseFloat(test).toFixed(2));
+            $('#grid2').data("kendoGrid").refresh();
+        }
+        if (e.field == "P50RROil") {
+            var grid = $('#grid2').data('kendoGrid');
+            var selectedRows = grid.select();
+            var firstItem = $('#grid2').data().kendoGrid.dataSource.data()[selectedRows.length - 1];
+            var test = parseFloat(firstItem["P50RROil"]) + (parseFloat(firstItem["P50RRGas"]) * 0.1726)
+            firstItem["P50RRTotal"] = numberFormatter.format(parseFloat(test).toFixed(2));
+            $('#grid2').data("kendoGrid").refresh();
+        }
+        if (e.field == "P50RRGas") {
+            var grid = $('#grid2').data('kendoGrid');
+            var selectedRows = grid.select();
+            var firstItem = $('#grid2').data().kendoGrid.dataSource.data()[selectedRows.length - 1];
+            var test = parseFloat(firstItem["P50RROil"]) + (parseFloat(firstItem["P50RRGas"]) * 0.1726)
+            firstItem["P50RRTotal"] = numberFormatter.format(parseFloat(test).toFixed(2));
+            $('#grid2').data("kendoGrid").refresh();
+        }
+        if (e.field == "PMeanRROil") {
+            var grid = $('#grid2').data('kendoGrid');
+            var selectedRows = grid.select();
+            var firstItem = $('#grid2').data().kendoGrid.dataSource.data()[selectedRows.length - 1];
+            var test = parseFloat(firstItem["PMeanRROil"]) + (parseFloat(firstItem["PMeanRRGas"]) * 0.1726)
+            firstItem["PMeanRRTotal"] = numberFormatter.format(parseFloat(test).toFixed(2));
+            $('#grid2').data("kendoGrid").refresh();
+        }
+        if (e.field == "PMeanRRGas") {
+            var grid = $('#grid2').data('kendoGrid');
+            var selectedRows = grid.select();
+            var firstItem = $('#grid2').data().kendoGrid.dataSource.data()[selectedRows.length - 1];
+            var test = parseFloat(firstItem["PMeanRROil"]) + (parseFloat(firstItem["PMeanRRGas"]) * 0.1726)
+            firstItem["PMeanRRTotal"] = numberFormatter.format(parseFloat(test).toFixed(2));
+            $('#grid2').data("kendoGrid").refresh();
+        }
+        if (e.field == "P10RROil") {
+            var grid = $('#grid2').data('kendoGrid');
+            var selectedRows = grid.select();
+            var firstItem = $('#grid2').data().kendoGrid.dataSource.data()[selectedRows.length - 1];
+            var test = parseFloat(firstItem["P10RROil"]) + (parseFloat(firstItem["P10RRGas"]) * 0.1726)
+            firstItem["P10RRTotal"] = numberFormatter.format(parseFloat(test).toFixed(2));
+            $('#grid2').data("kendoGrid").refresh();
+        }
+        if (e.field == "P10RRGas") {
+            var grid = $('#grid2').data('kendoGrid');
+            var selectedRows = grid.select();
+            var firstItem = $('#grid2').data().kendoGrid.dataSource.data()[selectedRows.length - 1];
+            var test = parseFloat(firstItem["P10RROil"]) + (parseFloat(firstItem["P10RRGas"]) * 0.1726)
+            firstItem["P10RRTotal"] = numberFormatter.format(parseFloat(test).toFixed(2));
+            $('#grid2').data("kendoGrid").refresh();
+        }
+    }
+
+    document.getElementById('grid').addEventListener('paste', function (e) {
+        var tsv;
+        if (e.ctrlKey && (e.keyCode == 17)) {
+            tsv = window.clipboardData.getData('Text');
+        } else {
+            tsv = e.clipboardData.getData('Text')
+        }
+        if (tsv) {
+            const grid = $('#grid').data('kendoGrid');
+            const pastedData = tsvJSON(tsv);
+            console.log(pastedData);
+            $.map(pastedData, function (val, i) {
+                // Do something
+                console.log(val);
+                grid.dataSource.add(val).set("", { TargetName: true, P90InPlaceOil: true, P50InPlaceOil: true, PMeanInPlaceOil: true, P10InPlaceOil: true, P90InPlaceGas: true, P50InPlaceGas: true, PMeanInPlaceGas: true, P10InPlaceGas: true, P90InPlaceTotal: true, P50InPlaceTotal: true, PMeanInPlaceTotal: true, P10InPlaceTotal: true, P90RecoverableOil: true, P50RecoverableOil: true, PMeanRecoverableOil: true, P10RecoverableOil: true, P90RecoverableGas: true, P50RecoverableGas: true, PMeanRecoverableGas: true, P10RecoverableGas: true, P90RecoverableTotal: true, P50RecoverableTotal: true, PMeanRecoverableTotal: true, P10RecoverableTotal: true, HydrocarbonTypeParID: true, GCFSR: true, GCFTM: true, GCFReservoir: true, GCFClosure: true, GCFContainment: true, GCFPGTotal: true });
+            });
+        }
+    });
+</script>

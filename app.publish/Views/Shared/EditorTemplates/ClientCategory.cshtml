@@ -1,0 +1,8 @@
+﻿@model SHUNetMVC.Abstraction.Model.Response.MDEntityWithView
+
+@(Html.Kendo().DropDownListFor(m => m)
+        .DataValueField("EntityName")
+        .DataTextField("EntityName")
+        .BindTo((System.Collections.IEnumerable)ViewData["categories"])
+        .OptionLabel("-- Please select --")
+)

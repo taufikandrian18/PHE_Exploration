@@ -1,0 +1,119 @@
+﻿@using SHUNetMVC.Abstraction.Model.View
+@using Newtonsoft.Json
+@model GridListModel
+@foreach (var row in Model.Rows)
+{
+<tr>
+    @foreach (var column in row.Columns)
+    {
+        if (column.FieldId == "StatusData")
+        {
+            if (column.Value == "Approved" || column.Value == "Release")
+            {
+                <td><div class="badge text-bg-success">@column.Text</div> </td>
+            }
+            else if (column.Value == "Draft" || column.Value == "Saved")
+            {
+                <td><div class="badge text-bg-warning">@column.Text</div> </td>
+            }
+            else if (column.Value == "Submitted")
+            {
+                <td><div class="badge text-bg-primary">@column.Text</div> </td>
+            }
+            else if (column.Value == "Released")
+            {
+                <td><div class="badge text-bg-dark">@column.Text</div> </td>
+            }
+            else
+            {
+                <td><div class="badge text-bg-danger">@column.Text</div> </td>
+            }
+        }
+        else if (column.FieldId == "xStructureID")
+        {
+            if (Model.GridAttr == "creator")
+            {
+                if (row.Columns[8].Value == "Draft" || row.Columns[8].Value == "Reject Revision" || row.Columns[8].Value == "Reject Submitted" || row.Columns[8].Value == "Released" || row.Columns[8].Value == "Saved")
+                {
+                    <td class="p-1">
+                        <div style="float:left">@column.Text</div>
+                        <div class="dropdown">
+                            <button class="btn btn-flat btn-icon btn-rounded" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-solid fa-ellipsis-vertical"></i>
+                            </button>
+                            @{ if (Model.GridId == "ESDCController_grid")
+                                {
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#" onclick="crud.showReadonlyFormESDC('@column.Value')"> View</a></li>
+                                        <li><a class="dropdown-item" href="@Url.Action("Index", "ESDCGeneralInfo", new { structureID = column.Value })"> Edit</a></li>
+                                    </ul>
+                                }
+                                else
+                                {
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#" onclick="crud.showReadonlyForm('@column.Value')"> View</a></li>
+                                        <li><a class="dropdown-item" href="@Url.Action("Index", "GeneralInfo", new { structureID = column.Value })"> Edit</a></li>
+                                    </ul>
+                                }
+                            }
+                        </div>
+                    </td>
+                }
+                else
+                {
+                    <td class="p-1">
+                        <div style="float:left">@column.Text</div>
+                        <div class="dropdown">
+                            <button class="btn btn-flat btn-icon btn-rounded" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-solid fa-ellipsis-vertical"></i>
+                            </button>
+                            @if (Model.GridId == "ESDCController_grid")
+                            {
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#" onclick="crud.showReadonlyFormESDC('@column.Value')"> View</a></li>
+                                </ul>
+                            }
+                            else
+                            {
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#" onclick="crud.showReadonlyForm('@column.Value')"> View</a></li>
+                                </ul>
+                            }
+                        </div>
+                    </td>
+                }
+            }
+            else
+            {
+                <td class="p-1">
+                    <div style="float:left">@column.Text</div>
+                    <div class="dropdown">
+                        <button class="btn btn-flat btn-icon btn-rounded" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#" onclick="crud.showReadonlyForm('@column.Value')"> View</a></li>
+                        </ul>
+                    </div>
+                </td>
+            }
+        }
+        else
+        {
+            <td>@column.Text</td>
+        }
+    }
+    @*<td class="p-1">
+            <div class="dropdown">
+                <button class="btn btn-flat btn-icon btn-rounded" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#" onclick="crud.showReadonlyForm('@row.Id')"> View</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="crud.showEditForm('@row.Id')"> Edit</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="crud.showConfirmDelete('@row.Id', '@row.Columns.First().Value')">  Delete</a></li>
+                </ul>
+            </div>
+        </td>*@
+</tr>
+}

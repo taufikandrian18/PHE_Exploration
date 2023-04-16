@@ -1,0 +1,501 @@
+﻿@using Kendo.Mvc.UI
+@using SHUNetMVC.Abstraction.Model.View;
+@using SHUNetMVC.Abstraction.Model.Dto;
+@using SHUNetMVC.Abstraction.Model.Response;
+@model FormDefinition
+@{
+    string CurrentControllerName = Convert.ToString(HttpContext.Current.Request.RequestContext.RouteData.Values["Controller"]);
+    var formUrl = CurrentControllerName;
+    var modalTitle = $"Add New {Model.Title}";
+    var formState = "create";
+    if (Model.State == FormState.Create)
+    {
+        formUrl = Model.Title + "/Create";
+    }
+    else
+    {
+        formState = "edit";
+        modalTitle = $"Edit {Model.Title}";
+        formUrl = Model.Title + "/Edit";
+    }
+
+}
+<style>
+    .k-grid-header, .k-grid-header .k-header {
+        background-color: #D6E7F3;
+        border-color: #A5CAE6;
+    }
+
+    .k-grid-toolbar {
+        background-color: #D6E7F3;
+        border-color: #A5CAE6;
+    }
+
+    .k-button {
+        background-color: #D6E7F3;
+        border-color: #A5CAE6;
+        transition-duration: 0.4s;
+    }
+
+        .k-button:hover {
+            background-color: #8fa2b1;
+            border-color: #A5CAE6;
+        }
+</style>
+<form action="@formUrl" method="post" onsubmit="event.preventDefault()" form-state="@Model.State">
+    <div class="table-title">
+        <div class="heading-Text">
+            Drilling Scheme
+        </div>
+        <div class="table-subtitle">
+            This is the list of Drillng Scheme
+        </div>
+    </div>
+    <div style="padding-left:15px; margin-bottom:5px">
+        <label>Download Template Copy Paste :</label>
+        <a href="~/Assets/Template/Template_Pengisian_Exporation_Structure_Drilling.xlsx" download>
+            Template_Pengisian_Exporation_Structure_Drilling
+        </a>
+    </div>
+    <div class="modal-body">
+        <input id="formStateDrl" type="hidden" value="@formState" />
+        <input id="paramIDDrl" type="hidden" value="@Model.paramID" />
+        <div>
+            @(Html.Kendo().Grid<SHUNetMVC.Abstraction.Model.Dto.TXDrillingDto>()
+            .Name("gridDrl")
+            .Columns(columns =>
+            {
+                columns.Bound(p => p.xStructureID).Width(100);
+                columns.Bound(p => p.xWellID).Width(100);
+                columns.Bound(p => p.xWellName).Width(250).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                columns.Bound(p => p.DrillingLocation).Width(250).Sortable(false).Width(200).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                columns.Bound(p => p.PlayOpenerBit).Sortable(false).Width(300).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                columns.Bound(p => p.ExpectedDrillingDate).Width(200).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                columns.Bound(c => c.DrillingCompletionPeriod).Width(255).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                columns.Bound(p => p.Location).Width(250).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                columns.Group(group1 => group1
+                    .HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" })
+                    .Title("Water Depth")
+                    .Columns(info =>
+                    {
+                        info.Bound(c => c.WaterDepthMeter).Width(100).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.WaterDepthFeet).Width(100).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" }).Editable("returnFalse");
+                    })
+                );
+                columns.Group(group2 => group2
+                    .HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" })
+                    .Title("Total Depth")
+                    .Columns(info =>
+                    {
+                        info.Bound(c => c.TotalDepthMeter).Width(100).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.TotalDepthFeet).Width(100).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" }).Editable("returnFalse");
+                    })
+                );
+                columns.Bound(p => p.RigTypeParID).Sortable(false).Width(300).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                columns.Bound(p => p.WellTypeParID).Sortable(false).Width(200).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                columns.Group(group3 => group3
+                    .HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" })
+                    .Title("Surface Location")
+                    .Columns(info =>
+                    {
+                        info.Bound(c => c.SurfaceLocationLongitude).Width(200).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.SurfaceLocationLatitude).Width(200).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                    })
+                );
+                columns.Group(group4 => group4
+                    .HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" })
+                    .Title("BH Location")
+                    .Columns(info =>
+                    {
+                        info.Bound(c => c.BHLocationLongitude).Width(200).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.BHLocationLatitude).Width(200).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                    })
+                );
+                columns.Bound(p => p.CommitmentWellBit).Sortable(false).Width(300).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                columns.Bound(p => p.OperationalContextParId).Width(200).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                columns.Bound(c => c.PotentialDelayBit).Width(200).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                columns.Bound(p => p.NetRevenueInterest).Width(250).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                columns.Group(group5 => group5
+                    .HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" })
+                    .Title("Resources")
+                    .Columns(info =>
+                    {
+                        info.Bound(c => c.P90ResourceOil).Width(200).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.P50ResourceOil).Width(200).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.P10ResourceOil).Width(200).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.P90ResourceGas).Width(200).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.P50ResourceGas).Width(200).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.P10ResourceGas).Width(200).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                    })
+                );
+                columns.Bound(p => p.CurrentPG).Width(130).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                columns.Bound(p => p.ExpectedPG).Width(180).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                columns.Group(group6 => group6
+                    .HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" })
+                    .Title("Chance Components")
+                    .Columns(info =>
+                    {
+                        info.Bound(c => c.ChanceComponentSource).Width(100).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.ChanceComponentTiming).Width(100).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.ChanceComponentReservoir).Width(120).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.ChanceComponentClosure).Width(100).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.ChanceComponentContainment).Width(150).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                    })
+                );
+                columns.Group(group8 => group8
+                    .HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" })
+                    .Title("Drilling Cost (MMUSD)")
+                    .Columns(info =>
+                    {
+                        info.Bound(p => p.DrillingCostDHB).Width(200).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(p => p.DrillingCost).Width(200).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                    })
+                );
+                columns.Group(group7 => group7
+                    .HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" })
+                    .Title("NPV Profitability")
+                    .Columns(info =>
+                    {
+                        info.Bound(c => c.P90NPVProfitabilityOil).Width(150).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.P50NPVProfitabilityOil).Width(150).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.P10NPVProfitabilityOil).Width(150).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.P90NPVProfitabilityGas).Width(160).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.P50NPVProfitabilityGas).Width(160).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.P10NPVProfitabilityGas).Width(160).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                    })
+                );
+                columns.Command(command => command.Destroy()).Width(250).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+            })
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .Batch(true)
+                .ServerOperation(false)
+                .Events(events => events.Error("error_handler").Change("onChange"))
+                .Model(model =>
+                {
+                    model.Id(p => p.xStructureID);
+                    model.Field(p => p.xStructureID).Editable(false);
+                    model.Id(p => p.xWellID);
+                    model.Field(p => p.xWellID).Editable(false);
+                    model.Field(p => p.DrillingLocation).DefaultValue(
+                        ViewData["locationCategory"] as string);
+                    model.Field(p => p.RigTypeParID).DefaultValue(
+                        ViewData["rigCategory"] as string);
+                    model.Field(p => p.RigTypeParID).DefaultValue(
+                        ViewData["wellCategory"] as string);
+                    model.Field(p => p.PlayOpenerBit).DefaultValue(
+                        ViewData["bitCategory"] as string);
+                    model.Field(p => p.CommitmentWellBit).DefaultValue(
+                        ViewData["bitCategory"] as string);
+                    model.Field(p => p.PotentialDelayBit).DefaultValue(
+                        ViewData["bitCategory"] as string);
+                    model.Field(p => p.OperationalContextParId).DefaultValue(
+                        ViewData["ocCategory"] as string);
+                })
+                .PageSize(20)
+                .Read(read => read.Action("EditingCustomDR_Read", "Drilling").Data("getClientFormStateDrl"))
+                .Create(create => create.Action("EditingCustomDR_Create", "Drilling"))
+                .Update(update => update.Action("EditingCustomDR_Update", "Drilling"))
+                .Destroy(destroy => destroy.Action("EditingCustomDR_Destroy", "Drilling"))
+            )
+            .ToolBar(toolBar =>
+            {
+                toolBar.Create();
+                toolBar.Save();
+            })
+            .Editable(editable => editable.Mode(GridEditMode.InCell).CreateAt(position: GridInsertRowPosition.Bottom))
+            .Pageable()
+            .Selectable(selectable => selectable
+            .Mode(GridSelectionMode.Multiple)
+            .Type(GridSelectionType.Cell))
+            .Navigatable()
+            .AllowCopy(true)
+            .Scrollable(x => x.Height(250)))
+        </div>
+    </div>
+</form>
+<script type="text/javascript">
+    function error_handler(e) {
+        if (e.errors) {
+            var message = "Errors:\n";
+            $.each(e.errors, function (key, value) {
+                if ('errors' in value) {
+                    $.each(value.errors, function () {
+                        message += this + "\n";
+                    });
+                }
+            });
+            alert(message);
+        }
+    }
+    function returnFalse() {
+        return false;
+    }
+    function onChange(e) {
+        const numberFormatter = Intl.NumberFormat('en-US');
+        if (e.field == "DrillingCompletionPeriod") {
+            var grid = $('#gridDrl').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#DrillingCompletionPeriod").val();
+            firstItem["DrillingCompletionPeriod"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "WaterDepthMeter") {
+            var grid = $('#gridDrl').data('kendoGrid');
+            var selectedRows = grid.select();
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#WaterDepthMeter").val();
+            firstItem["WaterDepthMeter"] = parseFloat(dvalue).toFixed(2);
+            var test = parseFloat(firstItem["WaterDepthMeter"]) * 3.28084
+            firstItem["WaterDepthFeet"] = parseFloat(test).toFixed(2);
+            $('#gridDrl').data("kendoGrid").refresh();
+        }
+        if (e.field == "TotalDepthMeter") {
+            var grid = $('#gridDrl').data('kendoGrid');
+            var selectedRows = grid.select();
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#TotalDepthMeter").val();
+            firstItem["TotalDepthMeter"] = parseFloat(dvalue).toFixed(2);
+            var test = parseFloat(firstItem["TotalDepthMeter"]) * 3.28084
+            firstItem["TotalDepthFeet"] = parseFloat(test).toFixed(2);
+            $('#gridDrl').data("kendoGrid").refresh();
+        }
+        if (e.field == "datepicker") {
+            var grid = $('#gridDrl').data('kendoGrid');
+            var selectedRows = grid.select();
+            var dvalue = $("#datepicker").val();
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var fDate = new Date(Date.parse(dvalue));
+            var MM = fDate.getMonth() + 1;   // javascript month start with 0
+            var DD = fDate.getDate();
+            var YY = fDate.getFullYear();
+            if (MM == 1) MM = "Jan";
+            else if (MM == 2) MM = "Feb";
+            else if (MM == 3) MM = "Mar";
+            else if (MM == 4) MM = "Apr";
+            else if (MM == 5) MM = "Mei";
+            else if (MM == 6) MM = "Jun";
+            else if (MM == 7) MM = "Jul";
+            else if (MM == 8) MM = "Agu";
+            else if (MM == 9) MM = "Sep";
+            else if (MM == 10) MM = "Okt";
+            else if (MM == 11) MM = "Nov";
+            else MM = "Des";
+            if (DD < 10) DD = "0" + DD;
+            var dtEnd = DD + "-" + MM + "-" + YY;
+            firstItem["ExpectedDrillingDate"] = dtEnd;
+        }
+        if (e.field == "SurfaceLocationLatitude") {
+            var grid = $('#gridDrl').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#SurfaceLocationLatitude").val();
+            firstItem["SurfaceLocationLatitude"] = dvalue;
+        }
+        if (e.field == "SurfaceLocationLongitude") {
+            var grid = $('#gridDrl').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#SurfaceLocationLongitude").val();
+            firstItem["SurfaceLocationLongitude"] = dvalue;
+        }
+        if (e.field == "BHLocationLatitude") {
+            var grid = $('#gridDrl').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#BHLocationLatitude").val();
+            firstItem["BHLocationLatitude"] = dvalue;
+        }
+        if (e.field == "BHLocationLongitude") {
+            var grid = $('#gridDrl').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#BHLocationLongitude").val();
+            firstItem["BHLocationLongitude"] = dvalue;
+        }
+        if (e.field == "DrillingCost") {
+            var grid = $('#gridDrl').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#DrillingCost").val();
+            firstItem["DrillingCost"] = parseFloat(dvalue);
+        }
+        if (e.field == "DrillingCostDHB") {
+            var grid = $('#gridDrl').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#DrillingCostDHB").val();
+            firstItem["DrillingCostDHB"] = parseFloat(dvalue);
+        }
+        if (e.field == "P90ResourceOil") {
+            var grid = $('#gridDrl').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#P90ResourceOil").val();
+            firstItem["P90ResourceOil"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "P50ResourceOil") {
+            var grid = $('#gridDrl').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#P50ResourceOil").val();
+            firstItem["P50ResourceOil"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "P10ResourceOil") {
+            var grid = $('#gridDrl').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#P10ResourceOil").val();
+            firstItem["P10ResourceOil"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "P90ResourceGas") {
+            var grid = $('#gridDrl').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#P90ResourceGas").val();
+            firstItem["P90ResourceGas"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "P50ResourceGas") {
+            var grid = $('#gridDrl').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#P50ResourceGas").val();
+            firstItem["P50ResourceGas"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "P10ResourceGas") {
+            var grid = $('#gridDrl').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#P10ResourceGas").val();
+            firstItem["P10ResourceGas"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "NetRevenueInterest") {
+            var grid = $('#gridDrl').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#NetRevenueInterest").val();
+            firstItem["NetRevenueInterest"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "ExpectedPG") {
+            var grid = $('#gridDrl').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#ExpectedPG").val();
+            firstItem["ExpectedPG"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "CurrentPG") {
+            var grid = $('#gridDrl').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#CurrentPG").val();
+            firstItem["CurrentPG"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "ChanceComponentSource") {
+            var grid = $('#gridDrl').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#ChanceComponentSource").val();
+            firstItem["ChanceComponentSource"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "ChanceComponentTiming") {
+            var grid = $('#gridDrl').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#ChanceComponentTiming").val();
+            firstItem["ChanceComponentTiming"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "ChanceComponentReservoir") {
+            var grid = $('#gridDrl').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#ChanceComponentReservoir").val();
+            firstItem["ChanceComponentReservoir"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "ChanceComponentClosure") {
+            var grid = $('#gridDrl').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#ChanceComponentClosure").val();
+            firstItem["ChanceComponentClosure"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "ChanceComponentContainment") {
+            var grid = $('#gridDrl').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#ChanceComponentContainment").val();
+            firstItem["ChanceComponentContainment"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "P90NPVProfitabilityOil") {
+            var grid = $('#gridDrl').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#P90NPVProfitabilityOil").val();
+            firstItem["P90NPVProfitabilityOil"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "P50NPVProfitabilityOil") {
+            var grid = $('#gridDrl').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#P50NPVProfitabilityOil").val();
+            firstItem["P50NPVProfitabilityOil"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "P10NPVProfitabilityOil") {
+            var grid = $('#gridDrl').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#P10NPVProfitabilityOil").val();
+            firstItem["P10NPVProfitabilityOil"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "P90NPVProfitabilityGas") {
+            var grid = $('#gridDrl').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#P90NPVProfitabilityGas").val();
+            firstItem["P90NPVProfitabilityGas"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "P50NPVProfitabilityGas") {
+            var grid = $('#gridDrl').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#P50NPVProfitabilityGas").val();
+            firstItem["P50NPVProfitabilityGas"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "P10NPVProfitabilityGas") {
+            var grid = $('#gridDrl').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#P10NPVProfitabilityGas").val();
+            firstItem["P10NPVProfitabilityGas"] = parseFloat(dvalue).toFixed(2);
+        }
+    }
+    function tsvJSON(tsv) {
+        var lines = tsv.trim().split("\n");
+        var result = [];
+        var headers = lines[0].split("\t");
+        for (var i = 1; i < lines.length; i++) {
+            var obj = {};
+            var currentline = lines[i].split("\t");
+            for (var j = 0; j < headers.length; j++) {
+                obj[headers[j].trim()] = currentline[j];
+            }
+            result.push(obj);
+        }
+        return result; //JSON
+    }
+    document.getElementById('gridDrl').addEventListener('paste', function (e) {
+        var tsv;
+        if (e.ctrlKey && (e.keyCode == 17)) {
+            tsv = window.clipboardData.getData('Text');
+        } else {
+            tsv = e.clipboardData.getData('Text')
+        }
+        if (tsv) {
+            const grid = $('#gridDrl').data('kendoGrid');
+            const pastedData = tsvJSON(tsv);
+            console.log(pastedData);
+            $.map(pastedData, function (val, i) {
+                // Do something
+                console.log(val);
+                grid.dataSource.add(val).set("", { xWellName: true, DrillingLocation: true, PlayOpenerBit: true, ExpectedDrillingDate: true, DrillingCompletionPeriod: true, Location: true, WaterDepthMeter: true, WaterDepthFeet: true, TotalDepthMeter: true, TotalDepthFeet: true, RigTypeParID: true, WellTypeParID: true, SurfaceLocationLongitude: true, SurfaceLocationLatitude: true, BHLocationLongitude: true, BHLocationLatitude: true, CommitmentWellBit: true, OperationalContextParId: true, PotentialDelayBit: true, NetRevenueInterest: true, P90ResourceOil: true, P50ResourceOil: true, C10ResourcePOil: true, P90ResourceGas: true, P50ResourceGas: true, P10ResourceGas: true, CurrentPG: true, ExpectedPG: true, ChanceComponentSource: true, ChanceComponentTiming: true, ChanceComponentReservoir: true, ChanceComponentClosure: true, ChanceComponentContainment: true, DrillingCost: true, DrillingCostDHB: true, P90NPVProfitabilityOil: true, P50NPVProfitabilityOil: true, P10NPVProfitabilityOil: true, P90NPVProfitabilityGas: true, P50NPVProfitabilityGas: true, P10NPVProfitabilityGas: true });
+            });
+        }
+    });
+    function releasedate_changed() {
+        var grid = $('#gridDrl').data('kendoGrid');
+        var selectedRows = grid.select();
+        var dvalue = $("#datepicker").val();
+        var firstItem = $('#gridDrl').data().kendoGrid.dataSource.data()[selectedRows.length - 1];
+        var fDate = new Date(Date.parse(dvalue));
+        var MM = fDate.getMonth() + 1;   // javascript month start with 0
+        var DD = fDate.getDate();
+        var YY = fDate.getFullYear();
+        if (MM == 1) MM = "Jan";
+        else if (MM == 2) MM = "Feb";
+        else if (MM == 3) MM = "Mar";
+        else if (MM == 4) MM = "Apr";
+        else if (MM == 5) MM = "Mei";
+        else if (MM == 6) MM = "Jun";
+        else if (MM == 7) MM = "Jul";
+        else if (MM == 8) MM = "Agu";
+        else if (MM == 9) MM = "Sep";
+        else if (MM == 10) MM = "Okt";
+        else if (MM == 11) MM = "Nov";
+        else MM = "Des";
+        if (DD < 10) DD = "0" + DD;
+        var dtEnd = DD + "-" + MM + "-" + YY;
+        firstItem["ExpectedDrillingDate"] = dtEnd;
+    }
+</script>

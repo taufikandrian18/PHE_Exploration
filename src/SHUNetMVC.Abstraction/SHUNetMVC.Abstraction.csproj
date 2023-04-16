@@ -1,0 +1,465 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{915A51EB-CC1E-41A8-93E3-0CC28B84CD65}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ASPNetMVC.Abstraction</RootNamespace>
+    <AssemblyName>ASPNetMVC.Abstraction</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=8.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.8.0.0\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="ClosedXML, Version=0.93.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ClosedXML.0.93.0\lib\net46\ClosedXML.dll</HintPath>
+    </Reference>
+    <Reference Include="DelegateDecompiler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=93b26a10a04705bd, processorArchitecture=MSIL">
+      <HintPath>..\packages\DelegateDecompiler.0.28.0\lib\net45\DelegateDecompiler.dll</HintPath>
+    </Reference>
+    <Reference Include="DelegateDecompiler.EntityFramework, Version=1.0.0.0, Culture=neutral, PublicKeyToken=93b26a10a04705bd, processorArchitecture=MSIL">
+      <HintPath>..\packages\DelegateDecompiler.EntityFramework.0.28.0\lib\net45\DelegateDecompiler.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.16.0.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.16.0\lib\net46\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="ExcelNumberFormat, Version=1.1.0.0, Culture=neutral, PublicKeyToken=23c6f5d73be07eca, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelNumberFormat.1.1.0\lib\net20\ExcelNumberFormat.dll</HintPath>
+    </Reference>
+    <Reference Include="FastMember.Signed, Version=1.3.0.0, Culture=neutral, PublicKeyToken=9e8f22703bef9a29, processorArchitecture=MSIL">
+      <HintPath>..\packages\FastMember.Signed.1.3.0\lib\net45\FastMember.Signed.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Reflection, Version=1.1.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\Mono.Reflection.Core.1.1.1\lib\net45\Mono.Reflection.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.ConfigurationManager, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Configuration.ConfigurationManager.7.0.0\lib\net462\System.Configuration.ConfigurationManager.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.9\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Security.AccessControl, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.AccessControl.6.0.0\lib\net461\System.Security.AccessControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Permissions, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Permissions.7.0.0\lib\net462\System.Security.Permissions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Principal.Windows, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Principal.Windows.5.0.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.9\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.9\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.9\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.9\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="Wmo.Extension">
+      <HintPath>..\..\..\..\..\..\Downloads\Wmo.Extension.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Enum\FilterBuilderEnum.cs" />
+    <Compile Include="Extensions\AutoMapper.cs" />
+    <Compile Include="Model\Dto\BaseDtoAutoMapper.cs" />
+    <Compile Include="Model\Dto\HRISDevOrgUnitHierarchyDto.cs" />
+    <Compile Include="Model\Dto\LGContingenResourcesDto.cs" />
+    <Compile Include="Model\Dto\LGActivityDto.cs" />
+    <Compile Include="Model\Dto\LGDrillingDto.cs" />
+    <Compile Include="Model\Dto\LGExplorationStructureDto.cs" />
+    <Compile Include="Model\Dto\LGProsResourceDto.cs" />
+    <Compile Include="Model\Dto\LGProsResourcesTargetDto.cs" />
+    <Compile Include="Model\Dto\MDEntityDto.cs" />
+    <Compile Include="Model\Dto\MDExplorationAreaDto.cs" />
+    <Compile Include="Model\Dto\MDExplorationAssetDto.cs" />
+    <Compile Include="Model\Dto\MDExplorationBasinDto.cs" />
+    <Compile Include="Model\Dto\MDExplorationBlockDto.cs" />
+    <Compile Include="Model\Dto\MDExplorationBlockPartnerDto.cs" />
+    <Compile Include="Model\Dto\MDExplorationStructureESDCDto.cs" />
+    <Compile Include="Model\Dto\MDExplorationStructureDto.cs" />
+    <Compile Include="Model\Dto\MDExplorationWellDto.cs" />
+    <Compile Include="Model\Dto\MDParameterDto.cs" />
+    <Compile Include="Model\Dto\MDParameterListDto.cs" />
+    <Compile Include="Model\Dto\ProductViewModel.cs" />
+    <Compile Include="Model\Dto\TXAttachmentDto.cs" />
+    <Compile Include="Model\Dto\TXContingenResourcesDto.cs" />
+    <Compile Include="Model\Dto\TXDrillingDto.cs" />
+    <Compile Include="Model\Dto\LGEconomicDto.cs" />
+    <Compile Include="Model\Dto\TXEconomicDto.cs" />
+    <Compile Include="Model\Dto\TXESDCDto.cs" />
+    <Compile Include="Model\Dto\TXESDCForecastDto.cs" />
+    <Compile Include="Model\Dto\TXESDCProductionDto.cs" />
+    <Compile Include="Model\Dto\TXESDCDiscrepancyDto.cs" />
+    <Compile Include="Model\Dto\TXESDCInPlaceDto.cs" />
+    <Compile Include="Model\Dto\TXESDCVolumetricDto.cs" />
+    <Compile Include="Model\Dto\TXProsResourceDto.cs" />
+    <Compile Include="Model\Dto\TXProsResourcesTargetDto.cs" />
+    <Compile Include="Model\Dto\VWCountryDto.cs" />
+    <Compile Include="Model\Dto\VWDIMEntityDto.cs" />
+    <Compile Include="Model\Entities\DBContextExplorationExtender.cs" />
+    <Compile Include="Model\Entities\DBContextHRISExtender.cs" />
+    <Compile Include="Model\Entities\DbContextMapperExploration.cs" />
+    <Compile Include="Model\Entities\DbContextMapperHRIS.cs" />
+    <Compile Include="Model\Entities\DIM_OrgUnitHierarchy.cs">
+      <DependentUpon>Hris_Dev.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Entities\ExplorationContext.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ExplorationContext.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Entities\ExplorationContext.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ExplorationContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Entities\ExplorationContext.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ExplorationContext.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Entities\Hris_Dev.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Hris_Dev.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Entities\Hris_Dev.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Hris_Dev.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Entities\Hris_Dev.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Hris_Dev.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Entities\LG_Activity.cs">
+      <DependentUpon>ExplorationContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Entities\LG_ContingentResources.cs">
+      <DependentUpon>ExplorationContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Entities\LG_Drilling.cs">
+      <DependentUpon>ExplorationContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Entities\LG_Economic.cs">
+      <DependentUpon>ExplorationContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Entities\LG_ExplorationStructure.cs">
+      <DependentUpon>ExplorationContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Entities\LG_ProsResources.cs">
+      <DependentUpon>ExplorationContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Entities\LG_ProsResourcesTarget.cs">
+      <DependentUpon>ExplorationContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Entities\MD_BusinessPartner.cs">
+      <DependentUpon>ExplorationContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Entities\MD_ExplorationArea.cs">
+      <DependentUpon>ExplorationContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Entities\MD_ExplorationAsset.cs">
+      <DependentUpon>ExplorationContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Entities\MD_ExplorationBasin.cs">
+      <DependentUpon>ExplorationContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Entities\MD_ExplorationBlock.cs">
+      <DependentUpon>ExplorationContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Entities\MD_ExplorationBlockPartner.cs">
+      <DependentUpon>ExplorationContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Entities\MD_ExplorationStructure.cs">
+      <DependentUpon>ExplorationContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Entities\MD_ExplorationWell.cs">
+      <DependentUpon>ExplorationContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Entities\MD_Paramater.cs">
+      <DependentUpon>ExplorationContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Entities\MD_ParamaterList.cs">
+      <DependentUpon>ExplorationContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Entities\MP_Entity.cs">
+      <DependentUpon>ExplorationContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Entities\MP_xBasinCountry.cs">
+      <DependentUpon>ExplorationContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Entities\TX_Attachment.cs">
+      <DependentUpon>ExplorationContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Entities\TX_ContingentResources.cs">
+      <DependentUpon>ExplorationContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Entities\TX_Drilling.cs">
+      <DependentUpon>ExplorationContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Entities\TX_Economic.cs">
+      <DependentUpon>ExplorationContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Entities\TX_ESDC.cs">
+      <DependentUpon>ExplorationContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Entities\TX_ESDCDiscrepancy.cs">
+      <DependentUpon>ExplorationContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Entities\TX_ESDCForecast.cs">
+      <DependentUpon>ExplorationContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Entities\TX_ESDCInPlace.cs">
+      <DependentUpon>ExplorationContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Entities\TX_ESDCProd.cs">
+      <DependentUpon>ExplorationContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Entities\TX_ESDCVolumetric.cs">
+      <DependentUpon>ExplorationContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Entities\TX_ProsResources.cs">
+      <DependentUpon>ExplorationContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Entities\TX_ProsResourcesTarget.cs">
+      <DependentUpon>ExplorationContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Entities\vw_Country.cs">
+      <DependentUpon>ExplorationContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Entities\vw_DIM_Entity.cs">
+      <DependentUpon>ExplorationContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Request\MDExplorationStructureFilter.cs" />
+    <Compile Include="Model\Request\PagedFilter.cs" />
+    <Compile Include="Model\Response\CurrentUser.cs" />
+    <Compile Include="Model\Response\MDEntityWithView.cs" />
+    <Compile Include="Model\Response\MDExplorationStructureWithAdditionalFields.cs" />
+    <Compile Include="Model\Response\PartnerList.cs" />
+    <Compile Include="Model\Response\TXPropectiveResourceTargetWthFields.cs" />
+    <Compile Include="Model\View\ColumnValue.cs" />
+    <Compile Include="Model\View\CrudPage.cs" />
+    <Compile Include="Model\View\DoTransactionResult.cs" />
+    <Compile Include="Model\View\GridParam.cs" />
+    <Compile Include="Model\View\FieldDefinition.cs" />
+    <Compile Include="Model\View\ColumnDefinition.cs" />
+    <Compile Include="Model\View\GridViewFilter.cs" />
+    <Compile Include="Model\View\MDExplorationStructureExcelDto.cs" />
+    <Compile Include="Model\View\ProsResourceExcelDto.cs" />
+    <Compile Include="Model\View\SelectList.cs" />
+    <Compile Include="Model\View\FilterList.cs" />
+    <Compile Include="Model\View\GridListModel.cs" />
+    <Compile Include="Model\View\TXContResourcesExcelDto.cs" />
+    <Compile Include="Model\View\TXDrillingExcelDto.cs" />
+    <Compile Include="Model\View\TXEconomicExcelDto.cs" />
+    <Compile Include="Model\View\TXProsResourcesExcelDto.cs" />
+    <Compile Include="Model\View\TXProsResourcesTargetExcelDto.cs" />
+    <Compile Include="Repositories\IConnectionProvider.cs" />
+    <Compile Include="Model\Response\Paged.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\IBaseCrudRepository.cs" />
+    <Compile Include="Repositories\IHRISDevOrgUnitHierarchyRepository.cs" />
+    <Compile Include="Repositories\ILGContingenResourcesRepository.cs" />
+    <Compile Include="Repositories\ILGActivityRepository.cs" />
+    <Compile Include="Repositories\ILGDrillingRepository.cs" />
+    <Compile Include="Repositories\ILGExplorationStructureRepository.cs" />
+    <Compile Include="Repositories\ILGProsResourcesRepository.cs" />
+    <Compile Include="Repositories\ILGProsResourcesTargetRepository.cs" />
+    <Compile Include="Repositories\ILookupRepository.cs" />
+    <Compile Include="Repositories\IMDEntityRepository.cs" />
+    <Compile Include="Repositories\IMDExplorationAreaRepository.cs" />
+    <Compile Include="Repositories\IMDExplorationAssetRepository.cs" />
+    <Compile Include="Repositories\IMDExplorationBasinRepository.cs" />
+    <Compile Include="Repositories\IMDExplorationBlockPartnerRepository.cs" />
+    <Compile Include="Repositories\IMDExplorationBlockRepository.cs" />
+    <Compile Include="Repositories\IMDExplorationStructureESDCRepository.cs" />
+    <Compile Include="Repositories\IMDExplorationStructureRepository.cs" />
+    <Compile Include="Repositories\IMDExplorationWellRepository.cs" />
+    <Compile Include="Repositories\IMDParameterListRepository.cs" />
+    <Compile Include="Repositories\IMDParameterRepository.cs" />
+    <Compile Include="Repositories\ITXAttachmentRepository.cs" />
+    <Compile Include="Repositories\ITXContingenResourcesRepository.cs" />
+    <Compile Include="Repositories\ITXDrillingRepository.cs" />
+    <Compile Include="Repositories\ILGEconomicRepository.cs" />
+    <Compile Include="Repositories\ITXEconomicRepository.cs" />
+    <Compile Include="Repositories\ITXESDCProductionRepository.cs" />
+    <Compile Include="Repositories\ITXESDCRepository.cs" />
+    <Compile Include="Repositories\ITXESDCForecastRepository.cs" />
+    <Compile Include="Repositories\ITXESDCDiscrepancyRepository.cs" />
+    <Compile Include="Repositories\ITXESDCInPlaceRepository.cs" />
+    <Compile Include="Repositories\ITXESDCVolumetricRepository.cs" />
+    <Compile Include="Repositories\ITXProsResourcesRepository.cs" />
+    <Compile Include="Repositories\ITXProsResourcesTargetRepository.cs" />
+    <Compile Include="Repositories\IVWCountryRepository.cs" />
+    <Compile Include="Repositories\IVWDIMEntityRepository.cs" />
+    <Compile Include="Services\ICrudService.cs" />
+    <Compile Include="Services\IHRISDevOrgUnitHierarchyService.cs" />
+    <Compile Include="Services\ILGContingenResourcesService.cs" />
+    <Compile Include="Services\ILGActivityService.cs" />
+    <Compile Include="Services\ILGDrillingService.cs" />
+    <Compile Include="Services\ILGExplorationStructureService.cs" />
+    <Compile Include="Services\ILGProsResourcesService.cs" />
+    <Compile Include="Services\ILGProsResourcesTargetService.cs" />
+    <Compile Include="Services\ILookupService.cs" />
+    <Compile Include="Services\IMDEntityService.cs" />
+    <Compile Include="Services\IMDExplorationAreaService.cs" />
+    <Compile Include="Services\IMDExplorationAssetService.cs" />
+    <Compile Include="Services\IMDExplorationBasinService.cs" />
+    <Compile Include="Services\IMDExplorationBlockPartnerService.cs" />
+    <Compile Include="Services\IMDExplorationBlockService.cs" />
+    <Compile Include="Services\IMDExplorationStructureESDCService.cs" />
+    <Compile Include="Services\IMDExplorationStructureService.cs" />
+    <Compile Include="Services\IMDExplorationWellService.cs" />
+    <Compile Include="Services\IMDParameterListService.cs" />
+    <Compile Include="Services\IMDParameterService.cs" />
+    <Compile Include="Services\ITXAttachmentService.cs" />
+    <Compile Include="Services\ITXContingenResourcesService.cs" />
+    <Compile Include="Services\ITXDrillingService.cs" />
+    <Compile Include="Services\ILGEconomicService.cs" />
+    <Compile Include="Services\ITXEconomicService.cs" />
+    <Compile Include="Services\ITXESDCProductionService.cs" />
+    <Compile Include="Services\ITXESDCService.cs" />
+    <Compile Include="Services\ITXESDCForecastService.cs" />
+    <Compile Include="Services\ITXESDCDiscrepancyService.cs" />
+    <Compile Include="Services\ITXESDCInPlaceService.cs" />
+    <Compile Include="Services\ITXESDCVolumetricService.cs" />
+    <Compile Include="Services\ITXProsResourcesService.cs" />
+    <Compile Include="Services\ITXProsResourcesTargetService.cs" />
+    <Compile Include="Services\IUserService.cs" />
+    <Compile Include="Services\IVWCountryService.cs" />
+    <Compile Include="Services\IVWDIMEntityService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <EntityDeploy Include="Model\Entities\Hris_Dev.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Hris_Dev.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <EntityDeploy Include="Model\Entities\ExplorationContext.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ExplorationContext.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Model\Entities\ExplorationContext.edmx.diagram">
+      <DependentUpon>ExplorationContext.edmx</DependentUpon>
+    </None>
+    <None Include="Model\Entities\Hris_Dev.edmx.diagram">
+      <DependentUpon>Hris_Dev.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Model\Entities\ExplorationContext.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ExplorationContext.edmx</DependentUpon>
+      <LastGenOutput>ExplorationContext.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\Entities\ExplorationContext.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ExplorationContext.edmx</DependentUpon>
+      <LastGenOutput>ExplorationContext.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\Entities\Hris_Dev.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Hris_Dev.edmx</DependentUpon>
+      <LastGenOutput>Hris_Dev.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\Entities\Hris_Dev.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Hris_Dev.edmx</DependentUpon>
+      <LastGenOutput>Hris_Dev.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+</Project>

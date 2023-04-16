@@ -1,0 +1,192 @@
+﻿@using Kendo.Mvc.UI
+@using SHUNetMVC.Abstraction.Model.View;
+@model FormDefinition
+@{
+    string CurrentControllerName = Convert.ToString(HttpContext.Current.Request.RequestContext.RouteData.Values["Controller"]);
+    var formUrl = CurrentControllerName;
+    var modalTitle = $"Add New {Model.Title}";
+    if (Model.State == FormState.Create)
+    {
+        formUrl = Model.Title + "/Create";
+    }
+    else
+    {
+        modalTitle = $"Edit {Model.Title}";
+        formUrl = Model.Title + "/Edit";
+    }
+
+}
+<style>
+    .k-grid-header, .k-grid-header .k-header {
+        background-color: #D6E7F3;
+        border-color: #A5CAE6;
+    }
+
+    .k-grid-toolbar {
+        background-color: #D6E7F3;
+        border-color: #A5CAE6;
+    }
+
+    .k-button {
+        background-color: #D6E7F3;
+        border-color: #A5CAE6;
+        transition-duration: 0.4s;
+    }
+
+        .k-button:hover {
+            background-color: #8fa2b1;
+            border-color: #A5CAE6;
+        }
+</style>
+<form action="@formUrl" method="post" onsubmit="event.preventDefault()" form-state="@Model.State">
+    <div class="table-title">
+        <div class="heading-Text">
+            Contingen Resources
+        </div>
+        <div class="table-subtitle">
+            This is the list of Contingen Resources
+        </div>
+    </div>
+    <div class="modal-body">
+        <div>
+            @(Html.Kendo().Grid<SHUNetMVC.Abstraction.Model.Dto.TXContingenResourcesDto>()
+            .Name("gridCont")
+            .Columns(columns =>
+            {
+                columns.Bound(p => p.xStructureID).Width(100);
+                columns.Bound(p => p.ExplorationStructureName).Width(300).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                columns.Group(group1 => group1
+                    .HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" })
+                    .Title("Oil")
+                    .Columns(info =>
+                    {
+                        info.Bound(c => c.C1Oil).Width(100).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.C2Oil).Width(100).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.C3Oil).Width(100).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                    })
+                );
+                columns.Group(group2 => group2
+                    .HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" })
+                    .Title("Gas")
+                    .Columns(info =>
+                    {
+                        info.Bound(c => c.C1Gas).Width(100).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.C2Gas).Width(100).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.C3Gas).Width(100).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                    })
+                );
+                columns.Group(group3 => group3
+                    .HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" })
+                    .Title("Total")
+                    .Columns(info =>
+                    {
+                        info.Bound(c => c.C1Total).Width(100).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" }).Editable("returnFalse");
+                        info.Bound(c => c.C2Total).Width(100).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" }).Editable("returnFalse");
+                        info.Bound(c => c.C3Total).Width(100).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" }).Editable("returnFalse");
+                    })
+                );
+            })
+            .ToolBar(toolBar =>
+            {
+                toolBar.Create();
+                toolBar.Save();
+            })
+            .Editable(editable => editable.Mode(GridEditMode.InCell))
+            .Pageable()
+            .Selectable(selectable => selectable
+            .Mode(GridSelectionMode.Multiple)
+            .Type(GridSelectionType.Cell))
+            .Navigatable()
+            .AllowCopy(true)
+            .Sortable()
+            .Scrollable()
+            .HtmlAttributes(new { style = "height:550px" })
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .Batch(true)
+                .ServerOperation(false)
+                .Events(events => events.Error("error_handler").Change("onChangeCont"))
+                .Model(model =>
+                {
+                    model.Id(p => p.xStructureID);
+                    model.Field(p => p.xStructureID).Editable(false);
+                })
+                .PageSize(20)
+                .Read(read => read.Action("EditingCustomCR_Read", "ContingenResources"))
+                .Create(create => create.Action("EditingCustomCR_Create", "ContingenResources"))
+                .Update(update => update.Action("EditingCustomCR_Update", "ContingenResources"))
+                .Destroy(destroy => destroy.Action("EditingCustomCR_Destroy", "ContingenResources"))
+            )
+        )
+        </div>
+    </div>
+</form>
+<script type="text/javascript">
+    function error_handler(e) {
+        if (e.errors) {
+            var message = "Errors:\n";
+            $.each(e.errors, function (key, value) {
+                if ('errors' in value) {
+                    $.each(value.errors, function () {
+                        message += this + "\n";
+                    });
+                }
+            });
+            alert(message);
+        }
+    }
+    function returnFalse() {
+        return false;
+    }
+    function onChangeCont(e) {
+        const numberFormatter = Intl.NumberFormat('en-US');
+        if (e.field == "C1Oil") {
+            var grid = $('#gridCont').data('kendoGrid');
+            var selectedRows = grid.select();
+            var firstItem = $('#gridCont').data().kendoGrid.dataSource.data()[selectedRows.length - 1];
+            var test = parseFloat(firstItem["C1Oil"]) + (parseFloat(firstItem["C1Gas"]) * 0.1726)
+            firstItem["C1Total"] = numberFormatter.format(parseFloat(test).toFixed(2));
+            $('#gridCont').data("kendoGrid").refresh();
+        }
+        if (e.field == "C1Gas") {
+            var grid = $('#gridCont').data('kendoGrid');
+            var selectedRows = grid.select();
+            var firstItem = $('#gridCont').data().kendoGrid.dataSource.data()[selectedRows.length - 1];
+            var test = parseFloat(firstItem["C1Oil"]) + (parseFloat(firstItem["C1Gas"]) * 0.1726)
+            firstItem["C1Total"] = numberFormatter.format(parseFloat(test).toFixed(2));
+            $('#gridCont').data("kendoGrid").refresh();
+        }
+        if (e.field == "C2Oil") {
+            var grid = $('#gridCont').data('kendoGrid');
+            var selectedRows = grid.select();
+            var firstItem = $('#gridCont').data().kendoGrid.dataSource.data()[selectedRows.length - 1];
+            var test = parseFloat(firstItem["C2Oil"]) + (parseFloat(firstItem["C2Gas"]) * 0.1726)
+            firstItem["C2Total"] = numberFormatter.format(parseFloat(test).toFixed(2));
+            $('#gridCont').data("kendoGrid").refresh();
+        }
+        if (e.field == "C2Gas") {
+            var grid = $('#gridCont').data('kendoGrid');
+            var selectedRows = grid.select();
+            var firstItem = $('#gridCont').data().kendoGrid.dataSource.data()[selectedRows.length - 1];
+            var test = parseFloat(firstItem["C2Oil"]) + (parseFloat(firstItem["C2Gas"]) * 0.1726)
+            firstItem["C2Total"] = numberFormatter.format(parseFloat(test).toFixed(2));
+            $('#gridCont').data("kendoGrid").refresh();
+        }
+        if (e.field == "C3Oil") {
+            var grid = $('#gridCont').data('kendoGrid');
+            var selectedRows = grid.select();
+            var firstItem = $('#gridCont').data().kendoGrid.dataSource.data()[selectedRows.length - 1];
+            var test = parseFloat(firstItem["C3Oil"]) + (parseFloat(firstItem["C3Gas"]) * 0.1726)
+            firstItem["C3Total"] = numberFormatter.format(parseFloat(test).toFixed(2));
+            $('#gridCont').data("kendoGrid").refresh();
+        }
+        if (e.field == "C3Gas") {
+            var grid = $('#gridCont').data('kendoGrid');
+            var selectedRows = grid.select();
+            var firstItem = $('#gridCont').data().kendoGrid.dataSource.data()[selectedRows.length - 1];
+            var test = parseFloat(firstItem["C3Oil"]) + (parseFloat(firstItem["C3Gas"]) * 0.1726)
+            firstItem["C3Total"] = numberFormatter.format(parseFloat(test).toFixed(2));
+            $('#gridCont').data("kendoGrid").refresh();
+        }
+    }
+</script>

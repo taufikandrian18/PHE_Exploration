@@ -1,0 +1,21 @@
+﻿@using SHUNetMVC.Abstraction.Model.View;
+@model Field
+
+@{ 
+    var field = Model;
+}
+
+<select class="form-select" id="@field.Id" name="@field.Id" required>
+    @foreach (var item in field.LookUpList.Items)
+    {
+        if (item.Value == field.Value?.ToString())
+        {
+            <option value="@item.Value" selected>@item.Text</option>
+        }
+        else
+        {
+            <option value="@item.Value">@item.Text</option>
+        }
+
+    }
+</select>

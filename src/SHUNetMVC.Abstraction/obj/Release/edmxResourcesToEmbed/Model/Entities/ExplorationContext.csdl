@@ -1,0 +1,1306 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DB_PHE_ExplorationModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="MD_BusinessPartner">
+    <Key>
+      <PropertyRef Name="PartnerID" />
+    </Key>
+    <Property Name="PartnerID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PartnerName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ParentBPID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SAPID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="MD_ExplorationArea">
+    <Key>
+      <PropertyRef Name="xAreaID" />
+    </Key>
+    <Property Name="xAreaID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="xAreaName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="MD_ExplorationAsset">
+    <Key>
+      <PropertyRef Name="xAssetID" />
+    </Key>
+    <Property Name="xAssetID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="xAssetName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="MD_ExplorationStructure" Relationship="Self.FK__MD_Explor__xAsse__7B264821" FromRole="MD_ExplorationAsset" ToRole="MD_ExplorationStructure" />
+  </EntityType>
+  <EntityType Name="MD_ExplorationBasin">
+    <Key>
+      <PropertyRef Name="BasinID" />
+    </Key>
+    <Property Name="BasinID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="BasinName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="MapID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="MD_ExplorationStructure" Relationship="Self.FK__MD_Explor__Basin__7A3223E8" FromRole="MD_ExplorationBasin" ToRole="MD_ExplorationStructure" />
+    <NavigationProperty Name="MP_xBasinCountry" Relationship="Self.FK__MP_xBasin__Basin__51BA1E3A" FromRole="MD_ExplorationBasin" ToRole="MP_xBasinCountry" />
+  </EntityType>
+  <EntityType Name="MD_ExplorationBlock">
+    <Key>
+      <PropertyRef Name="xBlockID" />
+    </Key>
+    <Property Name="xBlockID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="xBlockName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="AwardDate" Type="DateTime" Precision="0" />
+    <Property Name="ExpiredDate" Type="DateTime" Precision="0" />
+    <Property Name="xBlockStatusParID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="OperatorshipStatusParID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="OperatorName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="CountriesID" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="MD_ExplorationStructure" Relationship="Self.FK__MD_Explor__xBloc__7C1A6C5A" FromRole="MD_ExplorationBlock" ToRole="MD_ExplorationStructure" />
+  </EntityType>
+  <EntityType Name="MD_ExplorationBlockPartner">
+    <Key>
+      <PropertyRef Name="xBlockID" />
+      <PropertyRef Name="PartnerID" />
+      <PropertyRef Name="EffectiveDate" />
+    </Key>
+    <Property Name="xBlockID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PartnerID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PartnerName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="PI" Type="Decimal" Precision="6" Scale="5" />
+    <Property Name="OperatorshipStatusParID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="EffectiveDate" Type="DateTime" Nullable="false" Precision="0" />
+  </EntityType>
+  <EntityType Name="MD_ExplorationStructure">
+    <Key>
+      <PropertyRef Name="xStructureID" />
+    </Key>
+    <Property Name="xStructureID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="xStructureName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="xStructureStatusParID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="SingleOrMultiParID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ExplorationTypeParID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="SubholdingID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="BasinID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="RegionalID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ZonaID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="APHID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="xAssetID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="xBlockID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="xAreaID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="UDClassificationParID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="UDSubClassificationParID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="UDSubTypeParID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ExplorationAreaParID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="CountriesID" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Name="Play" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="StatusData" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="IsDeleted" Type="Boolean" />
+    <Property Name="MadamTransID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="MD_ExplorationAsset" Relationship="Self.FK__MD_Explor__xAsse__7B264821" FromRole="MD_ExplorationStructure" ToRole="MD_ExplorationAsset" />
+    <NavigationProperty Name="MD_ExplorationBasin" Relationship="Self.FK__MD_Explor__Basin__7A3223E8" FromRole="MD_ExplorationStructure" ToRole="MD_ExplorationBasin" />
+    <NavigationProperty Name="MD_ExplorationBlock" Relationship="Self.FK__MD_Explor__xBloc__7C1A6C5A" FromRole="MD_ExplorationStructure" ToRole="MD_ExplorationBlock" />
+    <NavigationProperty Name="LG_ExplorationStructure" Relationship="Self.FK__LG_Explor__xStru__4F12BBB9" FromRole="MD_ExplorationStructure" ToRole="LG_ExplorationStructure" />
+    <NavigationProperty Name="TX_ESDC" Relationship="Self.FK__TX_ESDC__xStruct__3EDC53F0" FromRole="MD_ExplorationStructure" ToRole="TX_ESDC" />
+    <NavigationProperty Name="TX_ESDCDiscrepancy" Relationship="Self.FK__TX_ESDCDi__xStru__4865BE2A" FromRole="MD_ExplorationStructure" ToRole="TX_ESDCDiscrepancy" />
+    <NavigationProperty Name="TX_ESDCForecast" Relationship="Self.FK__TX_ESDCFo__xStru__4589517F" FromRole="MD_ExplorationStructure" ToRole="TX_ESDCForecast" />
+    <NavigationProperty Name="TX_ESDCInPlace" Relationship="Self.FK__TX_ESDCIn__xStru__308E3499" FromRole="MD_ExplorationStructure" ToRole="TX_ESDCInPlace" />
+    <NavigationProperty Name="TX_ESDCProd" Relationship="Self.FK__TX_ESDCPr__xStru__27F8EE98" FromRole="MD_ExplorationStructure" ToRole="TX_ESDCProd" />
+    <NavigationProperty Name="TX_ESDCVolumetric" Relationship="Self.FK__TX_ESDCVo__xStru__336AA144" FromRole="MD_ExplorationStructure" ToRole="TX_ESDCVolumetric" />
+  </EntityType>
+  <EntityType Name="MD_ExplorationWell">
+    <Key>
+      <PropertyRef Name="xWellID" />
+    </Key>
+    <Property Name="xWellID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="xWellName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="DrillingLocation" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="RigTypeParID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="WellTypeParID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="BHLocationLatitude" Type="Decimal" Precision="8" Scale="6" />
+    <Property Name="BHLocationLongitude" Type="Decimal" Precision="9" Scale="6" />
+  </EntityType>
+  <EntityType Name="MD_Paramater">
+    <Key>
+      <PropertyRef Name="Schema" />
+      <PropertyRef Name="ParamID" />
+    </Key>
+    <Property Name="Schema" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ParamID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ParamDesc" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+    <Property Name="isActive" Type="Boolean" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="MD_ParamaterList" Relationship="Self.FK__MD_ParamaterList__3A81B327" FromRole="MD_Paramater" ToRole="MD_ParamaterList" />
+  </EntityType>
+  <EntityType Name="MD_ParamaterList">
+    <Key>
+      <PropertyRef Name="Schema" />
+      <PropertyRef Name="ParamID" />
+      <PropertyRef Name="ParamListID" />
+    </Key>
+    <Property Name="Schema" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ParamID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ParamListID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ParamValue1" Type="Decimal" Precision="8" Scale="2" />
+    <Property Name="ParamValue1Text" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ParamValue2" Type="Decimal" Precision="8" Scale="2" />
+    <Property Name="ParamValue2Text" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ParamListDesc" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+    <Property Name="RowOrder" Type="Int32" />
+    <Property Name="isActive" Type="Boolean" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="MD_Paramater" Relationship="Self.FK__MD_ParamaterList__3A81B327" FromRole="MD_ParamaterList" ToRole="MD_Paramater" />
+  </EntityType>
+  <EntityType Name="MP_Entity">
+    <Key>
+      <PropertyRef Name="EffectiveYear" />
+      <PropertyRef Name="SubholdingID" />
+      <PropertyRef Name="RegionalID" />
+      <PropertyRef Name="ZonaID" />
+      <PropertyRef Name="xBlockID" />
+      <PropertyRef Name="BasinID" />
+      <PropertyRef Name="xAssetID" />
+    </Key>
+    <Property Name="EffectiveYear" Type="Int32" Nullable="false" />
+    <Property Name="SubholdingID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="RegionalID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ZonaID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="xBlockID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="BasinID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="xAssetID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="APHID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="xAreaID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="MP_xBasinCountry">
+    <Key>
+      <PropertyRef Name="BasinID" />
+      <PropertyRef Name="CountryID" />
+    </Key>
+    <Property Name="BasinID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CountryID" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CountryName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="MD_ExplorationBasin" Relationship="Self.FK__MP_xBasin__Basin__51BA1E3A" FromRole="MP_xBasinCountry" ToRole="MD_ExplorationBasin" />
+  </EntityType>
+  <EntityType Name="TX_Attachment">
+    <Key>
+      <PropertyRef Name="TransactionID" />
+      <PropertyRef Name="FileID" />
+    </Key>
+    <Property Name="Schema" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TransactionID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="SubTranscationID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Menu" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="PathParID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="FileID" Type="Int32" Nullable="false" />
+    <Property Name="FileCategoryParID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="FileName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="FileNameSave" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="DocumentType" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Remarks" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Size" Type="Int32" />
+    <Property Name="SizeUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="IsDeleted" Type="Boolean" />
+    <Property Name="RefID" Type="Guid" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="LG_Activity">
+    <Key>
+      <PropertyRef Name="Menu" />
+      <PropertyRef Name="Action" />
+      <PropertyRef Name="TransactionID" />
+      <PropertyRef Name="CreatedDate" />
+    </Key>
+    <Property Name="IP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Menu" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Action" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TransactionID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Status" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="LG_ContingentResources">
+    <Key>
+      <PropertyRef Name="StructureHistoryID" />
+      <PropertyRef Name="xStructureID" />
+    </Key>
+    <Property Name="StructureHistoryID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="xStructureID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="C1COil" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="C1COilUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="C2COil" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="C2COilUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="C3COil" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="C3COilUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="C1CGas" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="C1CGasUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="C2CGas" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="C2CGasUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="C3CGas" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="C3CGasUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="C1CTotal" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="C1CTotalUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="C2CTotal" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="C2CTotalUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="C3CTotal" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="C3CTotalUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="LG_ExplorationStructure" Relationship="Self.FK__LG_ContingentRes__6225902D" FromRole="LG_ContingentResources" ToRole="LG_ExplorationStructure" />
+  </EntityType>
+  <EntityType Name="LG_Drilling">
+    <Key>
+      <PropertyRef Name="StructureHistoryID" />
+      <PropertyRef Name="xStructureID" />
+      <PropertyRef Name="xWellID" />
+    </Key>
+    <Property Name="StructureHistoryID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="xStructureID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="xWellID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="RKAPFiscalYear" Type="Int32" />
+    <Property Name="PlayOpener" Type="Boolean" />
+    <Property Name="DrillingCompletionPeriod" Type="Int32" />
+    <Property Name="Location" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="WaterDepthFeet" Type="Decimal" Precision="7" Scale="1" />
+    <Property Name="WaterDepthMeter" Type="Int32" />
+    <Property Name="TotalDepthFeet" Type="Decimal" Precision="7" Scale="1" />
+    <Property Name="TotalDepthMeter" Type="Int32" />
+    <Property Name="SurfaceLocationLatitude" Type="Decimal" Precision="8" Scale="6" />
+    <Property Name="SurfaceLocationLongitude" Type="Decimal" Precision="9" Scale="6" />
+    <Property Name="CommitmentWell" Type="Boolean" />
+    <Property Name="OperationalContextParId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="PotentialDelay" Type="Boolean" />
+    <Property Name="NetRevenueInterest" Type="Decimal" Precision="6" Scale="5" />
+    <Property Name="DrillingCostDHB" Type="Decimal" Precision="5" Scale="2" />
+    <Property Name="DrillingCostDHBCurr" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="DrillingCost" Type="Decimal" Precision="5" Scale="2" />
+    <Property Name="DrillingCostCurr" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="ExpectedDrillingDate" Type="DateTime" Precision="0" />
+    <Property Name="P90ResourceOil" Type="Decimal" Precision="6" Scale="2" />
+    <Property Name="P90ResourceOilUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P50ResourceOil" Type="Decimal" Precision="6" Scale="2" />
+    <Property Name="P50ResourceOilUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P10ResourceOil" Type="Decimal" Precision="6" Scale="2" />
+    <Property Name="P10ResourceOilUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P90ResourceGas" Type="Decimal" Precision="6" Scale="2" />
+    <Property Name="P90ResourceGasUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P50ResourceGas" Type="Decimal" Precision="6" Scale="2" />
+    <Property Name="P50ResourceGasUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P10ResourceGas" Type="Decimal" Precision="6" Scale="2" />
+    <Property Name="P10ResourceGasUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="CurrentPG" Type="Decimal" Precision="6" Scale="5" />
+    <Property Name="ExpectedPG" Type="Decimal" Precision="6" Scale="5" />
+    <Property Name="ChanceComponentSource" Type="Decimal" Precision="6" Scale="5" />
+    <Property Name="ChanceComponentTiming" Type="Decimal" Precision="6" Scale="5" />
+    <Property Name="ChanceComponentReservoir" Type="Decimal" Precision="6" Scale="5" />
+    <Property Name="ChanceComponentClosure" Type="Decimal" Precision="6" Scale="5" />
+    <Property Name="ChanceComponentContainment" Type="Decimal" Precision="6" Scale="5" />
+    <Property Name="P90NPVProfitabilityOil" Type="Decimal" Precision="7" Scale="2" />
+    <Property Name="P90NPVProfitabilityOilCurr" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P50NPVProfitabilityOil" Type="Decimal" Precision="7" Scale="2" />
+    <Property Name="P50NPVProfitabilityOilCurr" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P10NPVProfitabilityOil" Type="Decimal" Precision="7" Scale="2" />
+    <Property Name="P10NPVProfitabilityOilCurr" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P90NPVProfitabilityGas" Type="Decimal" Precision="7" Scale="2" />
+    <Property Name="P90NPVProfitabilityGasCurr" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P50NPVProfitabilityGas" Type="Decimal" Precision="7" Scale="2" />
+    <Property Name="P50NPVProfitabilityGasCurr" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P10NPVProfitabilityGas" Type="Decimal" Precision="7" Scale="2" />
+    <Property Name="P10NPVProfitabilityGasCurr" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="LG_ExplorationStructure" Relationship="Self.FK__LG_Drilling__6319B466" FromRole="LG_Drilling" ToRole="LG_ExplorationStructure" />
+  </EntityType>
+  <EntityType Name="LG_Economic">
+    <Key>
+      <PropertyRef Name="StructureHistoryID" />
+      <PropertyRef Name="xStructureID" />
+    </Key>
+    <Property Name="StructureHistoryID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="xStructureID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DevConcept" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="EconomicAssumption" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CAPEX" Type="Decimal" Precision="7" Scale="2" />
+    <Property Name="CAPEXCurr" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="OPEXProduction" Type="Decimal" Precision="7" Scale="2" />
+    <Property Name="OPEXProductionCurr" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="OPEXFacility" Type="Decimal" Precision="7" Scale="2" />
+    <Property Name="OPEXFacilityCurr" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="ASR" Type="Decimal" Precision="7" Scale="2" />
+    <Property Name="ASRCurr" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="EconomicResult" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ContractorNPV" Type="Decimal" Precision="7" Scale="2" />
+    <Property Name="ContractorNPVCurr" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="IRR" Type="Decimal" Precision="6" Scale="5" />
+    <Property Name="ContractorPOT" Type="Decimal" Precision="5" Scale="2" />
+    <Property Name="ContractorPOTUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="PIncome" Type="Decimal" Precision="5" Scale="2" />
+    <Property Name="PIncomeCurr" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="EMV" Type="Decimal" Precision="6" Scale="2" />
+    <Property Name="EMVCurr" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="NPV" Type="Decimal" Precision="6" Scale="2" />
+    <Property Name="NPVCurr" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="LG_ExplorationStructure" Relationship="Self.FK__LG_Economic__640DD89F" FromRole="LG_Economic" ToRole="LG_ExplorationStructure" />
+  </EntityType>
+  <EntityType Name="LG_ExplorationStructure">
+    <Key>
+      <PropertyRef Name="StructureHistoryID" />
+      <PropertyRef Name="xStructureID" />
+    </Key>
+    <Property Name="StructureHistoryID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="xStructureID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="xStructureName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="xStructureStatusParID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="SingleOrMultiParID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ExplorationTypeParID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="SubholdingID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="BasinID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="RegionalID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ZonaID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="APHID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="xAssetID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="xBlockID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="xAreaID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="UDClassificationParID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="UDSubClassificationParID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="UDSubTypeParID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ExplorationAreaParID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="CountriesID" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Name="Play" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="StatusData" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="IsDeleted" Type="Boolean" />
+    <Property Name="MadamTransID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="MD_ExplorationStructure" Relationship="Self.FK__LG_Explor__xStru__4F12BBB9" FromRole="LG_ExplorationStructure" ToRole="MD_ExplorationStructure" />
+    <NavigationProperty Name="LG_ContingentResources" Relationship="Self.FK__LG_ContingentRes__6225902D" FromRole="LG_ExplorationStructure" ToRole="LG_ContingentResources" />
+    <NavigationProperty Name="LG_Drilling" Relationship="Self.FK__LG_Drilling__6319B466" FromRole="LG_ExplorationStructure" ToRole="LG_Drilling" />
+    <NavigationProperty Name="LG_Economic" Relationship="Self.FK__LG_Economic__640DD89F" FromRole="LG_ExplorationStructure" ToRole="LG_Economic" />
+    <NavigationProperty Name="LG_ProsResources" Relationship="Self.FK__LG_ProsResources__5F492382" FromRole="LG_ExplorationStructure" ToRole="LG_ProsResources" />
+    <NavigationProperty Name="LG_ProsResourcesTarget" Relationship="Self.FK__LG_ProsResources__61316BF4" FromRole="LG_ExplorationStructure" ToRole="LG_ProsResourcesTarget" />
+  </EntityType>
+  <EntityType Name="LG_ProsResources">
+    <Key>
+      <PropertyRef Name="StructureHistoryID" />
+      <PropertyRef Name="xStructureID" />
+    </Key>
+    <Property Name="StructureHistoryID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="xStructureID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="P90InPlaceOilPR" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P90InPlaceOilPRUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P50InPlaceOilPR" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P50InPlaceOilPRUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="PMeanInPlaceOilPR" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="PMeanInPlaceOilPRUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P10InPlaceOilPR" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P10InPlaceOilPRUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P90InPlaceGasPR" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P90InPlaceGasPRUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P50InPlaceGasPR" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P50InPlaceGasPRUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="PMeanInPlaceGasPR" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="PMeanInPlaceGasPRUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P10InPlaceGasPR" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P10InPlaceGasPRUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P90InPlaceTotalPR" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P90InPlaceTotalPRUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P50InPlaceTotalPR" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P50InPlaceTotalPRUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="PMeanInPlaceTotalPR" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="PMeanInPlaceTotalPRUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P10InPlaceTotalPR" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P10InPlaceTotalPRUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="RFOilPR" Type="Decimal" Precision="6" Scale="5" />
+    <Property Name="RFGasPR" Type="Decimal" Precision="6" Scale="5" />
+    <Property Name="P90RROil" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P90RROilUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P50RROil" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P50RROilUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="PMeanRROil" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="PMeanRROilUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P10RROil" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P10RROilUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P90RRGas" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P90RRGasUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P50RRGas" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P50RRGasUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="PMeanRRGas" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="PMeanRRGasUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P10RRGas" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P10RRGasUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P90RRTotal" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P90RRTotalUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P50RRTotal" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P50RRTotalUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="PMeanRRTotal" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="PMeanRRTotalUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P10RRTotal" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P10RRTotalUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="HydrocarbonTypePRParID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="GCFSRPR" Type="Decimal" Precision="6" Scale="5" />
+    <Property Name="GCFSRPRUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="GCFTMPR" Type="Decimal" Precision="6" Scale="5" />
+    <Property Name="GCFTMPRUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="GCFReservoirPR" Type="Decimal" Precision="6" Scale="5" />
+    <Property Name="GCFReservoirPRUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="GCFClosurePR" Type="Decimal" Precision="6" Scale="5" />
+    <Property Name="GCFClosurePRUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="GCFContainmentPR" Type="Decimal" Precision="6" Scale="5" />
+    <Property Name="GCFContainmentPRUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="GCFPGTotalPR" Type="Decimal" Precision="6" Scale="5" />
+    <Property Name="GCFPGTotalPRUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="ExpectedPG" Type="Decimal" Precision="6" Scale="5" />
+    <Property Name="CurrentPG" Type="Decimal" Precision="6" Scale="5" />
+    <Property Name="MethodParID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="LG_ExplorationStructure" Relationship="Self.FK__LG_ProsResources__5F492382" FromRole="LG_ProsResources" ToRole="LG_ExplorationStructure" />
+  </EntityType>
+  <EntityType Name="LG_ProsResourcesTarget">
+    <Key>
+      <PropertyRef Name="StructureHistoryID" />
+      <PropertyRef Name="TargetID" />
+    </Key>
+    <Property Name="StructureHistoryID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TargetID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TargetName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="xStructureID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="P90InPlaceOil" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P90InPlaceOilUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P50InPlaceOil" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P50InPlaceOilUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="PMeanInPlaceOil" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="PMeanInPlaceOilUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P10InPlaceOil" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P10InPlaceOilUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P90InPlaceGas" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P90InPlaceGasUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P50InPlaceGas" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P50InPlaceGasUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="PMeanInPlaceGas" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="PMeanInPlaceGasUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P10InPlaceGas" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P10InPlaceGasUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P90InPlaceTotal" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P90InPlaceTotalUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P50InPlaceTotal" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P50InPlaceTotalUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="PMeanInPlaceTotal" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="PMeanInPlaceTotalUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P10InPlaceTotal" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P10InPlaceTotalUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="RFOil" Type="Decimal" Precision="6" Scale="5" />
+    <Property Name="RFGas" Type="Decimal" Precision="6" Scale="5" />
+    <Property Name="P90RecoverableOil" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P90RecoverableOilUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P50RecoverableOil" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P50RecoverableOilUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="PMeanRecoverableOil" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="PMeanRecoverableOilUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P10RecoverableOil" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P10RecoverableOilUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P90RecoverableGas" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P90RecoverableGasUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P50RecoverableGas" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P50RecoverableGasUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="PMeanRecoverableGas" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="PMeanRecoverableGasUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P10RecoverableGas" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P10RecoverableGasUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P90RecoverableTotal" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P90RecoverableTotalUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P50RecoverableTotal" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P50RecoverableTotalUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="PMeanRecoverableTotal" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="PMeanRecoverableTotalUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P10RecoverableTotal" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P10RecoverableTotalUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="HydrocarbonTypeParID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="GCFSR" Type="Decimal" Precision="6" Scale="5" />
+    <Property Name="GCFSRUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="GCFTM" Type="Decimal" Precision="6" Scale="5" />
+    <Property Name="GCFTMUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="GCFReservoir" Type="Decimal" Precision="6" Scale="5" />
+    <Property Name="GCFReservoirUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="GCFClosure" Type="Decimal" Precision="6" Scale="5" />
+    <Property Name="GCFClosureUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="GCFContainment" Type="Decimal" Precision="6" Scale="5" />
+    <Property Name="GCFContainmentUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="GCFPGTotal" Type="Decimal" Precision="6" Scale="5" />
+    <Property Name="GCFPGTotalUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="LG_ExplorationStructure" Relationship="Self.FK__LG_ProsResources__61316BF4" FromRole="LG_ProsResourcesTarget" ToRole="LG_ExplorationStructure" />
+  </EntityType>
+  <EntityType Name="TX_ContingentResources">
+    <Key>
+      <PropertyRef Name="xStructureID" />
+    </Key>
+    <Property Name="xStructureID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="C1COil" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="C1COilUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="C2COil" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="C2COilUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="C3COil" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="C3COilUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="C1CGas" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="C1CGasUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="C2CGas" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="C2CGasUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="C3CGas" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="C3CGasUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="C1CTotal" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="C1CTotalUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="C2CTotal" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="C2CTotalUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="C3CTotal" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="C3CTotalUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="TX_Drilling">
+    <Key>
+      <PropertyRef Name="xStructureID" />
+      <PropertyRef Name="xWellID" />
+    </Key>
+    <Property Name="xStructureID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="xWellID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="RKAPFiscalYear" Type="Int32" />
+    <Property Name="PlayOpener" Type="Boolean" />
+    <Property Name="DrillingCompletionPeriod" Type="Int32" />
+    <Property Name="Location" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="WaterDepthFeet" Type="Decimal" Precision="7" Scale="1" />
+    <Property Name="WaterDepthMeter" Type="Int32" />
+    <Property Name="TotalDepthFeet" Type="Decimal" Precision="7" Scale="1" />
+    <Property Name="TotalDepthMeter" Type="Int32" />
+    <Property Name="SurfaceLocationLatitude" Type="Decimal" Precision="8" Scale="6" />
+    <Property Name="SurfaceLocationLongitude" Type="Decimal" Precision="9" Scale="6" />
+    <Property Name="CommitmentWell" Type="Boolean" />
+    <Property Name="OperationalContextParId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="PotentialDelay" Type="Boolean" />
+    <Property Name="NetRevenueInterest" Type="Decimal" Precision="6" Scale="5" />
+    <Property Name="DrillingCostDHB" Type="Decimal" Precision="5" Scale="2" />
+    <Property Name="DrillingCostDHBCurr" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="DrillingCost" Type="Decimal" Precision="5" Scale="2" />
+    <Property Name="DrillingCostCurr" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="ExpectedDrillingDate" Type="DateTime" Precision="0" />
+    <Property Name="P90ResourceOil" Type="Decimal" Precision="6" Scale="2" />
+    <Property Name="P90ResourceOilUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P50ResourceOil" Type="Decimal" Precision="6" Scale="2" />
+    <Property Name="P50ResourceOilUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P10ResourceOil" Type="Decimal" Precision="6" Scale="2" />
+    <Property Name="P10ResourceOilUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P90ResourceGas" Type="Decimal" Precision="6" Scale="2" />
+    <Property Name="P90ResourceGasUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P50ResourceGas" Type="Decimal" Precision="6" Scale="2" />
+    <Property Name="P50ResourceGasUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P10ResourceGas" Type="Decimal" Precision="6" Scale="2" />
+    <Property Name="P10ResourceGasUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="CurrentPG" Type="Decimal" Precision="6" Scale="5" />
+    <Property Name="ExpectedPG" Type="Decimal" Precision="6" Scale="5" />
+    <Property Name="ChanceComponentSource" Type="Decimal" Precision="6" Scale="5" />
+    <Property Name="ChanceComponentTiming" Type="Decimal" Precision="6" Scale="5" />
+    <Property Name="ChanceComponentReservoir" Type="Decimal" Precision="6" Scale="5" />
+    <Property Name="ChanceComponentClosure" Type="Decimal" Precision="6" Scale="5" />
+    <Property Name="ChanceComponentContainment" Type="Decimal" Precision="6" Scale="5" />
+    <Property Name="P90NPVProfitabilityOil" Type="Decimal" Precision="7" Scale="2" />
+    <Property Name="P90NPVProfitabilityOilCurr" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P50NPVProfitabilityOil" Type="Decimal" Precision="7" Scale="2" />
+    <Property Name="P50NPVProfitabilityOilCurr" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P10NPVProfitabilityOil" Type="Decimal" Precision="7" Scale="2" />
+    <Property Name="P10NPVProfitabilityOilCurr" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P90NPVProfitabilityGas" Type="Decimal" Precision="7" Scale="2" />
+    <Property Name="P90NPVProfitabilityGasCurr" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P50NPVProfitabilityGas" Type="Decimal" Precision="7" Scale="2" />
+    <Property Name="P50NPVProfitabilityGasCurr" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P10NPVProfitabilityGas" Type="Decimal" Precision="7" Scale="2" />
+    <Property Name="P10NPVProfitabilityGasCurr" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="TX_Economic">
+    <Key>
+      <PropertyRef Name="xStructureID" />
+    </Key>
+    <Property Name="xStructureID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DevConcept" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="EconomicAssumption" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CAPEX" Type="Decimal" Precision="7" Scale="2" />
+    <Property Name="CAPEXCurr" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="OPEXProduction" Type="Decimal" Precision="7" Scale="2" />
+    <Property Name="OPEXProductionCurr" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="OPEXFacility" Type="Decimal" Precision="7" Scale="2" />
+    <Property Name="OPEXFacilityCurr" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="ASR" Type="Decimal" Precision="7" Scale="2" />
+    <Property Name="ASRCurr" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="EconomicResult" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ContractorNPV" Type="Decimal" Precision="7" Scale="2" />
+    <Property Name="ContractorNPVCurr" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="IRR" Type="Decimal" Precision="6" Scale="5" />
+    <Property Name="ContractorPOT" Type="Decimal" Precision="5" Scale="2" />
+    <Property Name="ContractorPOTUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="PIncome" Type="Decimal" Precision="5" Scale="2" />
+    <Property Name="PIncomeCurr" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="EMV" Type="Decimal" Precision="6" Scale="2" />
+    <Property Name="EMVCurr" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="NPV" Type="Decimal" Precision="6" Scale="2" />
+    <Property Name="NPVCurr" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="TX_ESDC">
+    <Key>
+      <PropertyRef Name="xStructureID" />
+    </Key>
+    <Property Name="xStructureID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ESDCFieldID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ESDCProjectID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ESDCProjectName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="StatusData" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="MD_ExplorationStructure" Relationship="Self.FK__TX_ESDC__xStruct__3EDC53F0" FromRole="TX_ESDC" ToRole="MD_ExplorationStructure" />
+  </EntityType>
+  <EntityType Name="TX_ESDCDiscrepancy">
+    <Key>
+      <PropertyRef Name="xStructureID" />
+      <PropertyRef Name="UncertaintyLevel" />
+    </Key>
+    <Property Name="xStructureID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UncertaintyLevel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CFUMOil" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="CFUMCondensate" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="CFUMAssociated" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="CFUMNonAssociated" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="CFPPAOil" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="CFPPACondensate" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="CFPPAAssociated" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="CFPPANonAssociated" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="CFWIOil" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="CFWICondensate" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="CFWIAssociated" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="CFWINonAssociated" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="CFCOil" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="CFCCondensate" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="CFCAssociated" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="CFCNonAssociated" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="UCOil" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="UCCondensate" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="UCAssociated" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="UCNonAssociated" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="CIOOil" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="CIOCondensate" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="CIOAssociated" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="CIONonAssociated" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="MD_ExplorationStructure" Relationship="Self.FK__TX_ESDCDi__xStru__4865BE2A" FromRole="TX_ESDCDiscrepancy" ToRole="MD_ExplorationStructure" />
+  </EntityType>
+  <EntityType Name="TX_ESDCForecast">
+    <Key>
+      <PropertyRef Name="xStructureID" />
+      <PropertyRef Name="Year" />
+    </Key>
+    <Property Name="xStructureID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Year" Type="Int32" Nullable="false" />
+    <Property Name="TPFOil" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="TPFCondensate" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="TPFAssociated" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="TPFNonAssociated" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="SFOil" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="SFCondensate" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="SFAssociated" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="SFNonAssociated" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="CIOOil" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="CIOCondensate" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="CIOAssociated" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="CIONonAssociated" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="LPOil" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="LPCondensate" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="LPAssociated" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="LPNonAssociated" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="AverageGrossHeat" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="Remarks" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="MD_ExplorationStructure" Relationship="Self.FK__TX_ESDCFo__xStru__4589517F" FromRole="TX_ESDCForecast" ToRole="MD_ExplorationStructure" />
+  </EntityType>
+  <EntityType Name="TX_ESDCInPlace">
+    <Key>
+      <PropertyRef Name="xStructureID" />
+      <PropertyRef Name="UncertaintyLevel" />
+    </Key>
+    <Property Name="xStructureID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UncertaintyLevel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="P90IOIP" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="P90IGIP" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="MD_ExplorationStructure" Relationship="Self.FK__TX_ESDCIn__xStru__308E3499" FromRole="TX_ESDCInPlace" ToRole="MD_ExplorationStructure" />
+  </EntityType>
+  <EntityType Name="TX_ESDCProd">
+    <Key>
+      <PropertyRef Name="xStructureID" />
+    </Key>
+    <Property Name="xStructureID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="GCPPrevOil" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="GCPPrevCondensate" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="GCPPrevAssociated" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="GCPPrevNonAssociated" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="SCPPrevOil" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="SCPPrevCondensate" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="SCPPrevAssociated" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="SCPPrevNonAssociated" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="GCPOil" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="GCPCondensate" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="GCPAssociated" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="GCPNonAssociated" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="SCPOil" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="SCPCondensate" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="SCPAssociated" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="SCPNonAssociated" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="MD_ExplorationStructure" Relationship="Self.FK__TX_ESDCPr__xStru__27F8EE98" FromRole="TX_ESDCProd" ToRole="MD_ExplorationStructure" />
+  </EntityType>
+  <EntityType Name="TX_ESDCVolumetric">
+    <Key>
+      <PropertyRef Name="xStructureID" />
+      <PropertyRef Name="UncertaintyLevel" />
+    </Key>
+    <Property Name="xStructureID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UncertaintyLevel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="GRRPrevOil" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="GRRPrevCondensate" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="GRRPrevAssociated" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="GRRPrevNonAssociated" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="ReservesPrevOil" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="ReservesPrevCondensate" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="ReservesPrevAssociated" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="ReservesPrevNonAssociated" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="GOIOil" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="GOICondensate" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="GOIAssociated" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="GOINonAssociated" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="ReservesOil" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="ReservesCondensate" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="ReservesAssociated" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="ReservesNonAssociated" Type="Decimal" Precision="8" Scale="3" />
+    <Property Name="Remarks" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="MD_ExplorationStructure" Relationship="Self.FK__TX_ESDCVo__xStru__336AA144" FromRole="TX_ESDCVolumetric" ToRole="MD_ExplorationStructure" />
+  </EntityType>
+  <EntityType Name="TX_ProsResources">
+    <Key>
+      <PropertyRef Name="xStructureID" />
+    </Key>
+    <Property Name="xStructureID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="P90InPlaceOilPR" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P90InPlaceOilPRUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P50InPlaceOilPR" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P50InPlaceOilPRUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="PMeanInPlaceOilPR" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="PMeanInPlaceOilPRUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P10InPlaceOilPR" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P10InPlaceOilPRUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P90InPlaceGasPR" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P90InPlaceGasPRUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P50InPlaceGasPR" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P50InPlaceGasPRUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="PMeanInPlaceGasPR" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="PMeanInPlaceGasPRUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P10InPlaceGasPR" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P10InPlaceGasPRUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P90InPlaceTotalPR" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P90InPlaceTotalPRUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P50InPlaceTotalPR" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P50InPlaceTotalPRUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="PMeanInPlaceTotalPR" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="PMeanInPlaceTotalPRUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P10InPlaceTotalPR" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P10InPlaceTotalPRUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="RFOilPR" Type="Decimal" Precision="6" Scale="5" />
+    <Property Name="RFGasPR" Type="Decimal" Precision="6" Scale="5" />
+    <Property Name="P90RROil" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P90RROilUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P50RROil" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P50RROilUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="PMeanRROil" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="PMeanRROilUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P10RROil" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P10RROilUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P90RRGas" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P90RRGasUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P50RRGas" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P50RRGasUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="PMeanRRGas" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="PMeanRRGasUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P10RRGas" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P10RRGasUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P90RRTotal" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P90RRTotalUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P50RRTotal" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P50RRTotalUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="PMeanRRTotal" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="PMeanRRTotalUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P10RRTotal" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P10RRTotalUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="HydrocarbonTypePRParID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="GCFSRPR" Type="Decimal" Precision="6" Scale="5" />
+    <Property Name="GCFSRPRUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="GCFTMPR" Type="Decimal" Precision="6" Scale="5" />
+    <Property Name="GCFTMPRUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="GCFReservoirPR" Type="Decimal" Precision="6" Scale="5" />
+    <Property Name="GCFReservoirPRUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="GCFClosurePR" Type="Decimal" Precision="6" Scale="5" />
+    <Property Name="GCFClosurePRUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="GCFContainmentPR" Type="Decimal" Precision="6" Scale="5" />
+    <Property Name="GCFContainmentPRUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="GCFPGTotalPR" Type="Decimal" Precision="6" Scale="5" />
+    <Property Name="GCFPGTotalPRUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="ExpectedPG" Type="Decimal" Precision="6" Scale="5" />
+    <Property Name="CurrentPG" Type="Decimal" Precision="6" Scale="5" />
+    <Property Name="MethodParID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="TX_ProsResourcesTarget">
+    <Key>
+      <PropertyRef Name="TargetID" />
+    </Key>
+    <Property Name="TargetID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TargetName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="xStructureID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="P90InPlaceOil" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P90InPlaceOilUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P50InPlaceOil" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P50InPlaceOilUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="PMeanInPlaceOil" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="PMeanInPlaceOilUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P10InPlaceOil" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P10InPlaceOilUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P90InPlaceGas" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P90InPlaceGasUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P50InPlaceGas" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P50InPlaceGasUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="PMeanInPlaceGas" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="PMeanInPlaceGasUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P10InPlaceGas" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P10InPlaceGasUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P90InPlaceTotal" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P90InPlaceTotalUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P50InPlaceTotal" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P50InPlaceTotalUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="PMeanInPlaceTotal" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="PMeanInPlaceTotalUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P10InPlaceTotal" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P10InPlaceTotalUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="RFOil" Type="Decimal" Precision="6" Scale="5" />
+    <Property Name="RFGas" Type="Decimal" Precision="6" Scale="5" />
+    <Property Name="P90RecoverableOil" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P90RecoverableOilUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P50RecoverableOil" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P50RecoverableOilUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="PMeanRecoverableOil" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="PMeanRecoverableOilUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P10RecoverableOil" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P10RecoverableOilUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P90RecoverableGas" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P90RecoverableGasUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P50RecoverableGas" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P50RecoverableGasUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="PMeanRecoverableGas" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="PMeanRecoverableGasUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P10RecoverableGas" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P10RecoverableGasUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P90RecoverableTotal" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P90RecoverableTotalUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P50RecoverableTotal" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P50RecoverableTotalUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="PMeanRecoverableTotal" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="PMeanRecoverableTotalUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="P10RecoverableTotal" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="P10RecoverableTotalUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="HydrocarbonTypeParID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="GCFSR" Type="Decimal" Precision="6" Scale="5" />
+    <Property Name="GCFSRUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="GCFTM" Type="Decimal" Precision="6" Scale="5" />
+    <Property Name="GCFTMUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="GCFReservoir" Type="Decimal" Precision="6" Scale="5" />
+    <Property Name="GCFReservoirUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="GCFClosure" Type="Decimal" Precision="6" Scale="5" />
+    <Property Name="GCFClosureUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="GCFContainment" Type="Decimal" Precision="6" Scale="5" />
+    <Property Name="GCFContainmentUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="GCFPGTotal" Type="Decimal" Precision="6" Scale="5" />
+    <Property Name="GCFPGTotalUoM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="vw_Country">
+    <Key>
+      <PropertyRef Name="CountriesID" />
+      <PropertyRef Name="Url" />
+      <PropertyRef Name="Name" />
+    </Key>
+    <Property Name="CountriesID" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Url" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Latitude" Type="Double" />
+    <Property Name="Longitude" Type="Double" />
+    <Property Name="ISOCountriesID" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Name="NameIDNVer" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="vw_DIM_Entity">
+    <Key>
+      <PropertyRef Name="EntityID" />
+    </Key>
+    <Property Name="EntityID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="EntityName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="EntityType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <Association Name="FK__MD_Explor__xAsse__7B264821">
+    <End Role="MD_ExplorationAsset" Type="Self.MD_ExplorationAsset" Multiplicity="0..1" />
+    <End Role="MD_ExplorationStructure" Type="Self.MD_ExplorationStructure" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MD_ExplorationAsset">
+        <PropertyRef Name="xAssetID" />
+      </Principal>
+      <Dependent Role="MD_ExplorationStructure">
+        <PropertyRef Name="xAssetID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__MD_Explor__Basin__7A3223E8">
+    <End Role="MD_ExplorationBasin" Type="Self.MD_ExplorationBasin" Multiplicity="0..1" />
+    <End Role="MD_ExplorationStructure" Type="Self.MD_ExplorationStructure" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MD_ExplorationBasin">
+        <PropertyRef Name="BasinID" />
+      </Principal>
+      <Dependent Role="MD_ExplorationStructure">
+        <PropertyRef Name="BasinID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__MP_xBasin__Basin__51BA1E3A">
+    <End Role="MD_ExplorationBasin" Type="Self.MD_ExplorationBasin" Multiplicity="1" />
+    <End Role="MP_xBasinCountry" Type="Self.MP_xBasinCountry" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MD_ExplorationBasin">
+        <PropertyRef Name="BasinID" />
+      </Principal>
+      <Dependent Role="MP_xBasinCountry">
+        <PropertyRef Name="BasinID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__MD_Explor__xBloc__7C1A6C5A">
+    <End Role="MD_ExplorationBlock" Type="Self.MD_ExplorationBlock" Multiplicity="0..1" />
+    <End Role="MD_ExplorationStructure" Type="Self.MD_ExplorationStructure" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MD_ExplorationBlock">
+        <PropertyRef Name="xBlockID" />
+      </Principal>
+      <Dependent Role="MD_ExplorationStructure">
+        <PropertyRef Name="xBlockID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__LG_Explor__xStru__4F12BBB9">
+    <End Role="MD_ExplorationStructure" Type="Self.MD_ExplorationStructure" Multiplicity="1" />
+    <End Role="LG_ExplorationStructure" Type="Self.LG_ExplorationStructure" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MD_ExplorationStructure">
+        <PropertyRef Name="xStructureID" />
+      </Principal>
+      <Dependent Role="LG_ExplorationStructure">
+        <PropertyRef Name="xStructureID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TX_ESDC__xStruct__3EDC53F0">
+    <End Role="MD_ExplorationStructure" Type="Self.MD_ExplorationStructure" Multiplicity="1" />
+    <End Role="TX_ESDC" Type="Self.TX_ESDC" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="MD_ExplorationStructure">
+        <PropertyRef Name="xStructureID" />
+      </Principal>
+      <Dependent Role="TX_ESDC">
+        <PropertyRef Name="xStructureID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TX_ESDCDi__xStru__4865BE2A">
+    <End Role="MD_ExplorationStructure" Type="Self.MD_ExplorationStructure" Multiplicity="1" />
+    <End Role="TX_ESDCDiscrepancy" Type="Self.TX_ESDCDiscrepancy" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MD_ExplorationStructure">
+        <PropertyRef Name="xStructureID" />
+      </Principal>
+      <Dependent Role="TX_ESDCDiscrepancy">
+        <PropertyRef Name="xStructureID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TX_ESDCFo__xStru__4589517F">
+    <End Role="MD_ExplorationStructure" Type="Self.MD_ExplorationStructure" Multiplicity="1" />
+    <End Role="TX_ESDCForecast" Type="Self.TX_ESDCForecast" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MD_ExplorationStructure">
+        <PropertyRef Name="xStructureID" />
+      </Principal>
+      <Dependent Role="TX_ESDCForecast">
+        <PropertyRef Name="xStructureID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TX_ESDCIn__xStru__308E3499">
+    <End Role="MD_ExplorationStructure" Type="Self.MD_ExplorationStructure" Multiplicity="1" />
+    <End Role="TX_ESDCInPlace" Type="Self.TX_ESDCInPlace" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MD_ExplorationStructure">
+        <PropertyRef Name="xStructureID" />
+      </Principal>
+      <Dependent Role="TX_ESDCInPlace">
+        <PropertyRef Name="xStructureID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TX_ESDCPr__xStru__27F8EE98">
+    <End Role="MD_ExplorationStructure" Type="Self.MD_ExplorationStructure" Multiplicity="1" />
+    <End Role="TX_ESDCProd" Type="Self.TX_ESDCProd" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="MD_ExplorationStructure">
+        <PropertyRef Name="xStructureID" />
+      </Principal>
+      <Dependent Role="TX_ESDCProd">
+        <PropertyRef Name="xStructureID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TX_ESDCVo__xStru__336AA144">
+    <End Role="MD_ExplorationStructure" Type="Self.MD_ExplorationStructure" Multiplicity="1" />
+    <End Role="TX_ESDCVolumetric" Type="Self.TX_ESDCVolumetric" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MD_ExplorationStructure">
+        <PropertyRef Name="xStructureID" />
+      </Principal>
+      <Dependent Role="TX_ESDCVolumetric">
+        <PropertyRef Name="xStructureID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__MD_ParamaterList__3A81B327">
+    <End Role="MD_Paramater" Type="Self.MD_Paramater" Multiplicity="1" />
+    <End Role="MD_ParamaterList" Type="Self.MD_ParamaterList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MD_Paramater">
+        <PropertyRef Name="Schema" />
+        <PropertyRef Name="ParamID" />
+      </Principal>
+      <Dependent Role="MD_ParamaterList">
+        <PropertyRef Name="Schema" />
+        <PropertyRef Name="ParamID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__LG_ContingentRes__6225902D">
+    <End Role="LG_ExplorationStructure" Type="Self.LG_ExplorationStructure" Multiplicity="1" />
+    <End Role="LG_ContingentResources" Type="Self.LG_ContingentResources" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="LG_ExplorationStructure">
+        <PropertyRef Name="StructureHistoryID" />
+        <PropertyRef Name="xStructureID" />
+      </Principal>
+      <Dependent Role="LG_ContingentResources">
+        <PropertyRef Name="StructureHistoryID" />
+        <PropertyRef Name="xStructureID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__LG_Drilling__6319B466">
+    <End Role="LG_ExplorationStructure" Type="Self.LG_ExplorationStructure" Multiplicity="1" />
+    <End Role="LG_Drilling" Type="Self.LG_Drilling" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LG_ExplorationStructure">
+        <PropertyRef Name="StructureHistoryID" />
+        <PropertyRef Name="xStructureID" />
+      </Principal>
+      <Dependent Role="LG_Drilling">
+        <PropertyRef Name="StructureHistoryID" />
+        <PropertyRef Name="xStructureID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__LG_Economic__640DD89F">
+    <End Role="LG_ExplorationStructure" Type="Self.LG_ExplorationStructure" Multiplicity="1" />
+    <End Role="LG_Economic" Type="Self.LG_Economic" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="LG_ExplorationStructure">
+        <PropertyRef Name="StructureHistoryID" />
+        <PropertyRef Name="xStructureID" />
+      </Principal>
+      <Dependent Role="LG_Economic">
+        <PropertyRef Name="StructureHistoryID" />
+        <PropertyRef Name="xStructureID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__LG_ProsResources__5F492382">
+    <End Role="LG_ExplorationStructure" Type="Self.LG_ExplorationStructure" Multiplicity="1" />
+    <End Role="LG_ProsResources" Type="Self.LG_ProsResources" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="LG_ExplorationStructure">
+        <PropertyRef Name="StructureHistoryID" />
+        <PropertyRef Name="xStructureID" />
+      </Principal>
+      <Dependent Role="LG_ProsResources">
+        <PropertyRef Name="StructureHistoryID" />
+        <PropertyRef Name="xStructureID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__LG_ProsResources__61316BF4">
+    <End Role="LG_ExplorationStructure" Type="Self.LG_ExplorationStructure" Multiplicity="0..1" />
+    <End Role="LG_ProsResourcesTarget" Type="Self.LG_ProsResourcesTarget" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LG_ExplorationStructure">
+        <PropertyRef Name="StructureHistoryID" />
+        <PropertyRef Name="xStructureID" />
+      </Principal>
+      <Dependent Role="LG_ProsResourcesTarget">
+        <PropertyRef Name="StructureHistoryID" />
+        <PropertyRef Name="xStructureID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DB_PHE_ExplorationEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="MD_BusinessPartner" EntityType="Self.MD_BusinessPartner" />
+    <EntitySet Name="MD_ExplorationArea" EntityType="Self.MD_ExplorationArea" />
+    <EntitySet Name="MD_ExplorationAsset" EntityType="Self.MD_ExplorationAsset" />
+    <EntitySet Name="MD_ExplorationBasin" EntityType="Self.MD_ExplorationBasin" />
+    <EntitySet Name="MD_ExplorationBlock" EntityType="Self.MD_ExplorationBlock" />
+    <EntitySet Name="MD_ExplorationBlockPartner" EntityType="Self.MD_ExplorationBlockPartner" />
+    <EntitySet Name="MD_ExplorationStructure" EntityType="Self.MD_ExplorationStructure" />
+    <EntitySet Name="MD_ExplorationWell" EntityType="Self.MD_ExplorationWell" />
+    <EntitySet Name="MD_Paramater" EntityType="Self.MD_Paramater" />
+    <EntitySet Name="MD_ParamaterList" EntityType="Self.MD_ParamaterList" />
+    <EntitySet Name="MP_Entity" EntityType="Self.MP_Entity" />
+    <EntitySet Name="MP_xBasinCountry" EntityType="Self.MP_xBasinCountry" />
+    <EntitySet Name="TX_Attachment" EntityType="Self.TX_Attachment" />
+    <EntitySet Name="LG_Activity" EntityType="Self.LG_Activity" />
+    <EntitySet Name="LG_ContingentResources" EntityType="Self.LG_ContingentResources" />
+    <EntitySet Name="LG_Drilling" EntityType="Self.LG_Drilling" />
+    <EntitySet Name="LG_Economic" EntityType="Self.LG_Economic" />
+    <EntitySet Name="LG_ExplorationStructure" EntityType="Self.LG_ExplorationStructure" />
+    <EntitySet Name="LG_ProsResources" EntityType="Self.LG_ProsResources" />
+    <EntitySet Name="LG_ProsResourcesTarget" EntityType="Self.LG_ProsResourcesTarget" />
+    <EntitySet Name="TX_ContingentResources" EntityType="Self.TX_ContingentResources" />
+    <EntitySet Name="TX_Drilling" EntityType="Self.TX_Drilling" />
+    <EntitySet Name="TX_Economic" EntityType="Self.TX_Economic" />
+    <EntitySet Name="TX_ESDC" EntityType="Self.TX_ESDC" />
+    <EntitySet Name="TX_ESDCDiscrepancy" EntityType="Self.TX_ESDCDiscrepancy" />
+    <EntitySet Name="TX_ESDCForecast" EntityType="Self.TX_ESDCForecast" />
+    <EntitySet Name="TX_ESDCInPlace" EntityType="Self.TX_ESDCInPlace" />
+    <EntitySet Name="TX_ESDCProd" EntityType="Self.TX_ESDCProd" />
+    <EntitySet Name="TX_ESDCVolumetric" EntityType="Self.TX_ESDCVolumetric" />
+    <EntitySet Name="TX_ProsResources" EntityType="Self.TX_ProsResources" />
+    <EntitySet Name="TX_ProsResourcesTarget" EntityType="Self.TX_ProsResourcesTarget" />
+    <EntitySet Name="vw_Country" EntityType="Self.vw_Country" />
+    <EntitySet Name="vw_DIM_Entity" EntityType="Self.vw_DIM_Entity" />
+    <AssociationSet Name="FK__MD_Explor__xAsse__7B264821" Association="Self.FK__MD_Explor__xAsse__7B264821">
+      <End Role="MD_ExplorationAsset" EntitySet="MD_ExplorationAsset" />
+      <End Role="MD_ExplorationStructure" EntitySet="MD_ExplorationStructure" />
+    </AssociationSet>
+    <AssociationSet Name="FK__MD_Explor__Basin__7A3223E8" Association="Self.FK__MD_Explor__Basin__7A3223E8">
+      <End Role="MD_ExplorationBasin" EntitySet="MD_ExplorationBasin" />
+      <End Role="MD_ExplorationStructure" EntitySet="MD_ExplorationStructure" />
+    </AssociationSet>
+    <AssociationSet Name="FK__MP_xBasin__Basin__51BA1E3A" Association="Self.FK__MP_xBasin__Basin__51BA1E3A">
+      <End Role="MD_ExplorationBasin" EntitySet="MD_ExplorationBasin" />
+      <End Role="MP_xBasinCountry" EntitySet="MP_xBasinCountry" />
+    </AssociationSet>
+    <AssociationSet Name="FK__MD_Explor__xBloc__7C1A6C5A" Association="Self.FK__MD_Explor__xBloc__7C1A6C5A">
+      <End Role="MD_ExplorationBlock" EntitySet="MD_ExplorationBlock" />
+      <End Role="MD_ExplorationStructure" EntitySet="MD_ExplorationStructure" />
+    </AssociationSet>
+    <AssociationSet Name="FK__LG_Explor__xStru__4F12BBB9" Association="Self.FK__LG_Explor__xStru__4F12BBB9">
+      <End Role="MD_ExplorationStructure" EntitySet="MD_ExplorationStructure" />
+      <End Role="LG_ExplorationStructure" EntitySet="LG_ExplorationStructure" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TX_ESDC__xStruct__3EDC53F0" Association="Self.FK__TX_ESDC__xStruct__3EDC53F0">
+      <End Role="MD_ExplorationStructure" EntitySet="MD_ExplorationStructure" />
+      <End Role="TX_ESDC" EntitySet="TX_ESDC" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TX_ESDCDi__xStru__4865BE2A" Association="Self.FK__TX_ESDCDi__xStru__4865BE2A">
+      <End Role="MD_ExplorationStructure" EntitySet="MD_ExplorationStructure" />
+      <End Role="TX_ESDCDiscrepancy" EntitySet="TX_ESDCDiscrepancy" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TX_ESDCFo__xStru__4589517F" Association="Self.FK__TX_ESDCFo__xStru__4589517F">
+      <End Role="MD_ExplorationStructure" EntitySet="MD_ExplorationStructure" />
+      <End Role="TX_ESDCForecast" EntitySet="TX_ESDCForecast" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TX_ESDCIn__xStru__308E3499" Association="Self.FK__TX_ESDCIn__xStru__308E3499">
+      <End Role="MD_ExplorationStructure" EntitySet="MD_ExplorationStructure" />
+      <End Role="TX_ESDCInPlace" EntitySet="TX_ESDCInPlace" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TX_ESDCPr__xStru__27F8EE98" Association="Self.FK__TX_ESDCPr__xStru__27F8EE98">
+      <End Role="MD_ExplorationStructure" EntitySet="MD_ExplorationStructure" />
+      <End Role="TX_ESDCProd" EntitySet="TX_ESDCProd" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TX_ESDCVo__xStru__336AA144" Association="Self.FK__TX_ESDCVo__xStru__336AA144">
+      <End Role="MD_ExplorationStructure" EntitySet="MD_ExplorationStructure" />
+      <End Role="TX_ESDCVolumetric" EntitySet="TX_ESDCVolumetric" />
+    </AssociationSet>
+    <AssociationSet Name="FK__MD_ParamaterList__3A81B327" Association="Self.FK__MD_ParamaterList__3A81B327">
+      <End Role="MD_Paramater" EntitySet="MD_Paramater" />
+      <End Role="MD_ParamaterList" EntitySet="MD_ParamaterList" />
+    </AssociationSet>
+    <AssociationSet Name="FK__LG_ContingentRes__6225902D" Association="Self.FK__LG_ContingentRes__6225902D">
+      <End Role="LG_ExplorationStructure" EntitySet="LG_ExplorationStructure" />
+      <End Role="LG_ContingentResources" EntitySet="LG_ContingentResources" />
+    </AssociationSet>
+    <AssociationSet Name="FK__LG_Drilling__6319B466" Association="Self.FK__LG_Drilling__6319B466">
+      <End Role="LG_ExplorationStructure" EntitySet="LG_ExplorationStructure" />
+      <End Role="LG_Drilling" EntitySet="LG_Drilling" />
+    </AssociationSet>
+    <AssociationSet Name="FK__LG_Economic__640DD89F" Association="Self.FK__LG_Economic__640DD89F">
+      <End Role="LG_ExplorationStructure" EntitySet="LG_ExplorationStructure" />
+      <End Role="LG_Economic" EntitySet="LG_Economic" />
+    </AssociationSet>
+    <AssociationSet Name="FK__LG_ProsResources__5F492382" Association="Self.FK__LG_ProsResources__5F492382">
+      <End Role="LG_ExplorationStructure" EntitySet="LG_ExplorationStructure" />
+      <End Role="LG_ProsResources" EntitySet="LG_ProsResources" />
+    </AssociationSet>
+    <AssociationSet Name="FK__LG_ProsResources__61316BF4" Association="Self.FK__LG_ProsResources__61316BF4">
+      <End Role="LG_ExplorationStructure" EntitySet="LG_ExplorationStructure" />
+      <End Role="LG_ProsResourcesTarget" EntitySet="LG_ProsResourcesTarget" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

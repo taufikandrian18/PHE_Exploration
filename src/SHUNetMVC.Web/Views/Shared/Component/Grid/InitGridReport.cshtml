@@ -1,0 +1,16 @@
+﻿@using SHUNetMVC.Abstraction.Model.View
+@using Newtonsoft.Json
+@model  SHUNetMVC.Abstraction.Model.View.GridParam
+
+@{
+    Model.FilterList.GridId = Model.GridId;
+    Model.FilterList.UsernameSession = Model.UsernameSession;
+}
+
+<div id="@Model.GridId" class="gridlist">
+    @{
+        Html.RenderAction("GridListReport", Model.FilterList);
+    }
+</div>
+@Html.Partial("Component/Grid/AdaptiveFilter/_InitModal", Model)
+

@@ -1,0 +1,506 @@
+﻿<style type="text/css">
+    .tableRowView {
+        background-color: #D6E7F3;
+    }
+    .tableHeadView {
+        background-color: #D6E7F3;
+        border: 1px solid #b2d7f5;
+        width: 500px;
+        white-space: nowrap;
+        text-align: center;
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+    .tableBodyView {
+        background-color: #FFFFFF;
+        border: 1px solid #b2d7f5;
+        width: 500px;
+        white-space: nowrap;
+        text-align: center;
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+    .tableRowBodyView:nth-child(even) {
+        background-color: #D6E7F3;
+        border: 1px solid #b2d7f5;
+        width: 500px;
+        white-space: nowrap;
+        text-align: center;
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+</style>
+@using SHUNetMVC.Abstraction.Model.View;
+@{
+    string currentControllerName = Convert.ToString(HttpContext.Current.Request.RequestContext.HttpContext.Request.UrlReferrer);
+    var stringUrlSplit = currentControllerName.Split('/');
+}
+@model FormDefinition
+<div class="modal-content" style="width: 100%;position:fixed;top:0;left:0;">
+    <div class="modal-header">
+        <h5 class="modal-title">@Model.State @Model.Title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <div>
+            @{
+                var formSectionIdx = 0;
+            }
+            @foreach (var fieldSection in Model.FieldSections)
+            {
+                formSectionIdx++;
+
+                if (string.IsNullOrEmpty(fieldSection.SectionName))
+                {
+                    <div class="mb-3">
+                        @Html.Partial("Component/Form/_Fields_Readonly", fieldSection.Fields)
+                    </div>
+                }
+                else
+                {
+                    <div class="accordion mb-3">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#formSection_@formSectionIdx">
+                                    @fieldSection.SectionName
+                                </button>
+                            </h2>
+                            <div id="formSection_@formSectionIdx" class="accordion-collapse collapse show">
+                                <input id="formStatePopUp" type="hidden" value="edit" />
+                                <input id="paramIDPopUp" type="hidden" value="@Model.paramID" />
+                                @if (fieldSection.SectionName.Trim() == "Prospective Resource")
+                                {
+                                    <div class="accordion-body">
+                                        <div style="overflow-x:scroll;overflow-y:scroll">
+                                            <table style="margin-bottom:30px">
+                                                <thead>
+                                                    <tr class="tableRowView">
+                                                        <th class="tableHeadView" rowspan="3">Target Name</th>
+                                                        <th class="tableHeadView" colspan="12">In Place</th>
+                                                        <th class="tableHeadView" rowspan="3">RF Oil (%)</th>
+                                                        <th class="tableHeadView" rowspan="3">RF Gas (%)</th>
+                                                        <th class="tableHeadView" colspan="12">Recoverable</th>
+                                                        <th class="tableHeadView" rowspan="3">Hydrocarbon Type</th>
+                                                        <th class="tableHeadView" rowspan="3">GCF SR</th>
+                                                        <th class="tableHeadView" rowspan="3">GCF TM</th>
+                                                        <th class="tableHeadView" rowspan="3">GCF Reservoir</th>
+                                                        <th class="tableHeadView" rowspan="3">GCF Closure</th>
+                                                        <th class="tableHeadView" rowspan="3">GCF Containment</th>
+                                                        <th class="tableHeadView" rowspan="3">GCF PG Total</th>
+                                                    </tr>
+                                                    <tr class="tableRowView">
+                                                        <th class="tableHeadView" colspan="4">Oil (MMBOE)</th>
+                                                        <th class="tableHeadView" colspan="4">Gas (MMSCF)</th>
+                                                        <th class="tableHeadView" colspan="4">Total (MBOE)</th>
+                                                        <th class="tableHeadView" colspan="4">Oil (MMBOE)</th>
+                                                        <th class="tableHeadView" colspan="4">Gas (MMSCF)</th>
+                                                        <th class="tableHeadView" colspan="4">Total (MBOE)</th>
+                                                    </tr>
+                                                    <tr class="tableRowView">
+                                                        <th class="tableHeadView">P90</th>
+                                                        <th class="tableHeadView">P50</th>
+                                                        <th class="tableHeadView">PMean</th>
+                                                        <th class="tableHeadView">P10</th>
+                                                        <th class="tableHeadView">P90</th>
+                                                        <th class="tableHeadView">P50</th>
+                                                        <th class="tableHeadView">PMean</th>
+                                                        <th class="tableHeadView">P10</th>
+                                                        <th class="tableHeadView">P90</th>
+                                                        <th class="tableHeadView">P50</th>
+                                                        <th class="tableHeadView">PMean</th>
+                                                        <th class="tableHeadView">P10</th>
+                                                        <th class="tableHeadView">P90</th>
+                                                        <th class="tableHeadView">P50</th>
+                                                        <th class="tableHeadView">PMean</th>
+                                                        <th class="tableHeadView">P10</th>
+                                                        <th class="tableHeadView">P90</th>
+                                                        <th class="tableHeadView">P50</th>
+                                                        <th class="tableHeadView">PMean</th>
+                                                        <th class="tableHeadView">P10</th>
+                                                        <th class="tableHeadView">P90</th>
+                                                        <th class="tableHeadView">P50</th>
+                                                        <th class="tableHeadView">PMean</th>
+                                                        <th class="tableHeadView">P10</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var item in Model.DataProsResourceTarget)
+                                                    {
+                                                    <tr class="tableRowBodyView">
+                                                        <td class="tableBodyView">@item.TargetName</td>
+                                                        <td class="tableBodyView">@item.P90InPlaceOil</td>
+                                                        <td class="tableBodyView">@item.P50InPlaceOil</td>
+                                                        <td class="tableBodyView">@item.PMeanInPlaceOil</td>
+                                                        <td class="tableBodyView">@item.P10InPlaceOil</td>
+                                                        <td class="tableBodyView">@item.P90InPlaceGas</td>
+                                                        <td class="tableBodyView">@item.P50InPlaceGas</td>
+                                                        <td class="tableBodyView">@item.PMeanInPlaceGas</td>
+                                                        <td class="tableBodyView">@item.P10InPlaceGas</td>
+                                                        <td class="tableBodyView">@item.P90InPlaceTotal</td>
+                                                        <td class="tableBodyView">@item.P50InPlaceTotal</td>
+                                                        <td class="tableBodyView">@item.PMeanInPlaceTotal</td>
+                                                        <td class="tableBodyView">@item.P10InPlaceTotal</td>
+                                                        <td class="tableBodyView">@item.RFOil</td>
+                                                        <td class="tableBodyView">@item.RFGas</td>
+                                                        <td class="tableBodyView">@item.P90RecoverableOil</td>
+                                                        <td class="tableBodyView">@item.P50RecoverableOil</td>
+                                                        <td class="tableBodyView">@item.PMeanRecoverableOil</td>
+                                                        <td class="tableBodyView">@item.P10RecoverableOil</td>
+                                                        <td class="tableBodyView">@item.P90RecoverableGas</td>
+                                                        <td class="tableBodyView">@item.P50RecoverableGas</td>
+                                                        <td class="tableBodyView">@item.PMeanRecoverableGas</td>
+                                                        <td class="tableBodyView">@item.P10RecoverableGas</td>
+                                                        <td class="tableBodyView">@item.P90RecoverableTotal</td>
+                                                        <td class="tableBodyView">@item.P50RecoverableTotal</td>
+                                                        <td class="tableBodyView">@item.PMeanRecoverableTotal</td>
+                                                        <td class="tableBodyView">@item.P10RecoverableTotal</td>
+                                                        <td class="tableBodyView">@item.HydrocarbonTypeParID</td>
+                                                        <td class="tableBodyView">@item.GCFSR</td>
+                                                        <td class="tableBodyView">@item.GCFTM</td>
+                                                        <td class="tableBodyView">@item.GCFReservoir</td>
+                                                        <td class="tableBodyView">@item.GCFClosure</td>
+                                                        <td class="tableBodyView">@item.GCFContainment</td>
+                                                        <td class="tableBodyView">@item.GCFPGTotal</td>
+                                                    </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        @Html.Partial("Component/Form/_Fields_Readonly", fieldSection.Fields)
+                                        <div style="overflow-x:scroll;overflow-y:scroll">
+                                            <table style="margin-bottom:30px">
+                                                <thead>
+                                                    <tr class="tableRowView">
+                                                        <th class="tableHeadView" colspan="12">In Place</th>
+                                                        <th class="tableHeadView" rowspan="3">RF Oil (%)</th>
+                                                        <th class="tableHeadView" rowspan="3">RF Gas (%)</th>
+                                                        <th class="tableHeadView" colspan="12">Recoverable Resource</th>
+                                                        <th class="tableHeadView" rowspan="3">Hydrocarbon Type</th>
+                                                        <th class="tableHeadView" rowspan="3">GCF SR</th>
+                                                        <th class="tableHeadView" rowspan="3">GCF TM</th>
+                                                        <th class="tableHeadView" rowspan="3">GCF Reservoir</th>
+                                                        <th class="tableHeadView" rowspan="3">GCF Closure</th>
+                                                        <th class="tableHeadView" rowspan="3">GCF Containment</th>
+                                                        <th class="tableHeadView" rowspan="3">GCF PG Total</th>
+                                                    </tr>
+                                                    <tr class="tableRowView">
+                                                        <th class="tableHeadView" colspan="4">Oil (MMBOE)</th>
+                                                        <th class="tableHeadView" colspan="4">Gas (MMSCF)</th>
+                                                        <th class="tableHeadView" colspan="4">Total (MBOE)</th>
+                                                        <th class="tableHeadView" colspan="4">Oil (MMBOE)</th>
+                                                        <th class="tableHeadView" colspan="4">Gas (MMSCF)</th>
+                                                        <th class="tableHeadView" colspan="4">Total (MBOE)</th>
+                                                    </tr>
+                                                    <tr class="tableRowView">
+                                                        <th class="tableHeadView">P90</th>
+                                                        <th class="tableHeadView">P50</th>
+                                                        <th class="tableHeadView">PMean</th>
+                                                        <th class="tableHeadView">P10</th>
+                                                        <th class="tableHeadView">P90</th>
+                                                        <th class="tableHeadView">P50</th>
+                                                        <th class="tableHeadView">PMean</th>
+                                                        <th class="tableHeadView">P10</th>
+                                                        <th class="tableHeadView">P90</th>
+                                                        <th class="tableHeadView">P50</th>
+                                                        <th class="tableHeadView">PMean</th>
+                                                        <th class="tableHeadView">P10</th>
+                                                        <th class="tableHeadView">P90</th>
+                                                        <th class="tableHeadView">P50</th>
+                                                        <th class="tableHeadView">PMean</th>
+                                                        <th class="tableHeadView">P10</th>
+                                                        <th class="tableHeadView">P90</th>
+                                                        <th class="tableHeadView">P50</th>
+                                                        <th class="tableHeadView">PMean</th>
+                                                        <th class="tableHeadView">P10</th>
+                                                        <th class="tableHeadView">P90</th>
+                                                        <th class="tableHeadView">P50</th>
+                                                        <th class="tableHeadView">PMean</th>
+                                                        <th class="tableHeadView">P10</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr class="tableRowBodyView">
+                                                        <td class="tableBodyView">@Model.Data.P90InPlaceOilPR</td>
+                                                        <td class="tableBodyView">@Model.Data.P50InPlaceOilPR</td>
+                                                        <td class="tableBodyView">@Model.Data.PMeanInPlaceOilPR</td>
+                                                        <td class="tableBodyView">@Model.Data.P10InPlaceOilPR</td>
+                                                        <td class="tableBodyView">@Model.Data.P90InPlaceGasPR</td>
+                                                        <td class="tableBodyView">@Model.Data.P50InPlaceGasPR</td>
+                                                        <td class="tableBodyView">@Model.Data.PMeanInPlaceGasPR</td>
+                                                        <td class="tableBodyView">@Model.Data.P10InPlaceGasPR</td>
+                                                        <td class="tableBodyView">@Model.Data.P90InPlaceTotalPR</td>
+                                                        <td class="tableBodyView">@Model.Data.P50InPlaceTotalPR</td>
+                                                        <td class="tableBodyView">@Model.Data.PMeanInPlaceTotalPR</td>
+                                                        <td class="tableBodyView">@Model.Data.P10InPlaceTotalPR</td>
+                                                        <td class="tableBodyView">@Model.Data.RFOilPR</td>
+                                                        <td class="tableBodyView">@Model.Data.RFGasPR</td>
+                                                        <td class="tableBodyView">@Model.Data.P90RROil</td>
+                                                        <td class="tableBodyView">@Model.Data.P50RROil</td>
+                                                        <td class="tableBodyView">@Model.Data.PMeanRROil</td>
+                                                        <td class="tableBodyView">@Model.Data.P10RROil</td>
+                                                        <td class="tableBodyView">@Model.Data.P90RRGas</td>
+                                                        <td class="tableBodyView">@Model.Data.P50RRGas</td>
+                                                        <td class="tableBodyView">@Model.Data.PMeanRRGas</td>
+                                                        <td class="tableBodyView">@Model.Data.P10RRGas</td>
+                                                        <td class="tableBodyView">@Model.Data.P90RRTotal</td>
+                                                        <td class="tableBodyView">@Model.Data.P50RRTotal</td>
+                                                        <td class="tableBodyView">@Model.Data.PMeanRRTotal</td>
+                                                        <td class="tableBodyView">@Model.Data.P10RRTotal</td>
+                                                        <td class="tableBodyView">@Model.Data.HydrocarbonTypePRParID</td>
+                                                        <td class="tableBodyView">@Model.Data.GCFSRPR</td>
+                                                        <td class="tableBodyView">@Model.Data.GCFTMPR</td>
+                                                        <td class="tableBodyView">@Model.Data.GCFReservoirPR</td>
+                                                        <td class="tableBodyView">@Model.Data.GCFClosurePR</td>
+                                                        <td class="tableBodyView">@Model.Data.GCFContainmentPR</td>
+                                                        <td class="tableBodyView">@Model.Data.GCFPGTotalPR</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                }
+                                @if (fieldSection.SectionName.Trim() == "General Info")
+                                {
+                                    <div class="accordion-body">
+                                        @Html.Partial("Component/Form/_Fields_Readonly", fieldSection.Fields)
+                                    </div>
+                                }
+                                @if (fieldSection.SectionName.Trim() == "Contingen Resource")
+                                {
+                                    <div class="accordion-body">
+                                        <div style="overflow-x:scroll;overflow-y:scroll">
+                                            <table style="margin-bottom:30px">
+                                                <thead>
+                                                    <tr class="tableRowView">
+                                                        <th class="tableHeadView" colspan="12">Recoverable Resource</th>
+                                                    </tr>
+                                                    <tr class="tableRowView">
+                                                        <th class="tableHeadView" colspan="3">Oil (MMBOE)</th>
+                                                        <th class="tableHeadView" colspan="3">Gas (MMSCF)</th>
+                                                        <th class="tableHeadView" colspan="3">Total (MBOE)</th>
+                                                    </tr>
+                                                    <tr class="tableRowView">
+                                                        <th class="tableHeadView">1C</th>
+                                                        <th class="tableHeadView">2C</th>
+                                                        <th class="tableHeadView">3C</th>
+                                                        <th class="tableHeadView">1C</th>
+                                                        <th class="tableHeadView">2C</th>
+                                                        <th class="tableHeadView">3C</th>
+                                                        <th class="tableHeadView">1C</th>
+                                                        <th class="tableHeadView">2C</th>
+                                                        <th class="tableHeadView">3C</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr class="tableRowBodyView">
+                                                        <td class="tableBodyView">@Model.DataCont.C1COil</td>
+                                                        <td class="tableBodyView">@Model.DataCont.C2COil</td>
+                                                        <td class="tableBodyView">@Model.DataCont.C3COil</td>
+                                                        <td class="tableBodyView">@Model.DataCont.C1CGas</td>
+                                                        <td class="tableBodyView">@Model.DataCont.C2CGas</td>
+                                                        <td class="tableBodyView">@Model.DataCont.C3CGas</td>
+                                                        <td class="tableBodyView">@Model.DataCont.C1CTotal</td>
+                                                        <td class="tableBodyView">@Model.DataCont.C2CTotal</td>
+                                                        <td class="tableBodyView">@Model.DataCont.C3CTotal</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                }
+                                @if (fieldSection.SectionName.Trim() == "Drilling")
+                                {
+                                    <div class="accordion-body">
+                                        <div style="overflow-x:scroll;overflow-y:scroll">
+                                            <table style="margin-bottom:30px">
+                                                <thead>
+                                                    <tr class="tableRowView">
+                                                        <th class="tableHeadView" rowspan="2">Well Name</th>
+                                                        <th class="tableHeadView" rowspan="2">Drilling Location</th>
+                                                        <th class="tableHeadView" rowspan="2">Play Opener</th>
+                                                        <th class="tableHeadView" rowspan="2">Expected Drilling Date</th>
+                                                        <th class="tableHeadView" rowspan="2">Drilling Completion Period</th>
+                                                        <th class="tableHeadView" rowspan="2">Location</th>
+                                                        <th class="tableHeadView" colspan="2">Water Depth</th>
+                                                        <th class="tableHeadView" colspan="2">Total Depth</th>
+                                                        <th class="tableHeadView" rowspan="2">Rig Type</th>
+                                                        <th class="tableHeadView" rowspan="2">Well Type</th>
+                                                        <th class="tableHeadView" colspan="2">Surface Location</th>
+                                                        <th class="tableHeadView" colspan="2">BH Location</th>
+                                                        <th class="tableHeadView" rowspan="2">CommitmentWellBit</th>
+                                                        <th class="tableHeadView" rowspan="2">OperationalContextParId</th>
+                                                        <th class="tableHeadView" rowspan="2">PotentialDelayBit</th>
+                                                        <th class="tableHeadView" rowspan="2">NetRevenueInterest</th>
+                                                        <th class="tableHeadView" colspan="6">Resources</th>
+                                                        <th class="tableHeadView" rowspan="2">Current PG</th>
+                                                        <th class="tableHeadView" rowspan="2">Expected PG</th>
+                                                        <th class="tableHeadView" colspan="5">Chance Component</th>
+                                                        <th class="tableHeadView" colspan="2">Drilling Cost (MMUSD)</th>
+                                                        <th class="tableHeadView" colspan="6">NPV Profitability</th>
+                                                    </tr>
+                                                    <tr class="tableRowView">
+                                                        <th class="tableHeadView">Meter</th>
+                                                        <th class="tableHeadView">Feet</th>
+                                                        <th class="tableHeadView">Meter</th>
+                                                        <th class="tableHeadView">Feet</th>
+                                                        <th class="tableHeadView">Longitude</th>
+                                                        <th class="tableHeadView">Latitude</th>
+                                                        <th class="tableHeadView">Longitude</th>
+                                                        <th class="tableHeadView">Latitude</th>
+                                                        <th class="tableHeadView">P90 Oil (MMBOE)</th>
+                                                        <th class="tableHeadView">P50 Oil (MMBOE)</th>
+                                                        <th class="tableHeadView">P10 Oil (MMBOE)</th>
+                                                        <th class="tableHeadView">P90 Gas (MMSCF)</th>
+                                                        <th class="tableHeadView">P50 Gas (MMSCF)</th>
+                                                        <th class="tableHeadView">P10 Gas (MMSCF)</th>
+                                                        <th class="tableHeadView">Source</th>
+                                                        <th class="tableHeadView">Timing</th>
+                                                        <th class="tableHeadView">Resevoir</th>
+                                                        <th class="tableHeadView">Closure</th>
+                                                        <th class="tableHeadView">Containment</th>
+                                                        <th class="tableHeadView">DHB</th>
+                                                        <th class="tableHeadView">CHB</th>
+                                                        <th class="tableHeadView">P90 Oil (MMBOE)</th>
+                                                        <th class="tableHeadView">P50 Oil (MMBOE)</th>
+                                                        <th class="tableHeadView">P10 Oil (MMBOE)</th>
+                                                        <th class="tableHeadView">P90 Gas (MMSCF)</th>
+                                                        <th class="tableHeadView">P50 Gas (MMSCF)</th>
+                                                        <th class="tableHeadView">P10 Gas (MMSCF)</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var item in Model.DataDrilling)
+                                                    {
+                                                    <tr class="tableRowBodyView">
+                                                        <td class="tableBodyView">@item.xWellName</td>
+                                                        <td class="tableBodyView">@item.DrillingLocation</td>
+                                                        <td class="tableBodyView">@item.PlayOpenerBit</td>
+                                                        <td class="tableBodyView">@item.ExpectedDrillingDate</td>
+                                                        <td class="tableBodyView">@item.DrillingCompletionPeriod</td>
+                                                        <td class="tableBodyView">@item.Location</td>
+                                                        <td class="tableBodyView">@item.WaterDepthMeter</td>
+                                                        <td class="tableBodyView">@item.WaterDepthFeet</td>
+                                                        <td class="tableBodyView">@item.TotalDepthMeter</td>
+                                                        <td class="tableBodyView">@item.TotalDepthFeet</td>
+                                                        <td class="tableBodyView">@item.RigTypeParID</td>
+                                                        <td class="tableBodyView">@item.WellTypeParID</td>
+                                                        <td class="tableBodyView">@item.SurfaceLocationLongitude</td>
+                                                        <td class="tableBodyView">@item.SurfaceLocationLatitude</td>
+                                                        <td class="tableBodyView">@item.BHLocationLongitude</td>
+                                                        <td class="tableBodyView">@item.BHLocationLatitude</td>
+                                                        <td class="tableBodyView">@item.CommitmentWellBit</td>
+                                                        <td class="tableBodyView">@item.OperationalContextParId</td>
+                                                        <td class="tableBodyView">@item.PotentialDelayBit</td>
+                                                        <td class="tableBodyView">@item.NetRevenueInterest</td>
+                                                        <td class="tableBodyView">@item.P90ResourceOil</td>
+                                                        <td class="tableBodyView">@item.P50ResourceOil</td>
+                                                        <td class="tableBodyView">@item.P10ResourceOil</td>
+                                                        <td class="tableBodyView">@item.P90ResourceGas</td>
+                                                        <td class="tableBodyView">@item.P50ResourceGas</td>
+                                                        <td class="tableBodyView">@item.P10ResourceGas</td>
+                                                        <td class="tableBodyView">@item.CurrentPG</td>
+                                                        <td class="tableBodyView">@item.ExpectedPG</td>
+                                                        <td class="tableBodyView">@item.ChanceComponentSource</td>
+                                                        <td class="tableBodyView">@item.ChanceComponentTiming</td>
+                                                        <td class="tableBodyView">@item.ChanceComponentReservoir</td>
+                                                        <td class="tableBodyView">@item.ChanceComponentClosure</td>
+                                                        <td class="tableBodyView">@item.ChanceComponentContainment</td>
+                                                        <td class="tableBodyView">@item.DrillingCostDHB</td>
+                                                        <td class="tableBodyView">@item.DrillingCost</td>
+                                                        <td class="tableBodyView">@item.P90NPVProfitabilityOil</td>
+                                                        <td class="tableBodyView">@item.P50NPVProfitabilityOil</td>
+                                                        <td class="tableBodyView">@item.P10NPVProfitabilityOil</td>
+                                                        <td class="tableBodyView">@item.P90NPVProfitabilityGas</td>
+                                                        <td class="tableBodyView">@item.P50NPVProfitabilityGas</td>
+                                                        <td class="tableBodyView">@item.P10NPVProfitabilityGas</td>
+                                                    </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                }
+                                @if (fieldSection.SectionName.Trim() == "Exploration Block")
+                                {
+                                    <div class="accordion-body">
+                                        @Html.Partial("Component/Form/_Fields_Readonly", fieldSection.Fields)
+                                    </div>
+                                }
+                                @if (fieldSection.SectionName.Trim() == "Economic")
+                                {
+                                    <div class="accordion-body">
+                                        @Html.Partial("Component/Form/_Fields_Readonly", fieldSection.Fields)
+                                    </div>
+                                }
+                                @if (fieldSection.SectionName.Trim() == "Block Partner")
+                                {
+                                    <div class="accordion-body">
+                                        <div style="overflow-x:scroll;overflow-y:scroll">
+                                            <table width="100%" style="margin-bottom:30px">
+                                                <thead>
+                                                    <tr class="tableRowView">
+                                                        <th class="tableHeadView">Partner Name</th>
+                                                        <th class="tableHeadView">PI</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var item in Model.DataPartner)
+                                                    {
+                                                        <tr class="tableRowBodyView">
+                                                            <td class="tableBodyView">@item.PartnerName</td>
+                                                            <td class="tableBodyView">@Convert.ToString(decimal.Round(item.PI,2) * 100)%</td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+    @if (stringUrlSplit[stringUrlSplit.Count() - 1].Trim() == "Review" || stringUrlSplit[stringUrlSplit.Count() - 1].Trim() == "Review?Status=Success")
+    {
+        if (Model.StatusData == "Submitted" || Model.StatusData == "Revision")
+        {
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success" onclick="updateStatus('@Model.paramID','Approved')">Approve</button>
+                <button type="button" class="btn btn-outline-danger" onclick="updateStatus('@Model.paramID','Reject Submitted')">Reject</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+        }
+        else
+        {
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary" onclick="updateStatus('@Model.paramID','Released')">Release</button>
+                @*<button type="button" class="btn btn-outline-danger" onclick="updateStatus('@Model.paramID','Reject Submitted')">Reject</button>*@
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+        }
+    }
+    else if (stringUrlSplit[stringUrlSplit.Count() - 1].Trim() == "ExplorationStructure")
+    {
+        //disni buat flow release
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        </div>
+    }
+    else
+    {
+        <div class="modal-footer">
+            @*<button type="button" class="btn btn-outline-primary" onclick="location.href='@Url.Action("ExplorationUpdateStatus", "ExplorationStructure", new { structureID = Model.paramID, statusData = "Released" })'">Release</button>*@
+            @*<button type="button" class="btn btn-outline-danger" onclick="location.href='@Url.Action("ExplorationUpdateStatus", "ExplorationStructure", new { structureID = Model.paramID, statusData = "Reject Revision" })'">Revision</button>*@
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        </div>
+    }
+</div>
+
+
+
+
+
+

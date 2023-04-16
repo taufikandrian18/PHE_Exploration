@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DB_PHE_HRIS_DEVModelStoreContainer" CdmEntityContainer="DB_PHE_HRIS_DEVEntities">
+    <EntitySetMapping Name="DIM_OrgUnitHierarchy">
+      <EntityTypeMapping TypeName="DB_PHE_HRIS_DEVModel.DIM_OrgUnitHierarchy">
+        <MappingFragment StoreEntitySet="DIM_OrgUnitHierarchy">
+          <ScalarProperty Name="ETLCreatedBy" ColumnName="ETLCreatedBy" />
+          <ScalarProperty Name="ETLCreatedDate" ColumnName="ETLCreatedDate" />
+          <ScalarProperty Name="Attribute1Type" ColumnName="Attribute1Type" />
+          <ScalarProperty Name="Attribute1Desc" ColumnName="Attribute1Desc" />
+          <ScalarProperty Name="Attribute1ID" ColumnName="Attribute1ID" />
+          <ScalarProperty Name="TreeOrgUnitName" ColumnName="TreeOrgUnitName" />
+          <ScalarProperty Name="TreeEntityID" ColumnName="TreeEntityID" />
+          <ScalarProperty Name="TreeOrgUnitID" ColumnName="TreeOrgUnitID" />
+          <ScalarProperty Name="Lvl10EntityDesc" ColumnName="Lvl10EntityDesc" />
+          <ScalarProperty Name="Lvl9EntityDesc" ColumnName="Lvl9EntityDesc" />
+          <ScalarProperty Name="Lvl8EntityDesc" ColumnName="Lvl8EntityDesc" />
+          <ScalarProperty Name="Lvl7EntityDesc" ColumnName="Lvl7EntityDesc" />
+          <ScalarProperty Name="Lvl6EntityDesc" ColumnName="Lvl6EntityDesc" />
+          <ScalarProperty Name="Lvl5EntityDesc" ColumnName="Lvl5EntityDesc" />
+          <ScalarProperty Name="Lvl4EntityDesc" ColumnName="Lvl4EntityDesc" />
+          <ScalarProperty Name="Lvl3EntityDesc" ColumnName="Lvl3EntityDesc" />
+          <ScalarProperty Name="Lvl2EntityDesc" ColumnName="Lvl2EntityDesc" />
+          <ScalarProperty Name="Lvl1EntityDesc" ColumnName="Lvl1EntityDesc" />
+          <ScalarProperty Name="Lvl10EntityID" ColumnName="Lvl10EntityID" />
+          <ScalarProperty Name="Lvl9EntityID" ColumnName="Lvl9EntityID" />
+          <ScalarProperty Name="Lvl8EntityID" ColumnName="Lvl8EntityID" />
+          <ScalarProperty Name="Lvl7EntityID" ColumnName="Lvl7EntityID" />
+          <ScalarProperty Name="Lvl6EntityID" ColumnName="Lvl6EntityID" />
+          <ScalarProperty Name="Lvl5EntityID" ColumnName="Lvl5EntityID" />
+          <ScalarProperty Name="Lvl4EntityID" ColumnName="Lvl4EntityID" />
+          <ScalarProperty Name="Lvl3EntityID" ColumnName="Lvl3EntityID" />
+          <ScalarProperty Name="Lvl2EntityID" ColumnName="Lvl2EntityID" />
+          <ScalarProperty Name="Lvl1EntityID" ColumnName="Lvl1EntityID" />
+          <ScalarProperty Name="Lvl10Desc" ColumnName="Lvl10Desc" />
+          <ScalarProperty Name="Lvl9Desc" ColumnName="Lvl9Desc" />
+          <ScalarProperty Name="Lvl8Desc" ColumnName="Lvl8Desc" />
+          <ScalarProperty Name="Lvl7Desc" ColumnName="Lvl7Desc" />
+          <ScalarProperty Name="Lvl6Desc" ColumnName="Lvl6Desc" />
+          <ScalarProperty Name="Lvl5Desc" ColumnName="Lvl5Desc" />
+          <ScalarProperty Name="Lvl4Desc" ColumnName="Lvl4Desc" />
+          <ScalarProperty Name="Lvl3Desc" ColumnName="Lvl3Desc" />
+          <ScalarProperty Name="Lvl2Desc" ColumnName="Lvl2Desc" />
+          <ScalarProperty Name="Lvl1Desc" ColumnName="Lvl1Desc" />
+          <ScalarProperty Name="Lvl10ID" ColumnName="Lvl10ID" />
+          <ScalarProperty Name="Lvl9ID" ColumnName="Lvl9ID" />
+          <ScalarProperty Name="Lvl8ID" ColumnName="Lvl8ID" />
+          <ScalarProperty Name="Lvl7ID" ColumnName="Lvl7ID" />
+          <ScalarProperty Name="Lvl6ID" ColumnName="Lvl6ID" />
+          <ScalarProperty Name="Lvl5ID" ColumnName="Lvl5ID" />
+          <ScalarProperty Name="Lvl4ID" ColumnName="Lvl4ID" />
+          <ScalarProperty Name="Lvl3ID" ColumnName="Lvl3ID" />
+          <ScalarProperty Name="Lvl2ID" ColumnName="Lvl2ID" />
+          <ScalarProperty Name="Lvl1ID" ColumnName="Lvl1ID" />
+          <ScalarProperty Name="Lvl" ColumnName="Lvl" />
+          <ScalarProperty Name="OrgUnitName" ColumnName="OrgUnitName" />
+          <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+          <ScalarProperty Name="OrgUnitID" ColumnName="OrgUnitID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

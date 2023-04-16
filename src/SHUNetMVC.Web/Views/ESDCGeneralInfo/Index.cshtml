@@ -1,0 +1,1045 @@
+﻿<style type="text/css">
+    .loadingMask {
+        background: url('https://webappdev01.phe.pertamina.com/phe_xplore/loader.gif') center 50% no-repeat #000000;
+        top: 0;
+        left: 0;
+        position: fixed;
+        height: 100%;
+        width: 100%;
+        opacity: 0.7;
+        z-index: 12030
+    }
+</style>
+<link href="~/Scripts/kendo/2022.3.1109/styles/kendo.bootstrap-main.min.css" rel="stylesheet" type="text/css" />
+<script src="~/Scripts/kendo/2022.3.1109/js/jquery.min.js"></script>
+<script src="~/Scripts/kendo/2022.3.1109/js/jszip.min.js"></script>
+<script src="~/Scripts/kendo/2022.3.1109/js/kendo.all.min.js"></script>
+<script src="~/Scripts/kendo/2022.3.1109/js/kendo.aspnetmvc.min.js"></script>
+@*<link href="https://cdn.kendostatic.com/2022.3.1109/styles/kendo.bootstrap-main.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.kendostatic.com/2022.3.1109/js/jquery.min.js"></script>
+    <script src="https://cdn.kendostatic.com/2022.3.1109/js/jszip.min.js"></script>
+    <script src="https://cdn.kendostatic.com/2022.3.1109/js/kendo.all.min.js"></script>
+    <script src="https://cdn.kendostatic.com/2022.3.1109/js/kendo.aspnetmvc.min.js"></script>*@
+@using SHUNetMVC.Abstraction.Model.View
+@model FormDefinition
+<div class="table-title">
+    @if (!string.IsNullOrEmpty(Model.paramID))
+    {
+        <div class="heading-Text">
+            Edit Data <span id="crud-grid-count"></span>
+        </div>
+        <div class="table-subtitle">
+            eSDC / @Model.paramID @*@Model.Data.ExplorationStructureName*@
+        </div>
+    }
+    else
+    {
+        <div class="heading-Text">
+            Create Data <span id="crud-grid-count"></span>
+        </div>
+        <div class="table-subtitle">
+            eSDC / New Draft
+        </div>
+    }
+</div>
+<div class="loadingMask" id="loadingMask" style="visibility: hidden;"></div>
+<div class="gridlist">
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link disabled active" data-bs-toggle="tab" href="#generalinfo">General Info</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled" data-bs-toggle="tab" href="#Production">Production</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled" data-bs-toggle="tab" href="#Volumetric">Volumetric</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled" data-bs-toggle="tab" href="#Forecast">Forecast</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled" data-bs-toggle="tab" href="#Discrepancy">Discrepancy</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled" data-bs-toggle="tab" href="#Inplace">In Place</a>
+        </li>
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content">
+        @if (Model.State == FormState.Create)
+        {
+            <div class="tab-pane active" id="generalinfo" style="margin-left:10px;">
+                @{Html.RenderAction(Model.Title, "ESDCGeneralInfo");}
+                <div class="modal-footer" style="margin-top:10px; padding-bottom: 25px">
+                    <button type="button" class="btn btn-outline-primary" onclick="location.href='@Url.Action("Index", "ESDC")'" style="width: 90px; margin-right: 10px">Discard</button>
+                    <button type="button" class="btn btn-outline-primary" onclick="saveAllESDCFormCheck(this);" style="width:200px;margin-right:10px">Save and Exit</button>
+                    <a class="btn btn-primary btnNext" style="margin-right:50px">Next</a>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="Production">
+                @{Html.RenderAction("EditingCustomESDCProd", "ESDCProduction");}
+                <div class="modal-footer" style="margin-top:10px; padding-bottom: 25px">
+                    <button type="button" class="btn btn-outline-primary" onclick="location.href='@Url.Action("Index", "ESDC")'" style="width: 90px; margin-right: 10px">Discard</button>
+                    <button type="button" class="btn btn-outline-primary" onclick="saveAllESDCFormCheck(this);" style="width:200px;margin-right:10px">Save and Exit</button>
+                    <a class="btn btn-primary btnPrevious" style="margin-right:10px">Back</a>
+                    <a class="btn btn-primary btnNext" style="margin-right:50px">Next</a>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="Volumetric">
+                @{Html.RenderAction("EditingCustomESDCVolumetric", "ESDCVolumetric");}
+                <div class="modal-footer" style="margin-top:10px; padding-bottom: 25px">
+                    <button type="button" class="btn btn-outline-primary" onclick="location.href='@Url.Action("Index", "ESDC")'" style="width: 90px; margin-right: 10px">Discard</button>
+                    <button type="button" class="btn btn-outline-primary" onclick="saveAllESDCFormCheck(this);" style="width:200px;margin-right:10px">Save and Exit</button>
+                    <a class="btn btn-primary btnPrevious" style="margin-right:10px">Back</a>
+                    <a class="btn btn-primary btnNext" style="margin-right:50px">Next</a>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="Forecast">
+                @{Html.RenderAction("EditingCustomESDCForecast", "ESDCForecast");}
+                <div class="modal-footer" style="margin-top:10px; padding-bottom: 25px">
+                    <button type="button" class="btn btn-outline-primary" onclick="location.href='@Url.Action("Index", "ESDC")'" style="width: 90px; margin-right: 10px ">Discard</button>
+                    <button type="button" class="btn btn-outline-primary" onclick="saveAllESDCFormCheck(this);" style="width:200px;margin-right:10px">Save and Exit</button>
+                    <a class="btn btn-primary btnPrevious" style="margin-right:10px">Back</a>
+                    <a class="btn btn-primary btnNext" style="margin-right:50px">Next</a>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="Discrepancy">
+                @{Html.RenderAction("EditingCustomESDCDiscrepancy", "ESDCDiscrepancy");}
+                <div class="modal-footer" style="margin-top:10px; padding-bottom: 25px">
+                    <button type="button" class="btn btn-outline-primary" onclick="location.href='@Url.Action("Index", "ESDC")'" style="width: 90px; margin-right: 10px ">Discard</button>
+                    <button type="button" class="btn btn-outline-primary" onclick="saveAllESDCFormCheck(this);" style="width:200px;margin-right:10px">Save and Exit</button>
+                    <a class="btn btn-primary btnPrevious" style="margin-right:10px">Back</a>
+                    <a class="btn btn-primary btnNext" style="margin-right:50px">Next</a>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="Inplace">
+                @{Html.RenderAction("EditingCustomESDCInPlace", "ESDCInPlace");}
+                <div class="modal-footer" style="margin-top:10px; padding-bottom: 25px">
+                    <button type="button" class="btn btn-outline-primary" onclick="location.href='@Url.Action("Index", "ESDC")'" style="width: 90px; margin-right: 10px">Discard</button>
+                    <button type="button" class="btn btn-outline-primary" onclick="saveAllESDCFormCheck(this);" style="width:200px;margin-right:10px">Save and Exit</button>
+                    <a class="btn btn-primary btnPrevious" style="margin-right:10px">Back</a>
+                    <!--<button id="btnSubmitESDCAll" type="submit" class="btn btn-primary" onclick="submitAllESDCFormsCheck(this);" style="width: 90px; margin-right: 50px">Submit</button>-->
+                    @*<button id="btnSubmitESDCAll" type="submit" class="btn btn-primary" onclick="submitAllESDCFormsCheck(this);" style="width: 90px; margin-right: 50px">Submit</button>*@
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="tab-pane active" id="generalinfo" style="margin-left:10px;">
+                @{Html.RenderAction(Model.Title, "ESDCGeneralInfo");}
+                <div class="modal-footer" style="margin-top:10px; padding-bottom: 25px">
+                    <button type="button" class="btn btn-outline-primary" onclick="location.href='@Url.Action("Index", "ESDC")'" style="width: 90px; margin-right: 10px">Discard</button>
+                    <button type="button" class="btn btn-outline-primary" onclick="saveAllFormCheck(this);" style="width:200px;margin-right:10px">Save Draft and Exit</button>
+                    <a class="btn btn-primary btnNext" style="margin-right:50px">Next</a>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="Production">
+                @{Html.RenderAction("EditingCustomESDCProdEdit", "ESDCProduction");}
+                <div class="modal-footer" style="margin-top:10px; padding-bottom: 25px">
+                    <button type="button" class="btn btn-outline-primary" onclick="location.href='@Url.Action("Index", "ESDC")'" style="width: 90px; margin-right: 10px">Discard</button>
+                    <button type="button" class="btn btn-outline-primary" onclick="saveAllESDCFormCheck(this);" style="width:200px;margin-right:10px">Save and Exit</button>
+                    <a class="btn btn-primary btnPrevious" style="margin-right:10px">Back</a>
+                    <a class="btn btn-primary btnNext" style="margin-right:50px">Next</a>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="Volumetric">
+                @{Html.RenderAction("EditingCustomESDCVolumetricEdit", "ESDCVolumetric");}
+                <div class="modal-footer" style="margin-top:10px; padding-bottom: 25px">
+                    <button type="button" class="btn btn-outline-primary" onclick="location.href='@Url.Action("Index", "ESDC")'" style="width: 90px; margin-right: 10px">Discard</button>
+                    <button type="button" class="btn btn-outline-primary" onclick="saveAllESDCFormCheck(this);" style="width:200px;margin-right:10px">Save and Exit</button>
+                    <a class="btn btn-primary btnPrevious" style="margin-right:10px">Back</a>
+                    <a class="btn btn-primary btnNext" style="margin-right:50px">Next</a>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="Forecast">
+                @{Html.RenderAction("EditingCustomEditESDCForecast", "ESDCForecast");}
+                <div class="modal-footer" style="margin-top:10px; padding-bottom: 25px">
+                    <button type="button" class="btn btn-outline-primary" onclick="location.href='@Url.Action("Index", "ESDC")'" style="width: 90px; margin-right: 10px ">Discard</button>
+                    <button type="button" class="btn btn-outline-primary" onclick="saveAllESDCFormCheck(this);" style="width:200px;margin-right:10px">Save and Exit</button>
+                    <a class="btn btn-primary btnPrevious" style="margin-right:10px">Back</a>
+                    <a class="btn btn-primary btnNext" style="margin-right:50px">Next</a>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="Discrepancy">
+                @{Html.RenderAction("EditingCustomESDCDiscrepancyEdit", "ESDCDiscrepancy");}
+                <div class="modal-footer" style="margin-top:10px; padding-bottom: 25px">
+                    <button type="button" class="btn btn-outline-primary" onclick="location.href='@Url.Action("Index", "ESDC")'" style="width: 90px; margin-right: 10px ">Discard</button>
+                    <button type="button" class="btn btn-outline-primary" onclick="saveAllESDCFormCheck(this);" style="width:200px;margin-right:10px">Save and Exit</button>
+                    <a class="btn btn-primary btnPrevious" style="margin-right:10px">Back</a>
+                    <a class="btn btn-primary btnNext" style="margin-right:50px">Next</a>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="Inplace">
+                @{Html.RenderAction("EditingCustomESDCInPlaceEdit", "ESDCInPlace");}
+                <div class="modal-footer" style="margin-top:10px; padding-bottom: 25px">
+                    <button type="button" class="btn btn-outline-primary" onclick="location.href='@Url.Action("Index", "ESDC")'" style="width: 90px; margin-right: 10px">Discard</button>
+                    <button type="button" class="btn btn-outline-primary" onclick="saveAllESDCFormCheck(this);" style="width:200px;margin-right:10px">Save and Exit</button>
+                    <a class="btn btn-primary btnPrevious" style="margin-right:10px">Back</a>
+                    <!--<button id="btnSubmitESDCAll" type="submit" class="btn btn-primary" onclick="submitAllESDCFormsCheck(this);" style="width: 90px; margin-right: 50px">Submit</button>-->
+                    @*<button id="btnSubmitESDCAll" type="submit" class="btn btn-primary" onclick="submitAllESDCFormsCheck(this);" style="width: 90px; margin-right: 50px">Submit</button>*@
+                </div>
+            </div>
+            <input id="updStructureID" type="hidden" value="@Model.paramID" />
+            <input id="updBlockID" type="hidden" value="@Model.BlockID" />
+        }
+    </div>
+</div>
+<input id="formState" type="hidden" value="@Model.State" name="formState" />
+@*MODAL CONTAINER Grid*@
+<div id="QuickFindModalGrid" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-body" style="cursor : pointer">
+                @(Html.Kendo().Grid<SHUNetMVC.Abstraction.Model.Dto.TXESDCDto>()
+                    .Name("rowSelection")
+                    .Events(events => events.Change("Grid_OnRowSelect"))
+                    .Columns(columns => {
+                        columns.Bound(o => o.xStructureID).Width(300);
+                        columns.Bound(o => o.xStructureName).Width(300);
+                        columns.Bound(o => o.StatusData).Width(300);
+                        columns.Bound(o => o.EffectiveYear).Width(100);
+                        columns.Bound(o => o.xStructureStatusParID).Width(300);
+                        columns.Bound(o => o.xStructureStatusName).Width(300);
+                        columns.Bound(o => o.ExplorationTypeParID).Width(300);
+                        columns.Bound(o => o.ExplorationTypeName).Width(300);
+                        columns.Bound(o => o.CountriesID).Width(300);
+                        columns.Bound(p => p.SubholdingID).Width(300);
+                        columns.Bound(p => p.SubholdingName).Width(300);
+                        columns.Bound(o => o.RegionalID).Width(300);
+                        columns.Bound(p => p.RegionalName).Width(125);
+                        columns.Bound(p => p.ZonaID).Width(300);
+                        columns.Bound(p => p.ZonaName).Width(250);
+                        columns.Bound(o => o.xBlockID).Width(300);
+                        columns.Bound(o => o.xBlockName).Width(300);
+                        columns.Bound(p => p.BasinID).Width(300);
+                        columns.Bound(p => p.BasinName).Width(300);
+                        columns.Bound(p => p.xAssetID).Width(300);
+                        columns.Bound(p => p.xAssetName).Width(300);
+                        columns.Bound(p => p.APHID).Width(300);
+                        columns.Bound(p => p.APHName).Width(300);
+                        columns.Bound(p => p.xAreaID).Width(300);
+                        columns.Bound(p => p.xAreaName).Width(300);
+                        columns.Bound(p => p.UDSubTypeParID).Width(300);
+                        columns.Bound(p => p.UDSubTypeName).Width(300);
+                        columns.Bound(p => p.UDClassificationParID).Width(300);
+                        columns.Bound(p => p.UDClassificationName).Width(300);
+                        columns.Bound(p => p.UDSubClassificationParID).Width(300);
+                        columns.Bound(p => p.UDSubClassificationName).Width(300);
+                        columns.Bound(p => p.SingleOrMultiParID).Width(300);
+                        columns.Bound(p => p.SingleOrMultiName).Width(300);
+                        columns.Bound(p => p.Play).Width(300);
+                    })
+                    .Pageable(pageable => pageable.ButtonCount(5))
+                    .Sortable()
+                    .Width(1300)
+                    .Selectable(selectable => selectable
+                        .Mode(GridSelectionMode.Single))
+                    .PersistSelection(true)
+                    .Navigatable()
+                    .DataSource(dataSource => dataSource
+                        .Ajax()
+                        .Model(m=>m.Id("EffectiveYear"))
+                        .PageSize(30)
+                        .Read(read => read.Action("Selection_Orders_Read_ESDC", "ESDCGeneralInfo"))
+                     )
+                )
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    let QuickFindModalGrid;
+
+    function showQuickFindDialogGrid() {
+        if (!QuickFindModalGrid) {
+            let modalId = "#QuickFindModalGrid";
+
+            let modalElement = $(modalId);
+            quickFindModal = new bootstrap.Modal(modalElement);
+        }
+        quickFindModal.show();
+    }
+    function getClientFormState() {
+        var queryStringParameters1 = document.getElementById('formState').value
+        var queryStringParameters2 = document.getElementById('paramID').value
+        return {
+            Data: queryStringParameters2,
+            State: queryStringParameters1
+        };
+    }
+    function getClientFormStateView() {
+        var queryStringParameters1 = document.getElementById('formState').value
+        var queryStringParameters2 = document.getElementById('paramID').value
+        return {
+            Data: queryStringParameters2,
+            State: queryStringParameters1
+        };
+    }
+    function getClientFormStateCont() {
+        var queryStringParameters1 = document.getElementById('formStateCont').value
+        var queryStringParameters2 = document.getElementById('paramIDCont').value
+        return {
+            Data: queryStringParameters2,
+            State: queryStringParameters1
+        };
+    }
+    function getClientFormStateDrl() {
+        var queryStringParameters1 = document.getElementById('formStateDrl').value
+        var queryStringParameters2 = document.getElementById('paramIDDrl').value
+        return {
+            Data: queryStringParameters2,
+            State: queryStringParameters1
+        };
+    }
+    function getClientBlockID() {
+        var queryStringParameters = document.getElementById('blockID').value
+        return {
+            Data: queryStringParameters
+        };
+    }
+    function getClientBlockIDEdit() {
+        var queryStringParameters = document.getElementById('updBlockID').value
+        return {
+            Data: queryStringParameters
+        };
+    }
+    Grid_OnRowSelect = function (e) {
+        var data = this.dataItem(this.select());
+        var strctrId = data.xStructureID;
+        var strctrName = data.xStructureName;
+        var effYear = data.EffectiveYear;
+        var strStatusId = data.xStructureStatusParID;
+        var strStatusName = data.xStructureStatusName;
+        var strTypeId = data.ExplorationTypeParID;
+        var strTypeName = data.ExplorationTypeName;
+        var strUDTypeId = data.UDSubTypeParID;
+        var strUDTypeName = data.UDSubTypeName;
+        var strUDClassId = data.UDClassificationParID;
+        var strUDClassName = data.UDClassificationName;
+        var strSubUDClassId = data.UDSubClassificationParID;
+        var strSubUDClassName = data.UDSubClassificationName;
+        var strSingleMulId = data.SingleOrMultiParID;
+        var strSingleMulName = data.SingleOrMultiName;
+        var strPlay = data.Play;
+        var shuId = data.SubholdingID;
+        var regId = data.RegionalID;
+        var zonId = data.ZonaID;
+        var blcId = data.xBlockID;
+        var basId = data.BasinID;
+        var astId = data.xAssetID;
+        var aphId = data.APHID;
+        var areaId = data.xAreaID;
+        var param = {
+            strctrId,
+            shuId,
+            regId,
+            zonId,
+            blcId,
+            basId,
+            astId,
+            aphId,
+            areaId,
+            effYear,
+            strUDTypeId,
+            strUDClassId,
+            strSubUDClassId,
+            strPlay
+        };
+        $.get('ESDCGeneralInfo/GenerateESDCGeneralInfoDropDownLst', param, function (MPEntityListITem) {
+
+            $('#xStructureID').val('');
+            $('#xStructureID').val(strctrId);
+
+            $('#xStructureName').val('');
+            $('#xStructureName').val(strctrName);
+
+            var $selectExplorationStatusParID = $('#xStructureStatusParID');
+            $selectExplorationStatusParID.html('');
+            $selectExplorationStatusParID.append("<option value=\"" + strStatusId + "\">" + strStatusName + "</option>");
+
+            var $selectExplorationTypeParID = $('#ExplorationTypeParID');
+            $selectExplorationTypeParID.html('');
+            $selectExplorationTypeParID.append("<option value=\"" + strTypeId + "\">" + strTypeName + "</option>");
+
+            var $selectExplorationSingleMultiParID = $('#SingleOrMultiParID');
+            $selectExplorationSingleMultiParID.html('');
+            $selectExplorationSingleMultiParID.append("<option value=\"" + strSingleMulId + "\">" + strSingleMulName + "</option>");
+
+            var $selectExplorationAreaParID = $('#ExplorationAreaParID');
+            $selectExplorationAreaParID.html('');
+            $selectExplorationAreaParID.append("<option value=\"" + areaId + "\">" + MPEntityListITem.AreaName + "</option>");
+
+            var $selectCountriesID = $('#CountriesID');
+            $selectCountriesID.html('');
+            $selectCountriesID.append("<option value=\"" + MPEntityListITem.BlockObject.Country + "\">" + MPEntityListITem.BlockObject.CountryName + "</option>");
+
+            var $selectSubholdingID = $('#SubholdingID');
+            $selectSubholdingID.html('');
+            $selectSubholdingID.append("<option value=\"" + shuId + "\">" + MPEntityListITem.EntityName + "</option>");
+
+            var $selectRegionalID = $('#RegionalID');
+            $selectRegionalID.html('');
+            $selectRegionalID.append("<option value=\"" + regId + "\">" + MPEntityListITem.RegionName + "</option>");
+
+            var $selectZonaID = $('#ZonaID');
+            $selectZonaID.html('');
+            $selectZonaID.append("<option value=\"" + zonId + "\">" + MPEntityListITem.ZonaName + "</option>");
+
+            var $selectUDTypeID = $('#UDSubTypeParID');
+            $selectUDTypeID.html('');
+            $selectUDTypeID.append("<option value=\"" + MPEntityListITem.UDTypeValue + "\">" + MPEntityListITem.UDTypeText + "</option>");
+
+            var $selectUDClassID = $('#UDClassificationParID');
+            $selectUDClassID.html('');
+            $selectUDClassID.append("<option value=\"" + MPEntityListITem.UDClassValue + "\">" + MPEntityListITem.UDClassText + "</option>");
+
+            var $selectUDSubClassID = $('#UDSubClassificationParID');
+            $selectUDSubClassID.html('');
+            $selectUDSubClassID.append("<option value=\"" + MPEntityListITem.UDSubClassValue + "\">" + MPEntityListITem.UDSubClassText + "</option>");
+
+            var $selectRKAPYear = $('#EffectiveYear');
+            $selectRKAPYear.html('');
+            $selectRKAPYear.append("<option value=\"" + MPEntityListITem.RKAPYearValue + "\">" + MPEntityListITem.RKAPYearText + "</option>");
+
+            $('#Play').val('');
+            $('#Play').val(MPEntityListITem.Play);
+
+            var $selectBlockID = $('#xBlockID');
+            $selectBlockID.html('');
+            $selectBlockID.append("<option value=\"" + blcId + "\">" + MPEntityListITem.BlockObject.BlockName + "</option>");
+
+            var $selectAPHID = $('#APHID');
+            $selectAPHID.html('');
+            $selectAPHID.append("<option value=\"" + aphId + "\">" + MPEntityListITem.APHName + "</option>");
+            //$('#APHID').val('');
+            //$('#APHID').val(aphId);
+
+            var $selectAssetID = $('#xAssetID');
+            $selectAssetID.html('');
+            $selectAssetID.append("<option value=\"" + astId + "\">" + MPEntityListITem.AssetName + "</option>");
+            //$('#xAssetID').val('');
+            //$('#xAssetID').val(astId);
+
+            var $selectBasinID = $('#BasinID');
+            $selectBasinID.html('');
+            $selectBasinID.append("<option value=\"" + basId + "\">" + MPEntityListITem.BasinName + "</option>");
+
+            $('#fileID_OnePagerMontage').val('');
+            $('#fileID_OnePagerMontage').val(MPEntityListITem.fileId1);
+
+            $('#fileType_OnePagerMontage').val('');
+            $('#fileType_OnePagerMontage').val(MPEntityListITem.fileType1);
+
+            $('#fileUrl_OnePagerMontage').val('');
+            $('#fileUrl_OnePagerMontage').val(MPEntityListITem.fileUrl1);
+
+            $('#fileName_OnePagerMontage').val('');
+            $('#fileName_OnePagerMontage').val(MPEntityListITem.fileName1);
+
+            $('#fileID_StructureOutline').val('');
+            $('#fileID_StructureOutline').val(MPEntityListITem.fileId2);
+
+            $('#fileType_StructureOutline').val('');
+            $('#fileType_StructureOutline').val(MPEntityListITem.fileType2);
+
+            $('#fileUrl_StructureOutline').val('');
+            $('#fileUrl_StructureOutline').val(MPEntityListITem.fileUrl2);
+
+            $('#fileName_StructureOutline').val('');
+            $('#fileName_StructureOutline').val(MPEntityListITem.fileName2);
+
+            if (document.getElementById("fileType_OnePagerMontage").value == '') {
+                $("#OnePagerMontage_ImgPreview").hide();
+                $("#btnOnePagerMontage").hide();
+            }
+            else {
+                if (document.getElementById("fileType_OnePagerMontage").value == '.jpg' || document.getElementById("fileType_OnePagerMontage").value == '.jpeg') {
+                    document.getElementById("preview_OnePagerMontage").innerHTML +=
+                        "<img id='OnePagerMontage_ImgPreview' src='" + document.getElementById("fileUrl_OnePagerMontage").value + "' width='150' height='200'>";
+                }
+                else {
+                    document.getElementById("preview_OnePagerMontage").innerHTML +=
+                        "<a id='OnePagerMontage_ImgPreview' href='" + document.getElementById("fileUrl_OnePagerMontage").value + "'>" + document.getElementById("fileName_OnePagerMontage").value + "</a>";
+                }
+            }
+            if (document.getElementById("fileType_StructureOutline").value == '') {
+                $("#StructureOutline_ImgPreview").hide();
+                $("#btnStructureOutline").hide();
+            }
+            else {
+                if (document.getElementById("fileType_StructureOutline").value == '.jpg' || document.getElementById("fileType_StructureOutline").value == '.jpeg') {
+                    document.getElementById("preview_StructureOutline").innerHTML +=
+                        "<img id='StructureOutline_ImgPreview' src='" + document.getElementById("fileUrl_StructureOutline").value + "' width='150' height='200'>";
+                }
+                else {
+                    document.getElementById("preview_StructureOutline").innerHTML +=
+                        "<a id='StructureOutline_ImgPreview' href='" + document.getElementById("fileUrl_StructureOutline").value + "'>" + document.getElementById("fileName_StructureOutline").value + "</a>";
+                }
+            }
+
+            $('#ESDCProjectName').val('');
+            $('#ESDCProjectName').val(strctrName + ' - BASE');
+        });
+
+        $(function () {
+            $('#QuickFindModalGrid').modal('toggle');
+        });
+    }
+    function changeDataSourceGrid() {
+        var grid = $('#rowSelection').data('kendoGrid');
+        grid.dataSource.read();
+    }
+    $('.btnNext').click(function () {
+        const nextTabLinkEl = $('.nav-tabs .active').closest('li').find('a')[0];
+        if (nextTabLinkEl.innerHTML == 'General Info') {
+            if (document.getElementById('xStructureName').value != ''
+                && document.getElementById('xStructureID').value != ''
+                && document.getElementById('ExplorationTypeParID').value != '0'
+                && document.getElementById('xStructureStatusParID').value != '0'
+                && document.getElementById('ExplorationAreaParID').value != ''
+                && document.getElementById('CountriesID').value != ''
+                && document.getElementById('SubholdingID').value != ''
+                && document.getElementById('RegionalID').value != ''
+                && document.getElementById('ZonaID').value != ''
+                && document.getElementById('xBlockID').value != ''
+                && document.getElementById('APHID').value != ''
+                && document.getElementById('xAssetID').value != ''
+                && document.getElementById('ESDCProjectName').value != ''
+                && document.getElementById('BasinID').value != '') {
+                // ajax here
+                const nextTabLinkEl = $('.nav-tabs .active').closest('li').next('li').find('a')[0];
+                const nextTab = new bootstrap.Tab(nextTabLinkEl);
+                nextTab.show();
+            }
+            else {
+                alert('please fill in all form fields.');
+            }
+        }
+        else if (nextTabLinkEl.innerHTML == 'Production') {
+            const gridObjectiveTarget = $('#gridESDCProd').data('kendoGrid');
+            var result = true;
+            if ($('#gridESDCProd').data().kendoGrid.editable != null) {
+                result = $('#gridESDCProd').data().kendoGrid.editable.validatable.validate();
+            }
+            if (gridObjectiveTarget._data.length > 0
+                && result) {
+                const nextTabLinkEl = $('.nav-tabs .active').closest('li').next('li').find('a')[0];
+                const nextTab = new bootstrap.Tab(nextTabLinkEl);
+                nextTab.show();
+            }
+            else {
+                alert('please fill in all form fields.');
+            }
+        }
+        else if (nextTabLinkEl.innerHTML == 'Volumetric') {
+            const gridObjectiveTarget = $('#gridESDCVolumetric').data('kendoGrid');
+            var result = true;
+            if ($('#gridESDCVolumetric').data().kendoGrid.editable != null) {
+                result = $('#gridESDCVolumetric').data().kendoGrid.editable.validatable.validate();
+            }
+            if (gridObjectiveTarget._data.length > 0
+                && result) {
+                const nextTabLinkEl = $('.nav-tabs .active').closest('li').next('li').find('a')[0];
+                const nextTab = new bootstrap.Tab(nextTabLinkEl);
+                nextTab.show();
+            }
+            else {
+                alert('please fill in all form fields.');
+            }
+        }
+        else if (nextTabLinkEl.innerHTML == 'Forecast') {
+            const gridObjectiveTarget = $('#gridESDCForecast').data('kendoGrid');
+            var result = true;
+            if ($('#gridESDCForecast').data().kendoGrid.editable != null) {
+                result = $('#gridESDCForecast').data().kendoGrid.editable.validatable.validate();
+            }
+            for (let i = 0; i < gridObjectiveTarget._data.length; i++) {
+                var firstItem = gridObjectiveTarget._data[i];
+                if (firstItem["Year"] != '0') {
+                    result = true;
+                }
+                else {
+                    result = false;
+                }
+            }
+            if (result) {
+                const nextTabLinkEl = $('.nav-tabs .active').closest('li').next('li').find('a')[0];
+                const nextTab = new bootstrap.Tab(nextTabLinkEl);
+                nextTab.show();
+            }
+            else {
+                alert('please fill in all form fields.');
+            }
+        }
+        else if (nextTabLinkEl.innerHTML == 'Discrepancy') {
+            const gridObjectiveTarget = $('#gridESDCDiscrepancy').data('kendoGrid');
+            var result = true;
+            if ($('#gridESDCDiscrepancy').data().kendoGrid.editable != null) {
+                result = $('#gridESDCDiscrepancy').data().kendoGrid.editable.validatable.validate();
+            }
+            if (gridObjectiveTarget._data.length > 0
+                && result) {
+                const nextTabLinkEl = $('.nav-tabs .active').closest('li').next('li').find('a')[0];
+                const nextTab = new bootstrap.Tab(nextTabLinkEl);
+                nextTab.show();
+            }
+            else {
+                alert('please fill in all form fields.');
+            }
+        }
+        else {
+            const gridObjectiveTarget = $('#gridESDCInPlace').data('kendoGrid');
+            var result = true;
+            if ($('#gridESDCInPlace').data().kendoGrid.editable != null) {
+                result = $('#gridESDCInPlace').data().kendoGrid.editable.validatable.validate();
+            }
+            if (gridObjectiveTarget._data.length > 0
+                && result) {
+                const nextTabLinkEl = $('.nav-tabs .active').closest('li').next('li').find('a')[0];
+                const nextTab = new bootstrap.Tab(nextTabLinkEl);
+                nextTab.show();
+            }
+            else {
+                alert('please fill in all form fields.');
+            }
+        }
+    });
+    $('.btnPrevious').click(function () {
+        const prevTabLinkEl = $('.nav-tabs .active').closest('li').prev('li').find('a')[0];
+        const prevTab = new bootstrap.Tab(prevTabLinkEl);
+        prevTab.show();
+    });
+    $("#btnSubmitESDCAll").promise().done(function () {
+        $("p").append(" Finished! ");
+    });
+    function submitAllESDCFormsCheck() {
+        var queryStringParameters = document.getElementById('formState').value
+        if (queryStringParameters == 'create') {
+            //production
+            var gridProd = $("#gridESDCProd").data("kendoGrid");
+            // Get the dataSource of the Grid
+            var dataSourceProd = gridProd.dataSource;
+            // Parse the data of the dataSource to JSON format
+            var rowsProd = JSON.stringify({ 'rows': dataSourceProd.data().toJSON() });
+
+            //Volumetric
+            var gridVolumetric = $("#gridESDCVolumetric").data("kendoGrid");
+            // Get the dataSource of the Grid
+            var dataSourceVolumetric = gridVolumetric.dataSource;
+            // Parse the data of the dataSource to JSON
+            var rowsVolumetric = JSON.stringify({ 'rows': dataSourceVolumetric.data().toJSON() });
+
+            //forecast
+            var gridForecast = $("#gridESDCForecast").data("kendoGrid");
+            // Get the dataSource of the Grid
+            var dataSourceForecast = gridForecast.dataSource;
+            // Parse the data of the dataSource to JSON
+            var rowsForecast = JSON.stringify({ 'rows': dataSourceForecast.data().toJSON() });
+
+            //Discrepancy
+            var gridDiscrepancy = $("#gridESDCDiscrepancy").data("kendoGrid");
+            // Get the dataSource of the Grid
+            var dataSourceDiscrepancy = gridDiscrepancy.dataSource;
+            // Parse the data of the dataSource to JSON
+            var rowsDiscrepancy = JSON.stringify({ 'rows': dataSourceDiscrepancy.data().toJSON() });
+
+            //InPlace
+            var gridInPlace = $("#gridESDCInPlace").data("kendoGrid");
+            // Get the dataSource of the Grid
+            var dataSourceInPlace = gridInPlace.dataSource;
+            // Parse the data of the dataSource to JSON
+            var rowsInPlace = JSON.stringify({ 'rows': dataSourceInPlace.data().toJSON() });
+
+            $.ajax({
+                url: "@Url.Action("SubmitESDCAll", "ESDCGeneralInfo")",
+                type: "POST",
+                data: JSON.stringify({
+                    StructureID: $("#xStructureID").val(),
+                    StructureName: $("#xStructureName").val(),
+                    CountriesID: $("#CountriesID").val(),
+                    SingleOrMultiParID: $("#SingleOrMultiParID").val(),
+                    StructureStatusParID: $("#xStructureStatusParID").val(),
+                    SubholdingID: $("#SubholdingID").val(),
+                    ExplorationAreaParID: $("#ExplorationAreaParID").val(),
+                    ExplorationTypeParID: $("#ExplorationTypeParID").val(),
+                    Play: $("#Play").val(),
+                    UDSubTypeParID: $("#UDSubTypeParID").val(),
+                    UDClassificationParID: $("#UDClassificationParID").val(),
+                    RegionalID: $("#RegionalID").val(),
+                    UDSubClassificationParID: $("#UDSubClassificationParID").val(),
+                    ZonaID: $("#ZonaID").val(),
+                    EffectiveYear: $("#EffectiveYear").val(),
+                    BlockID: $("#xBlockID").val(),
+                    APHID: $("#APHID").val(),
+                    AssetID: $("#xAssetID").val(),
+                    BasinID: $("#BasinID").val(),
+                    ESDCFieldID: $("#ESDCFieldID").val(),
+                    ESDCProjectID: $("#ESDCProjectID").val(),
+                    ESDCProjectName: $("#ESDCProjectName").val(),
+                    ESDCProduction: rowsProd,
+                    ESDCVolumetric: rowsVolumetric,
+                    ESDCForecast: rowsForecast,
+                    ESDCDiscrepancy: rowsDiscrepancy,
+                    ESDCInPlace: rowsInPlace
+                }),
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                beforeSend: function () {
+                    $("#loadingMask").css('visibility', 'visible');
+                },
+                success: function (result) {
+                    $("#loadingMask").css('visibility', 'visible');
+                    //alert("Success");
+                    location.href = '@Url.Action("Index", "ESDC", new { Status = "Success" })';
+                },
+                error: function (err) {
+                    alert("Error");
+                }
+            });
+        }
+        else {
+            //production
+            var gridProd = $("#gridESDCProd").data("kendoGrid");
+            // Get the dataSource of the Grid
+            var dataSourceProd = gridProd.dataSource;
+            // Parse the data of the dataSource to JSON format
+            var rowsProd = JSON.stringify({ 'rows': dataSourceProd.data().toJSON() });
+
+            //Volumetric
+            var gridVolumetric = $("#gridESDCVolumetric").data("kendoGrid");
+            // Get the dataSource of the Grid
+            var dataSourceVolumetric = gridVolumetric.dataSource;
+            // Parse the data of the dataSource to JSON
+            var rowsVolumetric = JSON.stringify({ 'rows': dataSourceVolumetric.data().toJSON() });
+
+            //forecast
+            var gridForecast = $("#gridESDCForecast").data("kendoGrid");
+            // Get the dataSource of the Grid
+            var dataSourceForecast = gridForecast.dataSource;
+            // Parse the data of the dataSource to JSON
+            var rowsForecast = JSON.stringify({ 'rows': dataSourceForecast.data().toJSON() });
+
+            //Discrepancy
+            var gridDiscrepancy = $("#gridESDCDiscrepancy").data("kendoGrid");
+            // Get the dataSource of the Grid
+            var dataSourceDiscrepancy = gridDiscrepancy.dataSource;
+            // Parse the data of the dataSource to JSON
+            var rowsDiscrepancy = JSON.stringify({ 'rows': dataSourceDiscrepancy.data().toJSON() });
+
+            //InPlace
+            var gridInPlace = $("#gridESDCInPlace").data("kendoGrid");
+            // Get the dataSource of the Grid
+            var dataSourceInPlace = gridInPlace.dataSource;
+            // Parse the data of the dataSource to JSON
+            var rowsInPlace = JSON.stringify({ 'rows': dataSourceInPlace.data().toJSON() });
+
+            $.ajax({
+                url: "@Url.Action("SubmitUPDTESDCAll", "ESDCGeneralInfo")",
+                type: "POST",
+                data: JSON.stringify({
+                    StructureID: $("#xStructureID").val(),
+                    StructureName: $("#xStructureName").val(),
+                    CountriesID: $("#CountriesID").val(),
+                    SingleOrMultiParID: $("#SingleOrMultiParID").val(),
+                    StructureStatusParID: $("#xStructureStatusParID").val(),
+                    SubholdingID: $("#SubholdingID").val(),
+                    ExplorationAreaParID: $("#ExplorationAreaParID").val(),
+                    ExplorationTypeParID: $("#ExplorationTypeParID").val(),
+                    Play: $("#Play").val(),
+                    UDSubTypeParID: $("#UDSubTypeParID").val(),
+                    UDClassificationParID: $("#UDClassificationParID").val(),
+                    RegionalID: $("#RegionalID").val(),
+                    UDSubClassificationParID: $("#UDSubClassificationParID").val(),
+                    ZonaID: $("#ZonaID").val(),
+                    EffectiveYear: $("#EffectiveYear").val(),
+                    BlockID: $("#xBlockID").val(),
+                    APHID: $("#APHID").val(),
+                    AssetID: $("#xAssetID").val(),
+                    BasinID: $("#BasinID").val(),
+                    ESDCFieldID: $("#ESDCFieldID").val(),
+                    ESDCProjectID: $("#ESDCProjectID").val(),
+                    ESDCProjectName: $("#ESDCProjectName").val(),
+                    ESDCProduction: rowsProd,
+                    ESDCVolumetric: rowsVolumetric,
+                    ESDCForecast: rowsForecast,
+                    ESDCDiscrepancy: rowsDiscrepancy,
+                    ESDCInPlace: rowsInPlace
+                }),
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                beforeSend: function () {
+                    $("#loadingMask").css('visibility', 'visible');
+                },
+                success: function (result) {
+                    $("#loadingMask").css('visibility', 'visible');
+                    //alert("Success");
+                    location.href = '@Url.Action("Index", "ESDC", new { Status = "Success" })';
+                },
+                error: function () {
+                    alert("Error");
+                }
+            });
+        }
+    }
+    function saveAllESDCFormCheck() {
+        var StructureName = $("#xStructureName").val();
+        var CountriesID = $("#CountriesID").val();
+        var SingleOrMultiParID = $("#SingleOrMultiParID").val();
+        var StructureStatusParID = $("#xStructureStatusParID").val();
+        var SubholdingID = $("#SubholdingID").val();
+        var ExplorationAreaParID = $("#ExplorationAreaParID").val();
+        var ExplorationTypeParID = $("#ExplorationTypeParID").val();
+        var Play = $("#Play").val();
+        var UDSubTypeParID = $("#UDSubTypeParID").val();
+        var UDClassificationParID = $("#UDClassificationParID").val();
+        var RegionalID = $("#RegionalID").val();
+        var UDSubClassificationParID = $("#UDSubClassificationParID").val();
+        var ZonaID = $("#ZonaID").val();
+        var EffectiveYear = $("#EffectiveYear").val();
+        var BlockID = $("#xBlockID").val();
+        var APHID = $("#APHID").val();
+        var AssetID = $("#xAssetID").val();
+        var BasinID = $("#BasinID").val();
+        var ESDCFieldID = $("#ESDCFieldID").val();
+        var ESDCProjectID = $("#ESDCProjectID").val();
+        var ESDCProjectName = $("#ESDCProjectName").val();
+        if (StructureName == '' || CountriesID == '' || SingleOrMultiParID == '' || StructureStatusParID == '0' || SubholdingID == '' || ExplorationAreaParID == '' || ExplorationTypeParID == '0' || RegionalID == '' || ZonaID == '' || EffectiveYear == '' || BlockID == '' || APHID == '' || AssetID == '' || BasinID == '' || ESDCProjectName == '') {
+            alert('please fill in all form fields.');
+        }
+        else {
+            var queryStringParameters = document.getElementById('formState').value
+            if (queryStringParameters == 'create') {
+                //production
+                var gridProd = $("#gridESDCProd").data("kendoGrid");
+                // Get the dataSource of the Grid
+                var dataSourceProd = gridProd.dataSource;
+                // Parse the data of the dataSource to JSON format
+                var rowsProd = JSON.stringify({ 'rows': dataSourceProd.data().toJSON() });
+
+                //Volumetric
+                var gridVolumetric = $("#gridESDCVolumetric").data("kendoGrid");
+                // Get the dataSource of the Grid
+                var dataSourceVolumetric = gridVolumetric.dataSource;
+                // Parse the data of the dataSource to JSON
+                var rowsVolumetric = JSON.stringify({ 'rows': dataSourceVolumetric.data().toJSON() });
+
+                //forecast
+                var gridForecast = $("#gridESDCForecast").data("kendoGrid");
+                // Get the dataSource of the Grid
+                var dataSourceForecast = gridForecast.dataSource;
+                // Parse the data of the dataSource to JSON
+                var rowsForecast = JSON.stringify({ 'rows': dataSourceForecast.data().toJSON() });
+
+                //Discrepancy
+                var gridDiscrepancy = $("#gridESDCDiscrepancy").data("kendoGrid");
+                // Get the dataSource of the Grid
+                var dataSourceDiscrepancy = gridDiscrepancy.dataSource;
+                // Parse the data of the dataSource to JSON
+                var rowsDiscrepancy = JSON.stringify({ 'rows': dataSourceDiscrepancy.data().toJSON() });
+
+                //InPlace
+                var gridInPlace = $("#gridESDCInPlace").data("kendoGrid");
+                // Get the dataSource of the Grid
+                var dataSourceInPlace = gridInPlace.dataSource;
+                // Parse the data of the dataSource to JSON
+                var rowsInPlace = JSON.stringify({ 'rows': dataSourceInPlace.data().toJSON() });
+
+                $.ajax({
+                    url: "@Url.Action("SaveESDCAll", "ESDCGeneralInfo")",
+                    type: "POST",
+                    data: JSON.stringify({
+                        StructureID: $("#xStructureID").val(),
+                        StructureName: $("#xStructureName").val(),
+                        CountriesID: $("#CountriesID").val(),
+                        SingleOrMultiParID: $("#SingleOrMultiParID").val(),
+                        StructureStatusParID: $("#xStructureStatusParID").val(),
+                        SubholdingID: $("#SubholdingID").val(),
+                        ExplorationAreaParID: $("#ExplorationAreaParID").val(),
+                        ExplorationTypeParID: $("#ExplorationTypeParID").val(),
+                        Play: $("#Play").val(),
+                        UDSubTypeParID: $("#UDSubTypeParID").val(),
+                        UDClassificationParID: $("#UDClassificationParID").val(),
+                        RegionalID: $("#RegionalID").val(),
+                        UDSubClassificationParID: $("#UDSubClassificationParID").val(),
+                        ZonaID: $("#ZonaID").val(),
+                        EffectiveYear: $("#EffectiveYear").val(),
+                        BlockID: $("#xBlockID").val(),
+                        APHID: $("#APHID").val(),
+                        AssetID: $("#xAssetID").val(),
+                        BasinID: $("#BasinID").val(),
+                        ESDCFieldID: $("#ESDCFieldID").val(),
+                        ESDCProjectID: $("#ESDCProjectID").val(),
+                        ESDCProjectName: $("#ESDCProjectName").val(),
+                        ESDCProduction: rowsProd,
+                        ESDCVolumetric: rowsVolumetric,
+                        ESDCForecast: rowsForecast,
+                        ESDCDiscrepancy: rowsDiscrepancy,
+                        ESDCInPlace: rowsInPlace
+                    }),
+                    contentType: "application/json;charset=utf-8",
+                    dataType: "json",
+                    beforeSend: function () {
+                        $("#loadingMask").css('visibility', 'visible');
+                    },
+                    success: function (result) {
+                        $("#loadingMask").css('visibility', 'visible');
+                        //alert("Success");
+                        location.href = '@Url.Action("Index", "ESDC", new { Status = "Success" })';
+                    },
+                    error: function () {
+                        alert("Error");
+                    }
+                });
+            }
+            else {
+                //production
+                var gridProd = $("#gridESDCProd").data("kendoGrid");
+                // Get the dataSource of the Grid
+                var dataSourceProd = gridProd.dataSource;
+                // Parse the data of the dataSource to JSON format
+                var rowsProd = JSON.stringify({ 'rows': dataSourceProd.data().toJSON() });
+
+                //Volumetric
+                var gridVolumetric = $("#gridESDCVolumetric").data("kendoGrid");
+                // Get the dataSource of the Grid
+                var dataSourceVolumetric = gridVolumetric.dataSource;
+                // Parse the data of the dataSource to JSON
+                var rowsVolumetric = JSON.stringify({ 'rows': dataSourceVolumetric.data().toJSON() });
+
+                //forecast
+                var gridForecast = $("#gridESDCForecast").data("kendoGrid");
+                // Get the dataSource of the Grid
+                var dataSourceForecast = gridForecast.dataSource;
+                // Parse the data of the dataSource to JSON
+                var rowsForecast = JSON.stringify({ 'rows': dataSourceForecast.data().toJSON() });
+
+                //Discrepancy
+                var gridDiscrepancy = $("#gridESDCDiscrepancy").data("kendoGrid");
+                // Get the dataSource of the Grid
+                var dataSourceDiscrepancy = gridDiscrepancy.dataSource;
+                // Parse the data of the dataSource to JSON
+                var rowsDiscrepancy = JSON.stringify({ 'rows': dataSourceDiscrepancy.data().toJSON() });
+
+                //InPlace
+                var gridInPlace = $("#gridESDCInPlace").data("kendoGrid");
+                // Get the dataSource of the Grid
+                var dataSourceInPlace = gridInPlace.dataSource;
+                // Parse the data of the dataSource to JSON
+                var rowsInPlace = JSON.stringify({ 'rows': dataSourceInPlace.data().toJSON() });
+
+                $.ajax({
+                    url: "@Url.Action("SaveUPDTESDCAll", "ESDCGeneralInfo")",
+                    type: "POST",
+                    data: JSON.stringify({
+                        StructureID: $("#xStructureID").val(),
+                        StructureName: $("#xStructureName").val(),
+                        CountriesID: $("#CountriesID").val(),
+                        SingleOrMultiParID: $("#SingleOrMultiParID").val(),
+                        StructureStatusParID: $("#xStructureStatusParID").val(),
+                        SubholdingID: $("#SubholdingID").val(),
+                        ExplorationAreaParID: $("#ExplorationAreaParID").val(),
+                        ExplorationTypeParID: $("#ExplorationTypeParID").val(),
+                        Play: $("#Play").val(),
+                        UDSubTypeParID: $("#UDSubTypeParID").val(),
+                        UDClassificationParID: $("#UDClassificationParID").val(),
+                        RegionalID: $("#RegionalID").val(),
+                        UDSubClassificationParID: $("#UDSubClassificationParID").val(),
+                        ZonaID: $("#ZonaID").val(),
+                        EffectiveYear: $("#EffectiveYear").val(),
+                        BlockID: $("#xBlockID").val(),
+                        APHID: $("#APHID").val(),
+                        AssetID: $("#xAssetID").val(),
+                        BasinID: $("#BasinID").val(),
+                        ESDCFieldID: $("#ESDCFieldID").val(),
+                        ESDCProjectID: $("#ESDCProjectID").val(),
+                        ESDCProjectName: $("#ESDCProjectName").val(),
+                        ESDCProduction: rowsProd,
+                        ESDCVolumetric: rowsVolumetric,
+                        ESDCForecast: rowsForecast,
+                        ESDCDiscrepancy: rowsDiscrepancy,
+                        ESDCInPlace: rowsInPlace
+                    }),
+                    contentType: "application/json;charset=utf-8",
+                    dataType: "json",
+                    beforeSend: function () {
+                        $("#loadingMask").css('visibility', 'visible');
+                    },
+                    success: function (result) {
+                        $("#loadingMask").css('visibility', 'visible');
+                        //alert("Success");
+                        location.href = '@Url.Action("Index", "ESDC", new { Status = "Success" })';
+                    },
+                    error: function () {
+                        alert("Error");
+                    }
+                });
+            }
+        }
+
+    }
+    function validate(evt) {
+        var theEvent = evt || window.event;
+
+        // Handle paste
+        if (theEvent.type === 'paste') {
+            key = event.clipboardData.getData('text/plain');
+        } else {
+            // Handle key press
+            var key = theEvent.keyCode || theEvent.which;
+            key = String.fromCharCode(key);
+        }
+        var regex = /[0-9]|\./;
+        if (!regex.test(key)) {
+            theEvent.returnValue = false;
+            if (theEvent.preventDefault) theEvent.preventDefault();
+        }
+    }
+    (function ($, kendo) {
+        $.extend(true, kendo.ui.validator, {
+            rules: {
+                AorBRequired: function (input, params) {
+                    var isValid = true;
+                    if (input.is("#Year")) {
+                        var grid = $('#gridESDCForecast').data("kendoGrid");
+                        input.attr("data-AorBRequired-msg", "You must enter Year");
+                        //Compare input value of A to dataItem value of B and vice-versa
+                        //In-cell grid only allows us to enter edit for one cell at a time thus we cannot compare two inputs directly
+                        if ($("#Year").val() == 0) {
+                            isValid = false;
+                            input.attr("data-AorBRequired-msg", "You must enter Year");
+                        }
+                        else {
+                            for (var i = 0; i < grid.dataSource._data.length; i++) {
+                                //if (i > 0) {
+                                //    if ($("#Year").val() == grid.dataSource._data[i - 1]["Year"]) {
+                                //        isValid = false;
+                                //        input.attr("data-AorBRequired-msg", "Year is already in data");
+                                //    }
+                                //}
+                                var rowInEditMode = $("#gridESDCForecast").find("tr.k-grid-edit-row");
+                                if (i != rowInEditMode[0].sectionRowIndex) {
+                                    if ($("#Year").val() == grid.dataSource._data[i]["Year"]) {
+                                        isValid = false;
+                                        input.attr("data-AorBRequired-msg", "Year is already in data");
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    return isValid;
+                }
+            },
+            messages: {
+                customrequired: function (input) {
+                    return input.attr("data-val-customrequired");
+                },
+                AorBRequired: function (input) {
+                    return input.attr("data-val-AorBRequired");
+                }
+            }
+        });
+    })(jQuery, kendo);
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+

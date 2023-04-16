@@ -1,0 +1,332 @@
+﻿@using Kendo.Mvc.UI
+@using SHUNetMVC.Abstraction.Model.View;
+@model FormDefinition
+@{
+    string CurrentControllerName = Convert.ToString(HttpContext.Current.Request.RequestContext.RouteData.Values["Controller"]);
+    var formUrl = CurrentControllerName;
+    var modalTitle = $"Add New {Model.Title}";
+    var formState = "create";
+    if (Model.State == FormState.Create)
+    {
+        formUrl = Model.Title + "/Create";
+    }
+    else
+    {
+        formState = "edit";
+        modalTitle = $"Edit {Model.Title}";
+        formUrl = Model.Title + "/Edit";
+    }
+
+}
+<style>
+    .k-grid-header, .k-grid-header .k-header {
+        background-color: #D6E7F3;
+        border-color: #A5CAE6;
+    }
+
+    .k-grid-toolbar {
+        background-color: #D6E7F3;
+        border-color: #A5CAE6;
+    }
+
+    .k-button {
+        background-color: #D6E7F3;
+        border-color: #A5CAE6;
+        transition-duration: 0.4s;
+    }
+
+        .k-button:hover {
+            background-color: #8fa2b1;
+            border-color: #A5CAE6;
+        }
+</style>
+<form action="@formUrl" method="post" onsubmit="event.preventDefault()" form-state="@Model.State">
+    <div class="table-title">
+        <div class="heading-Text">
+            Discrepancy Data
+        </div>
+        <div class="table-subtitle">
+            This is the list of Discrepancy
+        </div>
+    </div>
+    <div class="modal-body">
+        <input id="formState" type="hidden" value="@formState" />
+        <input id="paramID" type="hidden" value="@Model.paramID" />
+        <div>
+            @(Html.Kendo().Grid<SHUNetMVC.Abstraction.Model.Dto.TXESDCDiscrepancyDto>()
+            .Name("gridESDCDiscrepancy")
+            .Columns(columns =>
+            {
+                columns.Bound(p => p.xStructureID).Width(100);
+                columns.Group(group => group
+                    .HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" })
+                    .Title("Uncertainty Level")
+                    .Columns(info =>
+                    {
+                        info.Bound(c => c.UncertaintyLevel).Width(200).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" }).Editable("returnFalse");
+                    })
+                );
+                columns.Group(group0 => group0
+                    .HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" })
+                    .Title("Change From Update Model")
+                    .Columns(info =>
+                    {
+                        info.Bound(c => c.CFUMOil).Width(150).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.CFUMCondensate).Width(150).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.CFUMAssociated).Width(150).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.CFUMNonAssociated).Width(180).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                    })
+                );
+                columns.Group(group1 => group1
+                    .HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" })
+                    .Title("Change From Production Performance Analysis")
+                    .Columns(info =>
+                    {
+                        info.Bound(c => c.CFPPAOil).Width(150).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.CFPPACondensate).Width(150).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.CFPPAAssociated).Width(150).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.CFPPANonAssociated).Width(180).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                    })
+                );
+                columns.Group(group2 => group2
+                    .HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" })
+                    .Title("Change From Well Intervention")
+                    .Columns(info =>
+                    {
+                        info.Bound(c => c.CFWIOil).Width(150).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.CFWICondensate).Width(150).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.CFWIAssociated).Width(150).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.CFWINonAssociated).Width(180).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                    })
+                );
+                columns.Group(group3 => group3
+                    .HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" })
+                    .Title("Change From Commercial")
+                    .Columns(info =>
+                    {
+                        info.Bound(c => c.CFCOil).Width(150).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.CFCCondensate).Width(150).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.CFCAssociated).Width(150).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.CFCNonAssociated).Width(180).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                    })
+                );
+                columns.Group(group4 => group4
+                    .HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" })
+                    .Title("Unaccounted Changes")
+                    .Columns(info =>
+                    {
+                        info.Bound(c => c.UCOil).Width(150).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.UCCondensate).Width(150).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.UCAssociated).Width(150).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.UCNonAssociated).Width(180).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                    })
+                );
+                columns.Group(group5 => group5
+                    .HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" })
+                    .Title("Consumed In Operation")
+                    .Columns(info =>
+                    {
+                        info.Bound(c => c.CIOOil).Width(150).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.CIOCondensate).Width(150).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.CIOAssociated).Width(150).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                        info.Bound(c => c.CIONonAssociated).Width(180).HtmlAttributes(new { style = "text-align: center" }).HeaderHtmlAttributes(new { style = "text-align: center; justify-content: flex-end;" });
+                    })
+                );
+            })
+            .ToolBar(toolBar =>
+            {
+                toolBar.Save();
+            })
+            .Editable(editable => editable.Mode(GridEditMode.InCell))
+            .Pageable()
+            .Selectable(selectable => selectable
+            .Mode(GridSelectionMode.Multiple)
+            .Type(GridSelectionType.Cell))
+            .Navigatable()
+            .AllowCopy(true)
+            .Scrollable(x => x.Height(150))
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .Batch(true)
+                .ServerOperation(false)
+                .Events(events => events.Error("error_handler").Change("onChange"))
+                .Model(model =>
+                {
+                    model.Id(p => p.xStructureID);
+                    model.Field(p => p.xStructureID).Editable(false);
+                })
+                .PageSize(20)
+                .Read(read => read.Action("EditingCustomESDCDiscrepancy_Read", "ESDCDiscrepancy").Data("getClientFormStateView"))
+                .Create(create => create.Action("EditingCustomESDCDiscrepancy_Create", "ESDCDiscrepancy"))
+                .Update(update => update.Action("EditingCustomESDCDiscrepancy_Update", "ESDCDiscrepancy"))
+                .Destroy(destroy => destroy.Action("EditingCustomESDCDiscrepancy_Destroy", "ESDCDiscrepancy"))
+            )
+        )
+        </div>
+    </div>
+</form>
+<script type="text/javascript">
+    function error_handler(e) {
+        if (e.errors) {
+            var message = "Errors:\n";
+            $.each(e.errors, function (key, value) {
+                if ('errors' in value) {
+                    $.each(value.errors, function () {
+                        message += this + "\n";
+                    });
+                }
+            });
+            alert(message);
+        }
+    }
+    function returnFalse() {
+        return false;
+    }
+    function onChange(e) {
+        if (e.field == "CFUMOil") {
+            var grid = $('#gridESDCDiscrepancy').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#CFUMOil").val();
+            firstItem["CFUMOil"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "CFUMCondensate") {
+            var grid = $('#gridESDCDiscrepancy').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#CFUMCondensate").val();
+            firstItem["CFUMCondensate"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "CFUMAssociated") {
+            var grid = $('#gridESDCDiscrepancy').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#CFUMAssociated").val();
+            firstItem["CFUMAssociated"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "CFUMNonAssociated") {
+            var grid = $('#gridESDCDiscrepancy').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#CFUMNonAssociated").val();
+            firstItem["CFUMNonAssociated"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "CFPPAOil") {
+            var grid = $('#gridESDCDiscrepancy').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#CFPPAOil").val();
+            firstItem["CFPPAOil"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "CFPPACondensate") {
+            var grid = $('#gridESDCDiscrepancy').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#CFPPACondensate").val();
+            firstItem["CFPPACondensate"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "CFPPAAssociated") {
+            var grid = $('#gridESDCDiscrepancy').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#CFPPAAssociated").val();
+            firstItem["CFPPAAssociated"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "CFPPANonAssociated") {
+            var grid = $('#gridESDCDiscrepancy').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#CFPPANonAssociated").val();
+            firstItem["CFPPANonAssociated"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "CFWIOil") {
+            var grid = $('#gridESDCDiscrepancy').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#CFWIOil").val();
+            firstItem["CFWIOil"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "CFWICondensate") {
+            var grid = $('#gridESDCDiscrepancy').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#CFWICondensate").val();
+            firstItem["CFWICondensate"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "CFWIAssociated") {
+            var grid = $('#gridESDCDiscrepancy').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#CFWIAssociated").val();
+            firstItem["CFWIAssociated"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "CFWINonAssociated") {
+            var grid = $('#gridESDCDiscrepancy').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#CFWINonAssociated").val();
+            firstItem["CFWINonAssociated"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "CFCOil") {
+            var grid = $('#gridESDCDiscrepancy').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#CFCOil").val();
+            firstItem["CFCOil"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "CFCCondensate") {
+            var grid = $('#gridESDCDiscrepancy').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#CFCCondensate").val();
+            firstItem["CFCCondensate"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "CFCAssociated") {
+            var grid = $('#gridESDCDiscrepancy').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#CFCAssociated").val();
+            firstItem["CFCAssociated"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "CFCNonAssociated") {
+            var grid = $('#gridESDCDiscrepancy').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#CFCNonAssociated").val();
+            firstItem["CFCNonAssociated"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "UCOil") {
+            var grid = $('#gridESDCDiscrepancy').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#UCOil").val();
+            firstItem["UCOil"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "UCCondensate") {
+            var grid = $('#gridESDCDiscrepancy').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#UCCondensate").val();
+            firstItem["UCCondensate"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "UCAssociated") {
+            var grid = $('#gridESDCDiscrepancy').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#UCAssociated").val();
+            firstItem["UCAssociated"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "UCNonAssociated") {
+            var grid = $('#gridESDCDiscrepancy').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#UCNonAssociated").val();
+            firstItem["UCNonAssociated"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "CIOOil") {
+            var grid = $('#gridESDCDiscrepancy').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#CIOOil").val();
+            firstItem["CIOOil"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "CIOCondensate") {
+            var grid = $('#gridESDCDiscrepancy').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#CIOCondensate").val();
+            firstItem["CIOCondensate"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "CIOAssociated") {
+            var grid = $('#gridESDCDiscrepancy').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#CIOAssociated").val();
+            firstItem["CIOAssociated"] = parseFloat(dvalue).toFixed(2);
+        }
+        if (e.field == "CIONonAssociated") {
+            var grid = $('#gridESDCDiscrepancy').data('kendoGrid');
+            var firstItem = grid.dataItem('tr.k-grid-edit-row');
+            var dvalue = $("#CIONonAssociated").val();
+            firstItem["CIONonAssociated"] = parseFloat(dvalue).toFixed(2);
+        }
+    }
+</script>
+

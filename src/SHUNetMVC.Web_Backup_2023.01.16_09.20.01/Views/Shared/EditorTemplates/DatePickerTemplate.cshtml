@@ -1,0 +1,5 @@
+﻿@(Html.Kendo().DatePicker()
+          .Name("datepicker")
+          .Events(e => e.Change("releasedate_changed"))
+          .HtmlAttributes(new { style = "width: 100%", title = "datepicker" })
+)

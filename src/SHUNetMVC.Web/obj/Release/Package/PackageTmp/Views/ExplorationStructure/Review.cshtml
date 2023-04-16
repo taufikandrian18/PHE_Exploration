@@ -1,0 +1,44 @@
+﻿@using SHUNetMVC.Abstraction.Model.View
+@model CrudPage
+
+@{ ViewBag.Title = "Review";
+    Model.Title = "Review";
+    Model.Caption = "Exploration Structure";
+    Model.GridParam.FilterList.OrderBy = "[xStructureID] desc";
+    Model.GridParam.UsernameSession = Model.UsernameSession;}
+
+@Html.Partial("Component/CrudPage/CrudRoles", Model)
+
+<div class="toast">
+    <div class="toast-header">
+        <i class="fa-solid fa-check-square me-2 text-success"></i>
+        <strong class="me-auto">Success</strong>
+        <small class="text-muted">just now</small>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+        Successfully added Exploration Structure
+    </div>
+</div>
+
+@Styles.Render("~/Styles/GridList.css")
+
+@section scripts {
+    @Html.Partial("Component/CrudPage/CrudScript", Model)
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        console.log("ready!");
+        debugger
+        let params = (new URL(document.location)).searchParams;
+        let name = params.get("Status");
+        if (name !== null) {
+            successSubmitData();
+        }
+
+        function successSubmitData() {
+            $('#toastSuccess').toast('show');
+        }
+    });
+</script>
+

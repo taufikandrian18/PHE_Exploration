@@ -1,0 +1,462 @@
+﻿<style type="text/css">
+    .tableRowView {
+        background-color: #D6E7F3;
+    }
+    .tableHeadView {
+        background-color: #D6E7F3;
+        border: 1px solid #b2d7f5;
+        width: 500px;
+        white-space: nowrap;
+        text-align: center;
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+    .tableBodyView {
+        background-color: #FFFFFF;
+        border: 1px solid #b2d7f5;
+        width: 500px;
+        white-space: nowrap;
+        text-align: center;
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+    .tableRowBodyView:nth-child(even) {
+        background-color: #D6E7F3;
+        border: 1px solid #b2d7f5;
+        width: 500px;
+        white-space: nowrap;
+        text-align: center;
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+</style>
+@using SHUNetMVC.Abstraction.Model.View;
+@{
+    string currentControllerName = Convert.ToString(HttpContext.Current.Request.RequestContext.HttpContext.Request.UrlReferrer);
+    var stringUrlSplit = currentControllerName.Split('/');
+}
+@model FormDefinition
+<div class="modal-content" style="width: 100%;position:fixed;top:0;left:0;">
+    <div class="modal-header">
+        <h5 class="modal-title">@Model.State @Model.Title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <div>
+            @{
+                var formSectionIdx = 0;
+            }
+            @foreach (var fieldSection in Model.FieldSections)
+            {
+                formSectionIdx++;
+
+                if (string.IsNullOrEmpty(fieldSection.SectionName))
+                {
+                    <div class="mb-3">
+                        @Html.Partial("Component/Form/_Fields_Readonly", fieldSection.Fields)
+                    </div>
+                }
+                else
+                {
+                    <div class="accordion mb-3">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#formSection_@formSectionIdx">
+                                    @fieldSection.SectionName
+                                </button>
+                            </h2>
+                            <div id="formSection_@formSectionIdx" class="accordion-collapse collapse show">
+                                <input id="formStatePopUp" type="hidden" value="edit" />
+                                <input id="paramIDPopUp" type="hidden" value="@Model.paramID" />
+                                @if (fieldSection.SectionName.Trim() == "General Info")
+                                {
+                                    <div class="accordion-body">
+                                        @Html.Partial("Component/Form/_Fields_Readonly", fieldSection.Fields)
+                                    </div>
+                                }
+                                @if (fieldSection.SectionName.Trim() == "Production")
+                                {
+                                    <div class="accordion-body">
+                                        <div style="overflow-x:scroll;overflow-y:scroll">
+                                            <table style="margin-bottom:30px">
+                                                <thead>
+                                                    <tr class="tableRowView">
+                                                        <th class="tableHeadView" colspan="4">Gross Cumulative Prod Prev Report</th>
+                                                        <th class="tableHeadView" colspan="4">Sales Cumulative Prod Prev Report</th>
+                                                        <th class="tableHeadView" colspan="4">Gross Cumulative Prod Report</th>
+                                                        <th class="tableHeadView" colspan="4">Sales Cumulative Prod Report</th>
+                                                    </tr>
+                                                    <tr class="tableRowView">
+                                                        <th class="tableHeadView">Oil</th>
+                                                        <th class="tableHeadView">Condensate</th>
+                                                        <th class="tableHeadView">Associated Gas</th>
+                                                        <th class="tableHeadView">Non Associated Gas</th>
+                                                        <th class="tableHeadView">Oil</th>
+                                                        <th class="tableHeadView">Condensate</th>
+                                                        <th class="tableHeadView">Associated Gas</th>
+                                                        <th class="tableHeadView">Non Associated Gas</th>
+                                                        <th class="tableHeadView">Oil</th>
+                                                        <th class="tableHeadView">Condensate</th>
+                                                        <th class="tableHeadView">Associated Gas</th>
+                                                        <th class="tableHeadView">Non Associated Gas</th>
+                                                        <th class="tableHeadView">Oil</th>
+                                                        <th class="tableHeadView">Condensate</th>
+                                                        <th class="tableHeadView">Associated Gas</th>
+                                                        <th class="tableHeadView">Non Associated Gas</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var item in Model.DataESDCProd)
+                                                    {
+                                                        <tr class="tableRowBodyView">
+                                                            <td class="tableBodyView">@item.GCPPrevOil</td>
+                                                            <td class="tableBodyView">@item.GCPPrevCondensate</td>
+                                                            <td class="tableBodyView">@item.GCPPrevAssociated</td>
+                                                            <td class="tableBodyView">@item.GCPPrevNonAssociated</td>
+                                                            <td class="tableBodyView">@item.SCPPrevOil</td>
+                                                            <td class="tableBodyView">@item.SCPPrevCondensate</td>
+                                                            <td class="tableBodyView">@item.SCPPrevAssociated</td>
+                                                            <td class="tableBodyView">@item.SCPPrevNonAssociated</td>
+                                                            <td class="tableBodyView">@item.GCPOil</td>
+                                                            <td class="tableBodyView">@item.GCPCondensate</td>
+                                                            <td class="tableBodyView">@item.GCPAssociated</td>
+                                                            <td class="tableBodyView">@item.GCPNonAssociated</td>
+                                                            <td class="tableBodyView">@item.SCPOil</td>
+                                                            <td class="tableBodyView">@item.SCPCondensate</td>
+                                                            <td class="tableBodyView">@item.SCPAssociated</td>
+                                                            <td class="tableBodyView">@item.SCPNonAssociated</td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                }
+                                @if (fieldSection.SectionName.Trim() == "Volumetric")
+                                {
+                                    <div class="accordion-body">
+                                        <div style="overflow-x:scroll;overflow-y:scroll">
+                                            <table style="margin-bottom:30px">
+                                                <thead>
+                                                    <tr class="tableRowView">
+                                                        <th class="tableHeadView">Uncertainty Level</th>
+                                                        <th class="tableHeadView" colspan="4">Reserves Previous</th>
+                                                        <th class="tableHeadView" colspan="4">GRR / CR / PR Previous</th>
+                                                        <th class="tableHeadView" colspan="4">GOI Recoverable / CR / PR</th>
+                                                        <th class="tableHeadView" colspan="4">Reserves</th>
+                                                        <th class="tableHeadView" rowspan="2">Remarks</th>
+                                                    </tr>
+                                                    <tr class="tableRowView">
+                                                        <th class="tableHeadView">Low/Mid/High</th>
+                                                        <th class="tableHeadView">Oil</th>
+                                                        <th class="tableHeadView">Condensate</th>
+                                                        <th class="tableHeadView">Associated Gas</th>
+                                                        <th class="tableHeadView">Non Associated Gas</th>
+                                                        <th class="tableHeadView">Oil</th>
+                                                        <th class="tableHeadView">Condensate</th>
+                                                        <th class="tableHeadView">Associated Gas</th>
+                                                        <th class="tableHeadView">Non Associated Gas</th>
+                                                        <th class="tableHeadView">Oil</th>
+                                                        <th class="tableHeadView">Condensate</th>
+                                                        <th class="tableHeadView">Associated Gas</th>
+                                                        <th class="tableHeadView">Non Associated Gas</th>
+                                                        <th class="tableHeadView">Oil</th>
+                                                        <th class="tableHeadView">Condensate</th>
+                                                        <th class="tableHeadView">Associated Gas</th>
+                                                        <th class="tableHeadView">Non Associated Gas</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @{int ind = 0;
+                                                        foreach (var item in Model.DataESDCVol)
+                                                        {
+                                                            <tr class="tableRowBodyView">
+                                                                @if (ind == 0)
+                                                                {
+                                                                    <td class="tableBodyView">P-Mean</td>
+                                                                }
+                                                                else if (ind == 1)
+                                                                {
+                                                                    <td class="tableBodyView">P10 High</td>
+                                                                }
+                                                                else if (ind == 2)
+                                                                {
+                                                                    <td class="tableBodyView">P50 Mid</td>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <td class="tableBodyView">P90 Low</td>
+                                                                }
+                                                                <td class="tableBodyView">@item.ReservesPrevOil</td>
+                                                                <td class="tableBodyView">@item.ReservesPrevCondensate</td>
+                                                                <td class="tableBodyView">@item.ReservesPrevAssociated</td>
+                                                                <td class="tableBodyView">@item.ReservesPrevNonAssociated</td>
+                                                                <td class="tableBodyView">@item.GRRPrevOil</td>
+                                                                <td class="tableBodyView">@item.GRRPrevCondensate</td>
+                                                                <td class="tableBodyView">@item.GRRPrevAssociated</td>
+                                                                <td class="tableBodyView">@item.GRRPrevNonAssociated</td>
+                                                                <td class="tableBodyView">@item.GOIOil</td>
+                                                                <td class="tableBodyView">@item.GOICondensate</td>
+                                                                <td class="tableBodyView">@item.GOIAssociated</td>
+                                                                <td class="tableBodyView">@item.GOINonAssociated</td>
+                                                                <td class="tableBodyView">@item.ReservesOil</td>
+                                                                <td class="tableBodyView">@item.ReservesCondensate</td>
+                                                                <td class="tableBodyView">@item.ReservesAssociated</td>
+                                                                <td class="tableBodyView">@item.ReservesNonAssociated</td>
+                                                                <td class="tableBodyView">@item.Remarks</td>
+                                                            </tr>
+                                                            ind++;
+                                                        }
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                }
+                                @if (fieldSection.SectionName.Trim() == "Forecast")
+                                {
+                                    <div class="accordion-body">
+                                        <div style="overflow-x:scroll;overflow-y:scroll">
+                                            <table style="margin-bottom:30px">
+                                                <thead>
+                                                    <tr class="tableRowView">
+                                                        <th class="tableHeadView" rowspan="2">Year</th>
+                                                        <th class="tableHeadView" colspan="4">Total Potensial Forecast</th>
+                                                        <th class="tableHeadView" colspan="4">Sales Forecast</th>
+                                                        <th class="tableHeadView" colspan="4">Consumed In Operation</th>
+                                                        <th class="tableHeadView" colspan="4">Loss In Production</th>
+                                                        <th class="tableHeadView" rowspan="2">Average Gross Heat</th>
+                                                        <th class="tableHeadView" rowspan="2">Remarks</th>
+                                                    </tr>
+                                                    <tr class="tableRowView">
+                                                        <th class="tableHeadView">Oil</th>
+                                                        <th class="tableHeadView">Condensate</th>
+                                                        <th class="tableHeadView">Associated Gas</th>
+                                                        <th class="tableHeadView">Non Associated Gas</th>
+                                                        <th class="tableHeadView">Oil</th>
+                                                        <th class="tableHeadView">Condensate</th>
+                                                        <th class="tableHeadView">Associated Gas</th>
+                                                        <th class="tableHeadView">Non Associated Gas</th>
+                                                        <th class="tableHeadView">Oil</th>
+                                                        <th class="tableHeadView">Condensate</th>
+                                                        <th class="tableHeadView">Associated Gas</th>
+                                                        <th class="tableHeadView">Non Associated Gas</th>
+                                                        <th class="tableHeadView">Oil</th>
+                                                        <th class="tableHeadView">Condensate</th>
+                                                        <th class="tableHeadView">Associated Gas</th>
+                                                        <th class="tableHeadView">Non Associated Gas</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var item in Model.DataESDCFor)
+                                                    {
+                                                        <tr class="tableRowBodyView">
+                                                            <td class="tableBodyView">@item.Year</td>
+                                                            <td class="tableBodyView">@item.TPFOil</td>
+                                                            <td class="tableBodyView">@item.TPFCondensate</td>
+                                                            <td class="tableBodyView">@item.TPFAssociated</td>
+                                                            <td class="tableBodyView">@item.TPFNonAssociated</td>
+                                                            <td class="tableBodyView">@item.SFOil</td>
+                                                            <td class="tableBodyView">@item.SFCondensate</td>
+                                                            <td class="tableBodyView">@item.SFAssociated</td>
+                                                            <td class="tableBodyView">@item.SFNonAssociated</td>
+                                                            <td class="tableBodyView">@item.CIOOil</td>
+                                                            <td class="tableBodyView">@item.CIOCondensate</td>
+                                                            <td class="tableBodyView">@item.CIOAssociated</td>
+                                                            <td class="tableBodyView">@item.CIONonAssociated</td>
+                                                            <td class="tableBodyView">@item.LPOil</td>
+                                                            <td class="tableBodyView">@item.LPCondensate</td>
+                                                            <td class="tableBodyView">@item.LPAssociated</td>
+                                                            <td class="tableBodyView">@item.LPNonAssociated</td>
+                                                            <td class="tableBodyView">@item.AverageGrossHeat</td>
+                                                            <td class="tableBodyView">@item.Remarks</td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                }
+                                @if (fieldSection.SectionName.Trim() == "Discrepancy")
+                                {
+                                    <div class="accordion-body">
+                                        <div style="overflow-x:scroll;overflow-y:scroll">
+                                            <table style="margin-bottom:30px">
+                                                <thead>
+                                                    <tr class="tableRowView">
+                                                        <th class="tableHeadView">Uncertainty Level</th>
+                                                        <th class="tableHeadView" colspan="4">Change From Update Model</th>
+                                                        <th class="tableHeadView" colspan="4">Change From Production Performance Analysis</th>
+                                                        <th class="tableHeadView" colspan="4">Change From Well Intervention</th>
+                                                        <th class="tableHeadView" colspan="4">Change From Commercial</th>
+                                                        <th class="tableHeadView" colspan="4">Unaccounted Changes</th>
+                                                        <th class="tableHeadView" colspan="4">Consumed In Operation</th>
+                                                    </tr>
+                                                    <tr class="tableRowView">
+                                                        <th class="tableHeadView">Low/Mid/High</th>
+                                                        <th class="tableHeadView">Oil</th>
+                                                        <th class="tableHeadView">Condensate</th>
+                                                        <th class="tableHeadView">Associated Gas</th>
+                                                        <th class="tableHeadView">Non Associated Gas</th>
+                                                        <th class="tableHeadView">Oil</th>
+                                                        <th class="tableHeadView">Condensate</th>
+                                                        <th class="tableHeadView">Associated Gas</th>
+                                                        <th class="tableHeadView">Non Associated Gas</th>
+                                                        <th class="tableHeadView">Oil</th>
+                                                        <th class="tableHeadView">Condensate</th>
+                                                        <th class="tableHeadView">Associated Gas</th>
+                                                        <th class="tableHeadView">Non Associated Gas</th>
+                                                        <th class="tableHeadView">Oil</th>
+                                                        <th class="tableHeadView">Condensate</th>
+                                                        <th class="tableHeadView">Associated Gas</th>
+                                                        <th class="tableHeadView">Non Associated Gas</th>
+                                                        <th class="tableHeadView">Oil</th>
+                                                        <th class="tableHeadView">Condensate</th>
+                                                        <th class="tableHeadView">Associated Gas</th>
+                                                        <th class="tableHeadView">Non Associated Gas</th>
+                                                        <th class="tableHeadView">Oil</th>
+                                                        <th class="tableHeadView">Condensate</th>
+                                                        <th class="tableHeadView">Associated Gas</th>
+                                                        <th class="tableHeadView">Non Associated Gas</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @{int ind = 0;
+                                                        foreach (var item in Model.DataESDCDis)
+                                                        {
+                                                            <tr class="tableRowBodyView">
+                                                                @if (ind == 0)
+                                                                {
+                                                                    <td class="tableBodyView">P-Mean</td>
+                                                                }
+                                                                else if (ind == 1)
+                                                                {
+                                                                    <td class="tableBodyView">P10 High</td>
+                                                                }
+                                                                else if (ind == 2)
+                                                                {
+                                                                    <td class="tableBodyView">P50 Mid</td>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <td class="tableBodyView">P90 Low</td>
+                                                                }
+                                                                <td class="tableBodyView">@item.CFUMOil</td>
+                                                                <td class="tableBodyView">@item.CFUMCondensate</td>
+                                                                <td class="tableBodyView">@item.CFUMAssociated</td>
+                                                                <td class="tableBodyView">@item.CFUMNonAssociated</td>
+                                                                <td class="tableBodyView">@item.CFPPAOil</td>
+                                                                <td class="tableBodyView">@item.CFPPACondensate</td>
+                                                                <td class="tableBodyView">@item.CFPPAAssociated</td>
+                                                                <td class="tableBodyView">@item.CFPPANonAssociated</td>
+                                                                <td class="tableBodyView">@item.CFWIOil</td>
+                                                                <td class="tableBodyView">@item.CFWICondensate</td>
+                                                                <td class="tableBodyView">@item.CFWIAssociated</td>
+                                                                <td class="tableBodyView">@item.CFWINonAssociated</td>
+                                                                <td class="tableBodyView">@item.CFCOil</td>
+                                                                <td class="tableBodyView">@item.CFCCondensate</td>
+                                                                <td class="tableBodyView">@item.CFCAssociated</td>
+                                                                <td class="tableBodyView">@item.CFCNonAssociated</td>
+                                                                <td class="tableBodyView">@item.UCOil</td>
+                                                                <td class="tableBodyView">@item.UCCondensate</td>
+                                                                <td class="tableBodyView">@item.UCAssociated</td>
+                                                                <td class="tableBodyView">@item.UCNonAssociated</td>
+                                                                <td class="tableBodyView">@item.CIOOil</td>
+                                                                <td class="tableBodyView">@item.CIOCondensate</td>
+                                                                <td class="tableBodyView">@item.CIOAssociated</td>
+                                                                <td class="tableBodyView">@item.CIONonAssociated</td>
+                                                            </tr>
+                                                            ind++;
+                                                        }
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                }
+                                @if (fieldSection.SectionName.Trim() == "InPlace")
+                                {
+                                    <div class="accordion-body">
+                                        <div style="overflow-x:scroll;overflow-y:scroll">
+                                            <table width="100%" style="margin-bottom:30px">
+                                                <thead>
+                                                    <tr class="tableRowView">
+                                                        <th class="tableHeadView">Uncertainty Level</th>
+                                                        <th class="tableHeadView" rowspan="2">IOIP</th>
+                                                        <th class="tableHeadView" rowspan="2">IGIP</th>
+                                                    </tr>
+                                                    <tr class="tableRowView">
+                                                        <th class="tableHeadView">Low/Mid/High</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @{int ind = 0;
+                                                        foreach (var item in Model.DataESDCIn)
+                                                        {
+                                                            <tr class="tableRowBodyView">
+                                                                @if (ind == 0)
+                                                                {
+                                                                    <td class="tableBodyView">P-Mean</td>
+                                                                }
+                                                                else if (ind == 1)
+                                                                {
+                                                                    <td class="tableBodyView">P10 High</td>
+                                                                }
+                                                                else if (ind == 2)
+                                                                {
+                                                                    <td class="tableBodyView">P50 Mid</td>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <td class="tableBodyView">P90 Low</td>
+                                                                }
+                                                                <td class="tableBodyView">@item.P90IOIP</td>
+                                                                <td class="tableBodyView">@item.P90IGIP</td>
+                                                            </tr>
+                                                            ind++;
+                                                        }
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+    @if (stringUrlSplit[stringUrlSplit.Count() - 1].Trim() == "Review")
+    {
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-success" onclick="location.href='@Url.Action("ExplorationUpdateStatus", "phe_xplore/ExplorationStructure", new { structureID = Model.paramID, statusData = "Approved" })'">Approve</button>
+            @*<button type="button" class="btn btn-outline-primary" onclick="location.href='@Url.Action("ExplorationUpdateStatus", "ExplorationStructure", new { structureID = Model.paramID, statusData = "Released" })'">Release</button>*@
+            <button type="button" class="btn btn-outline-danger" onclick="location.href='@Url.Action("ExplorationUpdateStatus", "phe_xplore/ExplorationStructure", new { structureID = Model.paramID, statusData = "Reject Submitted" })'">Reject</button>
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        </div>
+    }
+    else if (stringUrlSplit[stringUrlSplit.Count() - 1].Trim() == "ESDC")
+    {
+        //disni buat flow release
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        </div>
+    }
+    else
+    {
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-success" onclick="location.href='@Url.Action("ExplorationUpdateStatus", "phe_xplore/ExplorationStructure", new { structureID = Model.paramID, statusData = "Released" })'">Released</button>
+            @*<button type="button" class="btn btn-outline-primary" onclick="location.href='@Url.Action("ExplorationUpdateStatus", "ExplorationStructure", new { structureID = Model.paramID, statusData = "Released" })'">Release</button>*@
+            @*<button type="button" class="btn btn-outline-danger" onclick="location.href='@Url.Action("ExplorationUpdateStatus", "ExplorationStructure", new { structureID = Model.paramID, statusData = "Reject Revision" })'">Revision</button>*@
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        </div>
+    }
+</div>
+
+
+
+
+
+

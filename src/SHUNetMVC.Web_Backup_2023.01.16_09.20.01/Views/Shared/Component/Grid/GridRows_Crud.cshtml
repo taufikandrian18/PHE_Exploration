@@ -1,0 +1,47 @@
+﻿@using SHUNetMVC.Abstraction.Model.View
+@using Newtonsoft.Json
+@model GridListModel
+
+@foreach (var row in Model.Rows)
+{
+    <tr>
+        @foreach (var column in row.Columns)
+        {
+            if (column.FieldId == "StatusData")
+            {
+                if (column.Value == "Approved" || column.Value == "Release")
+                {
+                <td><span class="btn btn-success">@column.Text</span> </td>
+                }
+                else if (column.Value == "Draft")
+                {
+                <td><span class="btn btn-warning">@column.Text</span> </td>
+                }
+                else if (column.Value == "Submitted")
+                {
+                <td><span class="btn btn-primary">@column.Text</span> </td>
+                }
+                else
+                {
+                <td><span class="btn btn-danger">@column.Text</span> </td>
+                }
+            }
+            else
+            { 
+                <td>@column.Text</td>
+            }
+        }
+        <td class="p-1">
+            <div class="dropdown">
+                <button class="btn btn-flat btn-icon btn-rounded" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#" onclick="crud.showReadonlyForm('@row.Id')"> View</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="crud.showEditForm('@row.Id')"> Edit</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="crud.showConfirmDelete('@row.Id', '@row.Columns.First().Value')">  Delete</a></li>
+                </ul>
+            </div>
+        </td>
+    </tr>
+}

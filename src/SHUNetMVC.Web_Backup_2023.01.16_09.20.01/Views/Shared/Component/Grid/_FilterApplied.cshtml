@@ -1,0 +1,68 @@
+﻿@using SHUNetMVC.Abstraction.Model.View
+@using Newtonsoft.Json
+@model GridListModel
+@{
+    var anyFilter = Model.FilterList.AnyFilter();
+}
+
+@if (anyFilter)
+{
+
+    <div class="alert alert-warning" role="alert">
+        <div class="d-flex">
+            <div class="alert-left-part">
+                <i class="fa fa-circle-info text-warning"></i>
+            </div>
+
+            <div class="filter-applied">
+                <span class="fw-semibold">A filter has been applied.</span>
+
+                @foreach (var filterAnd in Model.FilterList.FilterItems)
+                {
+                    var firstFilterOr = filterAnd.FirstOrDefault();
+                    var columnName = Model.ColumnDefinitions.FirstOrDefault(o => o.Id == firstFilterOr.Name)?.Name;
+
+                    if (columnName == null)
+                    {
+                        columnName = firstFilterOr.Name;
+                    }
+                    if (firstFilterOr != null)
+                    {
+                        <span class="filter-name text-warning fw-bold"> @columnName </span>
+                        <span>  @firstFilterOr.FilterType.ToString() </span>
+                        foreach (var filterOr in filterAnd)
+                        {
+                            if (columnName == "AnyField")
+                            {
+                                var keywords = filterOr.Value.Trim().Split(' ');
+                                foreach (var keyword in keywords)
+                                {
+                                    <span class="badge badge-primary rounded-pill ">@keyword</span>
+                                }
+
+                            }
+                            else
+                            {
+                                <span class="badge badge-primary rounded-pill ">@filterOr.Value</span>
+                            }
+
+                        }
+
+
+
+                    }
+
+
+
+                }
+            </div>
+
+
+
+            <div class="alert-right-part ms-auto">
+                <button class="alert-close-btn btn btn-rounded btn-flat btn-icon" title="Clear Filter" onclick="@(Model.GridJsVar).clearAllFilter()"> <i class="fa fa-xmark"></i></button>
+            </div>
+
+        </div>
+    </div>
+}
